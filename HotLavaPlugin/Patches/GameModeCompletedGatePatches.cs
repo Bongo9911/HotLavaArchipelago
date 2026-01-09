@@ -10,6 +10,9 @@ using System.Reflection;
 
 namespace HotLavaArchipelagoPlugin.Patches
 {
+    /// <summary>
+    /// Applies patches to the logic surrounding force fields
+    /// </summary>
     [HarmonyPatch(typeof(GameModeCompletedGate))]
     internal class GameModeCompletedGatePatches
     {
@@ -41,27 +44,31 @@ namespace HotLavaArchipelagoPlugin.Patches
 
                 if (forceFieldItem != null)
                 {
+                    bool isForceFieldUnlocked = Plugin.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == forceFieldItem.Id);
+
                     __instance.ClearList();
 
                     GameModeCompletedRequirement completedRequirement = UnityEngine.Object.Instantiate<GameModeCompletedRequirement>(__instance.m_RequirementTemplate, __instance.m_RequirementsList.transform);
                     completedRequirement.m_GameModeName.text = "Unlock via Archipelago";
-                    completedRequirement.m_RequirementIcon.interactable = false;
+                    completedRequirement.m_RequirementIcon.interactable = isForceFieldUnlocked;
                     completedRequirement.gameObject.SetActive(true);
 
                     FieldInfo m_RowsField = typeof(GameModeCompletedGate).GetField("m_Rows", BindingFlags.NonPublic | BindingFlags.Instance);
                     List<GameModeCompletedRequirement> m_Rows = (List<GameModeCompletedRequirement>)m_RowsField.GetValue(__instance);
                     m_Rows.Add(completedRequirement);
 
-                    if (Plugin.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == forceFieldItem.Id))
-                    {
-                        //TODO: check if this animation has already been played
-                        //__instance.PlayDeactivationAnimation();
-                        __instance.OnEnableConditionsMet(true);
-                    }
-                    else
-                    {
-                        __instance.OnEnableConditionsMet(false);
-                    }
+                    __instance.OnEnableConditionsMet(isForceFieldUnlocked);
+
+                    //if (isForceFieldUnlocked)
+                    //{
+                    //    //TODO: check if this animation has already been played
+                    //    //__instance.PlayDeactivationAnimation();
+                    //    __instance.OnEnableConditionsMet(true);
+                    //}
+                    //else
+                    //{
+                    //    __instance.OnEnableConditionsMet(false);
+                    //}
 
                     return false;
                 }

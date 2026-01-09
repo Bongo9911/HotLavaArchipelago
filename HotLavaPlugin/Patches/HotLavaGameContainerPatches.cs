@@ -23,5 +23,18 @@ namespace HotLavaArchipelagoPlugin.Patches
                 UIHelper.ShowPopup("L NERD DIED");
             }
         }
+
+        [HarmonyPatch(nameof(HotLavaGameContainer.IsGameModeUnlocked))]
+        [HarmonyPrefix]
+        public static bool IsGameModeUnlocked_Prefix(GameMode course, ref bool __result)
+        {
+            if (Plugin.ArchipelagoSession != null)
+            {
+                // Unlock all courses by default for Archipelago
+                __result = true;
+                return false;
+            }
+            return true;
+        }
     }
 }
