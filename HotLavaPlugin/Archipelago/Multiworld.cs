@@ -6,6 +6,7 @@ using Archipelago.MultiClient.Net.Models;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
+using HotLavaArchipelagoPlugin.Enums;
 using HotLavaArchipelagoPlugin.Helpers;
 using System;
 using System.Linq;
@@ -164,6 +165,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 .Values
                 .Where(l => l is StarLocation)
                 .Select(l => (StarLocation)l)
+                .Where(l => l.StarType == StarType.CourseComplete)
                 .All(l => ArchipelagoSession.Locations.AllLocationsChecked.Contains(l.LocationID));
 
             if (shouldRelease)
