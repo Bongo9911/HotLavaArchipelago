@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using HotLavaArchipelagoPlugin.Archipelago;
 using HotLavaArchipelagoPlugin.Helpers;
 using Klei.HotLava;
 using Klei.HotLava.Character;
@@ -28,7 +29,7 @@ namespace HotLavaArchipelagoPlugin.Patches
         [HarmonyPrefix]
         public static bool IsGameModeUnlocked_Prefix(GameMode course, ref bool __result)
         {
-            if (Plugin.ArchipelagoSession != null)
+            if (Multiworld.ArchipelagoSession != null)
             {
                 // Unlock all courses by default for Archipelago
                 __result = true;

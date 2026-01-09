@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using HotLavaArchipelagoPlugin.Archipelago;
 using Klei.HotLava;
 using System.Threading.Tasks;
 
@@ -13,13 +14,13 @@ namespace HotLavaArchipelagoPlugin.Patches
         {
             if (message.StartsWith("/apconnect"))
             {
-                Task.Run(() => Plugin.ParseArchipelagoConnectMessage(message)).GetAwaiter().GetResult();
+                Task.Run(() => Multiworld.ParseArchipelagoConnectMessage(message)).GetAwaiter().GetResult();
                 return false;
             }
 
-            if (Plugin.ArchipelagoSession != null)
+            if (Multiworld.ArchipelagoSession != null)
             {
-                Plugin.ArchipelagoSession.Say(message);
+                Multiworld.ArchipelagoSession.Say(message);
             }
 
             return true;

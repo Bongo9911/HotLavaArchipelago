@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using HotLavaArchipelagoPlugin.Archipelago;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
 using Klei.HotLava;
@@ -35,7 +36,7 @@ namespace HotLavaArchipelagoPlugin.Patches
             }
 
 
-            if (Plugin.ArchipelagoSession != null)
+            if (Multiworld.ArchipelagoSession != null)
             {
                 ForceFieldItem? forceFieldItem = Items.AllItems.Values
                     .Where(m => m is ForceFieldItem)
@@ -44,7 +45,7 @@ namespace HotLavaArchipelagoPlugin.Patches
 
                 if (forceFieldItem != null)
                 {
-                    bool isForceFieldUnlocked = Plugin.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == forceFieldItem.Id);
+                    bool isForceFieldUnlocked = Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == forceFieldItem.Id);
 
                     __instance.ClearList();
 

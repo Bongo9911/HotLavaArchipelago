@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HotLavaArchipelagoPlugin.Enums;
+using Newtonsoft.Json;
 
 namespace HotLavaArchipelagoPlugin.Game
 {
@@ -13,8 +14,9 @@ namespace HotLavaArchipelagoPlugin.Game
         [JsonIgnore]
         public string UnlockableId { get; }
         public string Name { get; }
+        public StarType StarType { get; }
 
-        public Star(string unlockableId, string name)
+        public Star(string unlockableId, string name, StarType starType = StarType.Generic)
         {
             UnlockableId = unlockableId;
             Name = name;

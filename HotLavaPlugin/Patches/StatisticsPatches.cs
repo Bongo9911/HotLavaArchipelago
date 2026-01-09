@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using HotLavaArchipelagoPlugin.Archipelago;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
 using Klei.HotLava.Unlockables;
@@ -14,14 +15,15 @@ namespace HotLavaArchipelagoPlugin.Patches
         {
             Plugin.Logger.LogInfo("Unlocking: " + unlockable.ToString());
 
-            if (Plugin.ArchipelagoSession != null)
+            if (Multiworld.ArchipelagoSession != null)
             {
                 Location? location = Locations.GetUnlockableLocation(unlockable.m_Key.m_Value);
 
                 if (location != null)
                 {
                     Plugin.Logger.LogInfo("Sending AP Check");
-                    Plugin.ArchipelagoSession.Locations.CompleteLocationChecks(location.LocationID);
+                    Multiworld.ArchipelagoSession.Locations.CompleteLocationChecks(location.LocationID);
+                    Multiworld.CheckGoalCompleted();
                 }
             }
         }
@@ -30,13 +32,13 @@ namespace HotLavaArchipelagoPlugin.Patches
         [HarmonyPrefix]
         public static bool HasUnlockedUnlockable_PreFix(Unlockable unlockable, ref bool __result)
         {
-            if (Plugin.ArchipelagoSession != null)
+            if (Multiworld.ArchipelagoSession != null)
             {
                 Location? location = Locations.GetUnlockableLocation(unlockable.m_Key.m_Value);
 
                 if (location != null)
                 {
-                    __result = Plugin.ArchipelagoSession.Locations.AllLocationsChecked.Contains(location.LocationID);
+                    __result = Multiworld.ArchipelagoSession.Locations.AllLocationsChecked.Contains(location.LocationID);
                     //Don't use built in logic to check if unlocked
                     return false;
                 }

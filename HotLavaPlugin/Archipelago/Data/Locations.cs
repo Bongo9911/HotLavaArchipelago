@@ -37,7 +37,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
                     {
                         Star star = course.Stars[i];
                         long locationId = worldIdOffset + courseIdOffset + i;
-                        locations.Add(locationId, new UnlockableLocation(locationId, star.UnlockableId, star.ToString()));
+                        locations.Add(locationId, new StarLocation(locationId, star.UnlockableId, star.ToString(), star.StarType));
                     }
 
                     if (course.CourseType == CourseType.Standard)

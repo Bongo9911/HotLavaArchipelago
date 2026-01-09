@@ -21,9 +21,9 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Models.Locations
 
         public async Task CompleteLocationChecks()
         {
-            if (Plugin.ArchipelagoSession != null)
+            if (Multiworld.ArchipelagoSession != null)
             {
-                Plugin.ArchipelagoSession.Locations.CompleteLocationChecks(LocationID);
+                Multiworld.ArchipelagoSession.Locations.CompleteLocationChecks(LocationID);
             }
         }
     }
