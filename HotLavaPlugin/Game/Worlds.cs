@@ -1,7 +1,7 @@
-﻿using HotLavaPlugin.Enums;
+﻿using HotLavaArchipelagoPlugin.Enums;
 using System.Collections.Generic;
 
-namespace HotLavaPlugin.Game
+namespace HotLavaArchipelagoPlugin.Game
 {
     internal static class Worlds
     {
@@ -72,7 +72,16 @@ namespace HotLavaPlugin.Game
             new Course("All Course Marathon", CourseType.AllCourseMarathon, [
                 new Star("e9ee84430ecf11740beb41326451d414", "Complete the course"),
             ]),
-        ]);
+        ])
+        {
+            ForceFields = [
+                new ForceField("gamemode_completed_force_field", "Gym/Office Hallway"),
+                new ForceField("gamemode_completed_force_field (1)", "Office Hallway/Janitor's Closet"),
+                new ForceField("gamemode_completed_force_field (2)", "Office Hallway/Back Hallway"),
+                new ForceField("gamemode_completed_force_field (3)", "Computer Lab Hallway/Back Hallway"),
+                new ForceField("gamemode_completed_force_field (4)", "Back Hallway/Side Entrance"),
+            ]
+        };
 
         public static IEnumerable<World> AllWorlds => [
             GymClass

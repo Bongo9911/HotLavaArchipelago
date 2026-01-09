@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace HotLavaPlugin.Game
+namespace HotLavaArchipelagoPlugin.Game
 {
     /// <summary>
     /// Information about a world in Hot Lava
@@ -12,6 +12,7 @@ namespace HotLavaPlugin.Game
 
         public string Name { get; }
         public Course[] Courses { get; }
+        public ForceField[] ForceFields { get; set; } = [];
 
         public World(string name, Course[] courses)
         {

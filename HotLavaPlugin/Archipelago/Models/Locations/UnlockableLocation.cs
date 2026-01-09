@@ -1,7 +1,7 @@
-﻿using HotLavaPlugin.Helpers;
+﻿using HotLavaArchipelagoPlugin.Helpers;
 using Klei.HotLava.Unlockables;
 
-namespace HotLavaPlugin.Archipelago.Models.Locations
+namespace HotLavaArchipelagoPlugin.Archipelago.Models.Locations
 {
     /// <summary>
     /// A location associated to an unlockable

@@ -1,10 +1,10 @@
-﻿using HotLavaPlugin.Archipelago.Models.Locations;
-using HotLavaPlugin.Enums;
-using HotLavaPlugin.Game;
+﻿using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
+using HotLavaArchipelagoPlugin.Enums;
+using HotLavaArchipelagoPlugin.Game;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HotLavaPlugin.Archipelago.Data
+namespace HotLavaArchipelagoPlugin.Archipelago.Data
 {
     internal static class Locations
     {

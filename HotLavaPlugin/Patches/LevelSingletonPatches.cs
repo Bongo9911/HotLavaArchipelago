@@ -1,0 +1,28 @@
+﻿using HarmonyLib;
+using Klei.HotLava;
+using System.Threading.Tasks;
+
+namespace HotLavaArchipelagoPlugin.Patches
+{
+    [HarmonyPatch(typeof(LevelSingleton))]
+    internal class LevelSingletonPatches
+    {
+        [HarmonyPatch("SendChatMessage")]
+        [HarmonyPrefix]
+        public static bool SendChatMessage_Prefix(LevelSingleton __instance, string message, object target)
+        {
+            if (message.StartsWith("/apconnect"))
+            {
+                Task.Run(() => Plugin.ParseArchipelagoConnectMessage(message)).GetAwaiter().GetResult();
+                return false;
+            }
+
+            if (Plugin.ArchipelagoSession != null)
+            {
+                Plugin.ArchipelagoSession.Say(message);
+            }
+
+            return true;
+        }
+    }
+}

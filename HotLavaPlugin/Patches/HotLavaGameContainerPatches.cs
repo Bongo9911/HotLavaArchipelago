@@ -1,9 +1,10 @@
 ﻿using HarmonyLib;
+using HotLavaArchipelagoPlugin.Helpers;
 using Klei.HotLava;
 using Klei.HotLava.Character;
 using Klei.HotLava.Game;
 
-namespace HotLavaPlugin.Patches
+namespace HotLavaArchipelagoPlugin.Patches
 {
     [HarmonyPatch(typeof(HotLavaGameContainer))]
     internal class HotLavaGameContainerPatches
@@ -18,7 +19,8 @@ namespace HotLavaPlugin.Patches
             if (deathReason.Contains("%playera"))
             {
                 //Should do death link
-                Plugin.SendNotificationMessage("L NERD " + deathReason.Replace("%playera ", ""));
+                UIHelper.SendNotificationMessage("L NERD " + deathReason.Replace("%playera ", ""));
+                UIHelper.ShowPopup("L NERD DIED");
             }
         }
     }

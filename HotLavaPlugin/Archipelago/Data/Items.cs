@@ -1,7 +1,8 @@
-﻿using HotLavaPlugin.Archipelago.Models.Items;
+﻿using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
+using HotLavaArchipelagoPlugin.Game;
 using System.Collections.Generic;
 
-namespace HotLavaPlugin.Archipelago.Data
+namespace HotLavaArchipelagoPlugin.Archipelago.Data
 {
     internal static class Items
     {
@@ -22,10 +23,28 @@ namespace HotLavaPlugin.Archipelago.Data
 
         private static Dictionary<long, Item> LoadItems()
         {
-            return new Dictionary<long, Item>()
+            Dictionary<long, Item> itemDictionary = new Dictionary<long, Item>()
             {
-                { 1, new XpShardItem(1) }
+                { 1, new XpShardItem(1) },
             };
+
+            long worldOffset = 100;
+            foreach (World world in Worlds.AllWorlds)
+            {
+                //TODO: add world item ("Gym Class - World Unlock")
+                long idOffset = 1;
+
+                foreach (ForceField forceField in world.ForceFields)
+                {
+                    long id = worldOffset + idOffset;
+                    itemDictionary.Add(id, new ForceFieldItem(id, forceField.World.Name + " - Deactivate Force Field - " + forceField.Name, forceField.ObjectName));
+                    idOffset++;
+                }
+
+                worldOffset += 100;
+            }
+
+            return itemDictionary;
         }
 
         /// <summary>

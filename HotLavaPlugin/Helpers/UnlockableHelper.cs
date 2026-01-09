@@ -1,7 +1,7 @@
 ﻿using Klei.HotLava.Unlockables;
 using System.Linq;
 
-namespace HotLavaPlugin.Helpers
+namespace HotLavaArchipelagoPlugin.Helpers
 {
     internal static class UnlockableHelper
     {

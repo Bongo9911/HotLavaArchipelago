@@ -1,11 +1,14 @@
 ﻿using HarmonyLib;
+using HotLavaArchipelagoPlugin.Archipelago.Data;
+using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
 using Klei.HotLava;
 using Klei.HotLava.Game;
 using Klei.HotLava.Gameplay;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
-namespace HotLavaPlugin.Patches
+namespace HotLavaArchipelagoPlugin.Patches
 {
     [HarmonyPatch(typeof(GameModeCompletedGate))]
     internal class GameModeCompletedGatePatches
@@ -19,37 +22,52 @@ namespace HotLavaPlugin.Patches
             long barrierID = Counter++;
 
             LevelMetaData currentLevel = Plugin.GetCurrentLevelMetaData();
-            bool shouldDeactivateBarrier = false;
 
             foreach (GameModeContainer gameModeContainer in __instance.m_RequiredGameModes)
             {
                 Plugin.Logger.LogInfo("[" + barrierID + "] World: " + currentLevel.name.Replace("_meta_data", ""));
                 Plugin.Logger.LogInfo("[" + barrierID + "] Level: " + currentLevel.GetTranslatedName(gameModeContainer.m_GameMode));
                 Plugin.Logger.LogInfo("[" + barrierID + "] Name: " + __instance.name);
-                shouldDeactivateBarrier = shouldDeactivateBarrier || gameModeContainer.m_GameMode.m_ID == "tutorial.Course 4";
+                Plugin.Logger.LogInfo("[" + barrierID + "] Name: " + __instance.gameObject.name);
             }
 
-            __instance.ClearList();
 
-            GameModeCompletedRequirement completedRequirement = UnityEngine.Object.Instantiate<GameModeCompletedRequirement>(__instance.m_RequirementTemplate, __instance.m_RequirementsList.transform);
-            completedRequirement.m_GameModeName.text = "Unlock via Archipelago";
-            completedRequirement.m_RequirementIcon.interactable = false;
-            completedRequirement.gameObject.SetActive(true);
-
-            FieldInfo m_RowsField = typeof(GameModeCompletedGate).GetField("m_Rows", BindingFlags.NonPublic | BindingFlags.Instance);
-            List<GameModeCompletedRequirement> m_Rows = (List<GameModeCompletedRequirement>)m_RowsField.GetValue(__instance);
-            m_Rows.Add(completedRequirement);
-
-            if (shouldDeactivateBarrier)
+            if (Plugin.ArchipelagoSession != null)
             {
-                __instance.PlayDeactivationAnimation();
-            }
-            else
-            {
-                __instance.OnEnableConditionsMet(shouldDeactivateBarrier);
+                ForceFieldItem? forceFieldItem = Items.AllItems.Values
+                    .Where(m => m is ForceFieldItem)
+                    .Select(m => (ForceFieldItem)m)
+                    .FirstOrDefault(m => m.ObjectName == __instance.gameObject.name);
+
+                if (forceFieldItem != null)
+                {
+                    __instance.ClearList();
+
+                    GameModeCompletedRequirement completedRequirement = UnityEngine.Object.Instantiate<GameModeCompletedRequirement>(__instance.m_RequirementTemplate, __instance.m_RequirementsList.transform);
+                    completedRequirement.m_GameModeName.text = "Unlock via Archipelago";
+                    completedRequirement.m_RequirementIcon.interactable = false;
+                    completedRequirement.gameObject.SetActive(true);
+
+                    FieldInfo m_RowsField = typeof(GameModeCompletedGate).GetField("m_Rows", BindingFlags.NonPublic | BindingFlags.Instance);
+                    List<GameModeCompletedRequirement> m_Rows = (List<GameModeCompletedRequirement>)m_RowsField.GetValue(__instance);
+                    m_Rows.Add(completedRequirement);
+
+                    if (Plugin.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == forceFieldItem.Id))
+                    {
+                        //TODO: check if this animation has already been played
+                        //__instance.PlayDeactivationAnimation();
+                        __instance.OnEnableConditionsMet(true);
+                    }
+                    else
+                    {
+                        __instance.OnEnableConditionsMet(false);
+                    }
+
+                    return false;
+                }
             }
 
-            return false;
+            return true;
         }
     }
 }

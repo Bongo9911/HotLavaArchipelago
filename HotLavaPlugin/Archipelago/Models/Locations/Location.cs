@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace HotLavaPlugin.Archipelago.Models.Locations
+namespace HotLavaArchipelagoPlugin.Archipelago.Models.Locations
 {
     internal abstract class Location
     {

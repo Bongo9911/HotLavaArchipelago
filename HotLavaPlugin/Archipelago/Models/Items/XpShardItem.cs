@@ -1,6 +1,6 @@
 ﻿using Klei.HotLava.Character.Progression;
 
-namespace HotLavaPlugin.Archipelago.Models.Items
+namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
 {
     internal class XpShardItem : Item
     {

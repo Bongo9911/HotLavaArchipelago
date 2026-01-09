@@ -1,4 +1,4 @@
-﻿namespace HotLavaPlugin.Enums
+﻿namespace HotLavaArchipelagoPlugin.Enums
 {
     internal enum CourseType
     {

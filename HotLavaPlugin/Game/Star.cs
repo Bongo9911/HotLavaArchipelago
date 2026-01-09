@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace HotLavaPlugin.Game
+namespace HotLavaArchipelagoPlugin.Game
 {
     /// <summary>
     /// A star unlockable by completing a challenge in a course
@@ -10,6 +10,7 @@ namespace HotLavaPlugin.Game
         [JsonIgnore]
         public Course Course { get; set; } = Course.Default;
 
+        [JsonIgnore]
         public string UnlockableId { get; }
         public string Name { get; }
 

@@ -1,9 +1,9 @@
 ﻿using HarmonyLib;
-using HotLavaPlugin.Archipelago.Data;
-using HotLavaPlugin.Archipelago.Models.Locations;
+using HotLavaArchipelagoPlugin.Archipelago.Data;
+using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
 using Klei.HotLava.Unlockables;
 
-namespace HotLavaPlugin.Patches
+namespace HotLavaArchipelagoPlugin.Patches
 {
     [HarmonyPatch(typeof(Statistics))]
     internal class StatisticsPatches
@@ -34,23 +34,15 @@ namespace HotLavaPlugin.Patches
             {
                 Location? location = Locations.GetUnlockableLocation(unlockable.m_Key.m_Value);
 
-                // If unlockable is not controlled by AP or has been checked by AP, return true
-                if (location == null || Plugin.ArchipelagoSession.Locations.AllLocationsChecked.Contains(location.LocationID))
+                if (location != null)
                 {
-                    __result = true;
-                }
-                else
-                {
-                    __result = false;
+                    __result = Plugin.ArchipelagoSession.Locations.AllLocationsChecked.Contains(location.LocationID);
+                    //Don't use built in logic to check if unlocked
+                    return false;
                 }
             }
-            else
-            {
-                __result = false;
-            }
 
-            return false;
-
+            return true;
         }
     }
 }

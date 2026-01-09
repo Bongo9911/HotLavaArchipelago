@@ -1,4 +1,4 @@
-﻿namespace HotLavaPlugin.Archipelago.Models.Items
+﻿namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
 {
     /// <summary>
     /// An item that can be granted by Archipelago
