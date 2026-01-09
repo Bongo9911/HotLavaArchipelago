@@ -19,13 +19,14 @@ namespace HotLavaPlugin.Patches
             long barrierID = Counter++;
 
             LevelMetaData currentLevel = Plugin.GetCurrentLevelMetaData();
-            bool shouldEnableBarrier = false;
+            bool shouldDeactivateBarrier = false;
 
             foreach (GameModeContainer gameModeContainer in __instance.m_RequiredGameModes)
             {
-                //Plugin.Logger.LogInfo("[" + barrierID + "] World: " + currentLevel.name.Replace("_meta_data", "");
-                //Plugin.Logger.LogInfo("[" + barrierID + "] Level: " + currentLevel.GetTranslatedName(gameModeContainer.m_GameMode));
-                shouldEnableBarrier = shouldEnableBarrier || gameModeContainer.m_GameMode.m_ID == "tutorial.Course 4";
+                Plugin.Logger.LogInfo("[" + barrierID + "] World: " + currentLevel.name.Replace("_meta_data", ""));
+                Plugin.Logger.LogInfo("[" + barrierID + "] Level: " + currentLevel.GetTranslatedName(gameModeContainer.m_GameMode));
+                Plugin.Logger.LogInfo("[" + barrierID + "] Name: " + __instance.name);
+                shouldDeactivateBarrier = shouldDeactivateBarrier || gameModeContainer.m_GameMode.m_ID == "tutorial.Course 4";
             }
 
             __instance.ClearList();
@@ -39,13 +40,13 @@ namespace HotLavaPlugin.Patches
             List<GameModeCompletedRequirement> m_Rows = (List<GameModeCompletedRequirement>)m_RowsField.GetValue(__instance);
             m_Rows.Add(completedRequirement);
 
-            if (shouldEnableBarrier)
+            if (shouldDeactivateBarrier)
             {
                 __instance.PlayDeactivationAnimation();
             }
             else
             {
-                __instance.OnEnableConditionsMet(shouldEnableBarrier);
+                __instance.OnEnableConditionsMet(shouldDeactivateBarrier);
             }
 
             return false;
