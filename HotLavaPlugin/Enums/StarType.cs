@@ -5,5 +5,6 @@
         Generic,
         CourseComplete,
         TrialComplete,
+        Buddy,
     }
 }

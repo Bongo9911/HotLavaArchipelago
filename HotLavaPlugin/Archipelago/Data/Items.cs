@@ -31,7 +31,8 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
             long worldOffset = 100;
             foreach (World world in Worlds.AllWorlds)
             {
-                //TODO: add world item ("Gym Class - World Unlock")
+                itemDictionary.Add(worldOffset, new WorldUnlockItem(worldOffset, world.UnlockableId, world.InternalName, world.Name));
+
                 long idOffset = 1;
 
                 foreach (ForceField forceField in world.ForceFields)

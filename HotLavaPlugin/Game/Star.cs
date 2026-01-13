@@ -20,6 +20,7 @@ namespace HotLavaArchipelagoPlugin.Game
         {
             UnlockableId = unlockableId;
             Name = name;
+            StarType = starType;
         }
 
         public override string ToString()

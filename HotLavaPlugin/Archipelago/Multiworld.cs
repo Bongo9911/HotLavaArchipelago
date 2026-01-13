@@ -1,4 +1,5 @@
 ﻿using Archipelago.MultiClient.Net;
+using Archipelago.MultiClient.Net.BounceFeatures.DeathLink;
 using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Helpers;
 using Archipelago.MultiClient.Net.MessageLog.Messages;
@@ -17,6 +18,8 @@ namespace HotLavaArchipelagoPlugin.Archipelago
     internal class Multiworld
     {
         internal static ArchipelagoSession? ArchipelagoSession;
+        private static DeathLinkService? DeathLinkService = null;
+        private static string PlayerName = "Unknown";
 
         public static async Task ParseArchipelagoConnectMessage(string message)
         {
@@ -45,7 +48,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 return;
             }
 
-            string playerName = split[2];
+            PlayerName = split[2];
             string? password = split.Length > 3 ? split[3] : null;
 
             try
@@ -56,6 +59,11 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 ArchipelagoSession.MessageLog.OnMessageReceived += OnMessageReceived;
                 ArchipelagoSession.Items.ItemReceived += OnItemReceived;
                 ArchipelagoSession.Locations.CheckedLocationsUpdated += OnLocationsChecked;
+
+                //DeathLinkService = ArchipelagoSession.CreateDeathLinkService();
+
+                //DeathLinkService.OnDeathLinkReceived += OnDeathLinkReceived;
+                //DeathLinkService.EnableDeathLink();
 
                 await ArchipelagoSession.ConnectAsync();
 
@@ -71,7 +79,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 
                 LoginResult loginResult = await ArchipelagoSession.LoginAsync(
                     gameName, // Name of the game implemented by this client, SHOULD match what is used in the world implementation
-                    playerName, // Name of the slot to connect as (a.k.a player name)
+                    PlayerName, // Name of the slot to connect as (a.k.a player name)
                     itemsHandlingFlags,
                     minArchipelagoVersion, // Minimum Archipelago API specification version which this client can successfuly interface with
                     tags,
@@ -97,6 +105,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                     UIHelper.ShowPopup("Failed to login to Archipelago due to:" + errors);
                     await ArchipelagoSession.Socket.DisconnectAsync();
                     ArchipelagoSession = null;
+                    DeathLinkService = null;
                 }
                 else
                 {
@@ -110,6 +119,11 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 UIHelper.ShowPopup("Failed to connect to Archipelago due to an unknown error");
                 Plugin.Logger.LogError("Error connecting to Archipelago: " + ex.ToString());
             }
+        }
+
+        private static void OnDeathLinkReceived(DeathLink deathLink)
+        {
+            //TODO: kill player
         }
 
         private static void OnLocationsChecked(System.Collections.ObjectModel.ReadOnlyCollection<long> newCheckedLocations)
@@ -131,6 +145,11 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             ItemInfo receivedItem = helper.PeekItem();
 
             Plugin.Logger.LogInfo("Received Item: " + receivedItem.ItemName);
+
+            //UIHelper.SendNotificationMessage("Received <color=#8e7cc3>" + receivedItem.ItemDisplayName + "</color> from <color=#ffd966>"
+            //    + receivedItem.Player.Name + "</color> (<color=#93c47d>" + receivedItem.LocationDisplayName + "</color>)");
+            //UIHelper.SendNotificationMessage("Received " + receivedItem.ItemDisplayName + " from "
+            //    + receivedItem.Player.Name + " (" + receivedItem.LocationDisplayName);
 
             Item? item = Items.GetItem(receivedItem.ItemId);
 
@@ -154,6 +173,14 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             UIHelper.SendChatMessage(logMessage.ToString());
         }
 
+        public static void SendLocationCheck(long locationId)
+        {
+            if (ArchipelagoSession == null) return;
+
+            ArchipelagoSession.Locations.CompleteLocationChecks(locationId);
+            CheckGoalCompleted();
+        }
+
         /// <summary>
         /// Checks if the player has collected all "Complete the Course" stars
         /// </summary>
@@ -172,6 +199,13 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             {
                 ArchipelagoSession.SetGoalAchieved();
             }
+        }
+
+        public static void SendDeath(string deathReason)
+        {
+            if (DeathLinkService == null) return;
+
+            DeathLinkService.SendDeathLink(new DeathLink(PlayerName, deathReason));
         }
     }
 }

@@ -8,14 +8,35 @@ namespace HotLavaArchipelagoPlugin.Game
     internal class World
     {
         [JsonIgnore]
-        public static World Default => new World(string.Empty, []);
+        public static World Default => new World(string.Empty, string.Empty, string.Empty, []);
 
+        /// <summary>
+        /// The ID of the unlock for the world
+        /// </summary>
+        [JsonIgnore]
+        public string UnlockableId { get; set; }
+        /// <summary>
+        /// The internal name for the world
+        /// </summary>
+        [JsonIgnore]
+        public string InternalName { get; set; }
+        /// <summary>
+        /// The display name for the world
+        /// </summary>
         public string Name { get; }
+        /// <summary>
+        /// The courses the world contains
+        /// </summary>
         public Course[] Courses { get; }
+        /// <summary>
+        /// The force fields within the world
+        /// </summary>
         public ForceField[] ForceFields { get; set; } = [];
 
-        public World(string name, Course[] courses)
+        public World(string unlockableId, string internalName, string name, Course[] courses)
         {
+            UnlockableId = unlockableId;
+            InternalName = internalName;
             Name = name;
             Courses = courses;
 

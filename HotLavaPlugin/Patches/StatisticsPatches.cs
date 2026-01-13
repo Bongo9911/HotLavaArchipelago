@@ -22,8 +22,7 @@ namespace HotLavaArchipelagoPlugin.Patches
                 if (location != null)
                 {
                     Plugin.Logger.LogInfo("Sending AP Check");
-                    Multiworld.ArchipelagoSession.Locations.CompleteLocationChecks(location.LocationID);
-                    Multiworld.CheckGoalCompleted();
+                    Multiworld.SendLocationCheck(location.LocationID);
                 }
             }
         }

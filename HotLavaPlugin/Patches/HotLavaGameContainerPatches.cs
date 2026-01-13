@@ -17,7 +17,7 @@ namespace HotLavaArchipelagoPlugin.Patches
             Plugin.Logger.LogInfo("Player died because: " + on_killed_info.m_Reason);
 
             string deathReason = STRINGS.UI.INGAME.DEATH_REASON.GetReason(on_killed_info.m_Reason);
-            if (deathReason.Contains("%playera"))
+            if (on_killed_info.m_Player.IsMine && deathReason.Contains("%playera"))
             {
                 //Should do death link
                 UIHelper.SendNotificationMessage("L NERD " + deathReason.Replace("%playera ", ""));

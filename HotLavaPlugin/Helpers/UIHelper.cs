@@ -17,12 +17,14 @@ namespace HotLavaArchipelagoPlugin.Helpers
             characterCanvas?.m_NetworkChat.QueueMessage(message);
         }
 
-        public static void ShowPopup(string message)
+        public static void ShowPopup(string message, float width = 502, float height = 142)
         {
             CharacterCanvas characterCanvas = Singleton<LevelSingleton>.Instance.m_CharacterCanvas;
-            UnityEngine.Vector2 vector = new UnityEngine.Vector2();
-            vector.x = 502;
-            vector.y = 142;
+            UnityEngine.Vector2 vector = new UnityEngine.Vector2()
+            {
+                x = width,
+                y = height
+            };
             characterCanvas?.m_Popup.ShowPopup(message, null, UnityEngine.Color.white, UnityEngine.TextAnchor.MiddleCenter, 2.6f, vector);
         }
     }
