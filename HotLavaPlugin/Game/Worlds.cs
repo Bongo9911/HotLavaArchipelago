@@ -96,7 +96,7 @@ namespace HotLavaArchipelagoPlugin.Game
             ]
         };
 
-        public static World Playground => new World("ba748836d405be54ea9a4b3d6e455f45", "playground", "Playground", [
+        public static World Playground => new World("83328d77e87a0d34b8cc4aae038bd158", "playground", "Playground", [
             new Course("Recess", [
                 new Star("60dff4f3d39f9664d8cde41acf5a9465", "Complete the course", StarType.CourseComplete),
                 new Star("e6704c37a77263d4fb352b2ebe0c9dd5", "Complete in under 07:00"),

@@ -17,7 +17,7 @@ namespace HotLavaArchipelagoPlugin.Patches
 
         //    Plugin.Logger.LogInfo("1");
 
-        //    FieldInfo modifiersProp = data.GetType().GetField("m_Modifiers", BindingFlags.NonPublic | BindingFlags.Instance);
+        //    FieldInfo modifiersProp = typeof(CharacterModifierData).GetField("m_Modifiers", BindingFlags.NonPublic | BindingFlags.Instance);
         //    Plugin.Logger.LogInfo("2");
 
         //    //This doesn't work for whatever reason ??? Invalid cast???

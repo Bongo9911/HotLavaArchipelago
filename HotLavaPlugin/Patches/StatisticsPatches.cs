@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using Archipelago.MultiClient.Net.Models;
+using HarmonyLib;
 using HotLavaArchipelagoPlugin.Archipelago;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
@@ -21,8 +22,15 @@ namespace HotLavaArchipelagoPlugin.Patches
 
                 if (location != null)
                 {
-                    Plugin.Logger.LogInfo("Sending AP Check");
+                    Plugin.Logger.LogInfo("Sending AP Check for: " + location.LocationID);
                     Multiworld.SendLocationCheck(location.LocationID);
+
+                    ScoutedItemInfo? scoutedItemInfo = Multiworld.GetItemForLocation(location.LocationID);
+                    if (scoutedItemInfo != null)
+                    {
+                        Plugin.Logger.LogInfo("Queueing scouted itme: " + scoutedItemInfo.ItemDisplayName);
+                        Multiworld.QueueAwardItem(scoutedItemInfo);
+                    }
                 }
             }
         }

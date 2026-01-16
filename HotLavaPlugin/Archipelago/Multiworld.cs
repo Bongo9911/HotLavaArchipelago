@@ -10,6 +10,7 @@ using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
 using HotLavaArchipelagoPlugin.Enums;
 using HotLavaArchipelagoPlugin.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,6 +21,8 @@ namespace HotLavaArchipelagoPlugin.Archipelago
         internal static ArchipelagoSession? ArchipelagoSession;
         private static DeathLinkService? DeathLinkService = null;
         private static string PlayerName = "Unknown";
+        private static Dictionary<long, ScoutedItemInfo> ScoutedItems = new Dictionary<long, ScoutedItemInfo>();
+        private static Queue<ScoutedItemInfo> QueuedAwardItems = new Queue<ScoutedItemInfo>();
 
         public static async Task ParseArchipelagoConnectMessage(string message)
         {
@@ -53,7 +56,6 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 
             try
             {
-                //ArchipelagoSession = ArchipelagoSessionFactory.CreateSession("archipelago.gg", 57655);
                 ArchipelagoSession = ArchipelagoSessionFactory.CreateSession(roomUri.Host, roomUri.Port);
 
                 ArchipelagoSession.MessageLog.OnMessageReceived += OnMessageReceived;
@@ -70,12 +72,12 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 Plugin.Logger.LogInfo("Connected to Archipelago");
 
                 //https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/network%20protocol.md
-                string gameName = "Hot Lava";
-                ItemsHandlingFlags itemsHandlingFlags = ItemsHandlingFlags.AllItems;
+                const string gameName = "Hot Lava";
+                const ItemsHandlingFlags itemsHandlingFlags = ItemsHandlingFlags.AllItems;
                 Version minArchipelagoVersion = new Version(0, 6, 5);
                 string[] tags = ["DeathLink"];
-                string? uuid = null;
-                bool requestSlotData = true;
+                const string? uuid = null;
+                const bool requestSlotData = true;
 
                 LoginResult loginResult = await ArchipelagoSession.LoginAsync(
                     gameName, // Name of the game implemented by this client, SHOULD match what is used in the world implementation
@@ -109,6 +111,8 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 }
                 else
                 {
+                    await ScoutAllLocations();
+
                     Plugin.Logger.LogInfo("Successfully logged in to Archipelago");
                     Plugin.Logger.LogInfo("Archipelago Seed: " + ArchipelagoSession.RoomState.Seed);
                     UIHelper.ShowPopup("Successfully connected to Archipelago");
@@ -119,6 +123,12 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 UIHelper.ShowPopup("Failed to connect to Archipelago due to an unknown error");
                 Plugin.Logger.LogError("Error connecting to Archipelago: " + ex.ToString());
             }
+        }
+
+        private static async Task ScoutAllLocations()
+        {
+            ScoutedItems = await ArchipelagoSession!.Locations
+                .ScoutLocationsAsync(HintCreationPolicy.None, Locations.AllLocations.Keys.ToArray());
         }
 
         private static void OnDeathLinkReceived(DeathLink deathLink)
@@ -206,6 +216,32 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             if (DeathLinkService == null) return;
 
             DeathLinkService.SendDeathLink(new DeathLink(PlayerName, deathReason));
+        }
+
+        /// <summary>
+        /// Gets the scouted item info for the specified location
+        /// </summary>
+        /// <param name="locationId">The ID of the location</param>
+        /// <returns>The item info</returns>
+        public static ScoutedItemInfo? GetItemForLocation(long locationId)
+        {
+            return ScoutedItems.GetValueOrDefault(locationId);
+        }
+
+        public static void QueueAwardItem(ScoutedItemInfo scoutedItemInfo)
+        {
+            if (!QueuedAwardItems.Contains(scoutedItemInfo))
+            {
+                QueuedAwardItems.Enqueue(scoutedItemInfo);
+            }
+        }
+
+        public static ScoutedItemInfo? PopAwardsQueue()
+        {
+            if (QueuedAwardItems.TryDequeue(out ScoutedItemInfo dequeuedItem))
+                return dequeuedItem;
+            else
+                return null;
         }
     }
 }
