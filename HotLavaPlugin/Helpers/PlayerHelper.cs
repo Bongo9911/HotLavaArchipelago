@@ -3,14 +3,14 @@ using Klei.HotLava.Online;
 
 namespace HotLavaArchipelagoPlugin.Helpers
 {
-    internal class PlayerHelper
+    internal static class PlayerHelper
     {
-        public PlayerController? GetLocalPlayer()
+        public static PlayerController? GetLocalPlayer()
         {
             return State.LocalPlayer;
         }
 
-        public void KillLocalPlayer()
+        public static void KillLocalPlayer()
         {
             PlayerController? player = GetLocalPlayer();
             if (player != null)

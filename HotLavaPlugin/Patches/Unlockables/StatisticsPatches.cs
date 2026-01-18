@@ -20,7 +20,8 @@ namespace HotLavaArchipelagoPlugin.Patches
             {
                 Location? location = Locations.GetUnlockableLocation(unlockable.m_Key.m_Value);
 
-                if (location != null)
+                //Don't recheck locations that have already been checked
+                if (location != null && !Multiworld.ArchipelagoSession.Locations.AllLocationsChecked.Contains(location.LocationID))
                 {
                     Plugin.Logger.LogInfo("Sending AP Check for: " + location.LocationID);
                     Multiworld.SendLocationCheck(location.LocationID);

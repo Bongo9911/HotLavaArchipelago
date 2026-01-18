@@ -174,7 +174,10 @@ namespace HotLavaArchipelagoPlugin.Game
             ]),
         ])
         {
-            ForceFields = []
+            ForceFields = [
+                new ForceField("gamemode_completed_force_field", "Spawn/Basketball Courts"),
+                new ForceField("gamemode_completed_force_field (1)", "Basketball Courts/Sports Day Side"),
+            ]
         };
 
         public static IEnumerable<World> AllWorlds => [

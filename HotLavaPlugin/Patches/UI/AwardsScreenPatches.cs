@@ -33,7 +33,8 @@ namespace HotLavaArchipelagoPlugin.Patches
                         return false;
                     }
 
-                    string title = string.Empty;
+                    //string title = string.Empty;
+                    string title = "Found Item";
                     RewardVisualization? rewardVisualization = null;
 
                     //Item is for this world
@@ -49,7 +50,7 @@ namespace HotLavaArchipelagoPlugin.Patches
                             {
                                 //TODO: customize this text (Right now for world unlocks it tells you you are getting this for hitting a certain rank)
 
-                                title = string.Format(STRINGS.UI.INGAME.CHARACTER_CANVAS.AWARD_SCREEN.UNLOCK_TITLE_FMT, unlockable.ToString());
+                                //title = string.Format(STRINGS.UI.INGAME.CHARACTER_CANVAS.AWARD_SCREEN.UNLOCK_TITLE_FMT, unlockable.ToString());
                                 rewardVisualization = unlockable.LoadVisualization();
                             }
                         }
@@ -58,7 +59,7 @@ namespace HotLavaArchipelagoPlugin.Patches
                     if (rewardVisualization == null)
                     {
                         //Top text
-                        title = "Found Item";
+                        //title = "Found Item";
 
                         ItemMetaDataEntry itemMetaDataEntry = ScriptableObject.CreateInstance<ItemMetaDataEntry>();
                         itemMetaDataEntry.m_Category = eItemCategory.DECAL;
@@ -70,8 +71,10 @@ namespace HotLavaArchipelagoPlugin.Patches
                         rewardVisualization = __instance.m_GiftDropData.ItemViz[(int)eItemCategory.DECAL].ShallowCopy();
                         rewardVisualization.Load(itemMetaDataEntry);
                         //Bottom text
-                        rewardVisualization.m_ScratchDescription = itemInfo.ItemDisplayName + " for " + itemInfo.Player.Name + " (" + itemInfo.LocationGame + ")";
+                        //rewardVisualization.m_ScratchDescription = itemInfo.ItemDisplayName + " for " + itemInfo.Player.Name + " (" + itemInfo.LocationGame + ")";
                     }
+
+                    rewardVisualization.m_ScratchDescription = itemInfo.ItemDisplayName + " for " + itemInfo.Player.Name + " (" + itemInfo.LocationGame + ")";
 
                     typeof(AwardsScreen).GetField("m_UnlockTitle", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(__instance, title);
                     typeof(AwardsScreen).GetMethod("Award", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(__instance, [() => rewardVisualization]);

@@ -2,6 +2,8 @@
 using HotLavaArchipelagoPlugin.Archipelago;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
+using HotLavaArchipelagoPlugin.Extensions;
+using HotLavaArchipelagoPlugin.Helpers;
 using Klei.HotLava;
 using Klei.HotLava.Game;
 using Klei.HotLava.Gameplay;
@@ -25,12 +27,12 @@ namespace HotLavaArchipelagoPlugin.Patches
         {
             long barrierID = Counter++;
 
-            LevelMetaData currentLevel = Plugin.GetCurrentLevelMetaData();
+            LevelMetaData? currentLevel = LevelHelper.GetCurrentLevelMetaData();
 
             foreach (GameModeContainer gameModeContainer in __instance.m_RequiredGameModes)
             {
-                Plugin.Logger.LogInfo("[" + barrierID + "] World: " + currentLevel.name.Replace("_meta_data", ""));
-                Plugin.Logger.LogInfo("[" + barrierID + "] Level: " + currentLevel.GetTranslatedName(gameModeContainer.m_GameMode));
+                Plugin.Logger.LogInfo("[" + barrierID + "] World: " + currentLevel?.name.Replace("_meta_data", ""));
+                Plugin.Logger.LogInfo("[" + barrierID + "] Level: " + currentLevel?.GetTranslatedName(gameModeContainer.m_GameMode));
                 Plugin.Logger.LogInfo("[" + barrierID + "] Name: " + __instance.name);
                 Plugin.Logger.LogInfo("[" + barrierID + "] Name: " + __instance.gameObject.name);
             }
@@ -41,7 +43,7 @@ namespace HotLavaArchipelagoPlugin.Patches
                 ForceFieldItem? forceFieldItem = Items.AllItems.Values
                     .Where(m => m is ForceFieldItem)
                     .Select(m => (ForceFieldItem)m)
-                    .FirstOrDefault(m => m.ObjectName == __instance.gameObject.name);
+                    .FirstOrDefault(m => m.InternalWorldName == currentLevel?.GetWorldName() && m.ObjectName == __instance.gameObject.name);
 
                 if (forceFieldItem != null)
                 {

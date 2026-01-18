@@ -1,9 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using Klei.HotLava;
-using Klei.HotLava.Game;
-using Klei.L10n;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -25,17 +22,5 @@ public class Plugin : BaseUnityPlugin
         Logger.LogInfo($"Harmony patches applied!");
 
         //Logger.LogInfo(JsonConvert.SerializeObject(Worlds.AllWorlds));
-    }
-
-    public static LevelMetaData GetCurrentLevelMetaData()
-    {
-        PropertyInfo property = typeof(Info).GetProperty("CurrentLevelMetaData", BindingFlags.NonPublic | BindingFlags.Static);
-        return (LevelMetaData)property.GetValue(null);
-    }
-
-    public static string? GameModeToValidStringKeyElement(GameMode mode)
-    {
-        int num = mode.m_ID.IndexOf(".");
-        return num > -1 ? "GAMEMODE_" + LocConversions.NameToValidStringKeyElement(mode.m_ID.Substring(num + 1)) : null;
     }
 }

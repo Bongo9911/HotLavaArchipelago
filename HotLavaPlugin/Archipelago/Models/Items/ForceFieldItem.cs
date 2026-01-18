@@ -1,4 +1,5 @@
-﻿using Klei.HotLava.Gameplay;
+﻿using HotLavaArchipelagoPlugin.Helpers;
+using Klei.HotLava.Gameplay;
 using System.Linq;
 using UnityEngine;
 
@@ -6,16 +7,21 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
 {
     internal class ForceFieldItem : Item
     {
+        public string InternalWorldName { get; }
         public string ObjectName { get; }
 
-        public ForceFieldItem(long id, string name, string objectName) : base(id, name)
+        public ForceFieldItem(long id, string name, string internalWorldName, string objectName) : base(id, name)
         {
+            InternalWorldName = internalWorldName;
             ObjectName = objectName;
         }
 
         public override void GrantItem()
         {
-            //TODO: verify current force field is for the current world
+            string? currentWorld = LevelHelper.GetCurrentWorldName();
+
+            //Don't try to deactivate force field if player is not currently in the world
+            if (currentWorld != InternalWorldName) return;
 
             GameModeCompletedGate[] forceFields = Object.FindObjectsByType<GameModeCompletedGate>(FindObjectsSortMode.InstanceID);
 
