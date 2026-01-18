@@ -1,7 +1,8 @@
 ﻿using HarmonyLib;
 using Klei.HotLava.Character.Modifiers;
+using Klei.HotLava.Online;
 
-namespace HotLavaArchipelagoPlugin.Patches.Player
+namespace HotLavaArchipelagoPlugin.Patches.Character
 {
     [HarmonyPatch(typeof(Player))]
     internal class PlayerPatches

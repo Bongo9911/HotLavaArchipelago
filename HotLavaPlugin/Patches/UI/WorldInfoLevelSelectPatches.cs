@@ -13,12 +13,20 @@ namespace HotLavaArchipelagoPlugin.Patches.UI
     {
         [HarmonyPatch(nameof(WorldInfoLevelSelect.SetLocked))]
         [HarmonyPrefix]
-        public static void SetLocked(WorldInfoLevelSelect __instance, ref WorldInfoLevelSelect.LockState locked, ref string info_text)
+        public static void SetLocked_Prefix(WorldInfoLevelSelect __instance, ref WorldInfoLevelSelect.LockState locked, ref string info_text)
         {
             FieldInfo field = __instance.GetType().GetField("m_LevelName", BindingFlags.NonPublic | BindingFlags.Instance);
             string levelName = (string)field.GetValue(__instance);
 
             Plugin.Logger.LogInfo("Level Name: " + levelName);
+
+            //TODO: placeholder for testing
+            if (levelName == "school")
+            {
+                locked = WorldInfoLevelSelect.LockState.Unlocked;
+                info_text = string.Empty;
+                return;
+            }
 
             if (Multiworld.ArchipelagoSession != null)
             {

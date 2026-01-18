@@ -38,7 +38,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
                 foreach (ForceField forceField in world.ForceFields)
                 {
                     long id = worldOffset + idOffset;
-                    itemDictionary.Add(id, new ForceFieldItem(id, forceField.World.Name + " - Deactivate Force Field - " + forceField.Name, forceField.ObjectName));
+                    itemDictionary.Add(id, new ForceFieldItem(id, forceField.World.Name + " - Deactivate Force Field - " + forceField.Name, forceField.World.InternalName, forceField.ObjectName));
                     idOffset++;
                 }
 
