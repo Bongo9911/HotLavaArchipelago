@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using Klei.HotLava.Settings;
 
-namespace HotLavaArchipelagoPlugin.Patches
+namespace HotLavaArchipelagoPlugin.Patches.Player
 {
     //TODO: look at CharacterModifierSelect
     [HarmonyPatch(typeof(CharacterModifierData))]

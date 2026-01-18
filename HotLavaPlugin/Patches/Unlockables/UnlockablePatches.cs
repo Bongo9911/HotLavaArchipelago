@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using Klei.HotLava.Unlockables;
 
-namespace HotLavaArchipelagoPlugin.Patches
+namespace HotLavaArchipelagoPlugin.Patches.Unlockables
 {
     [HarmonyPatch(typeof(Unlockable))]
     internal class UnlockablePatches

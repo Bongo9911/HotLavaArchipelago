@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using Klei.HotLava.Character;
 
-namespace HotLavaArchipelagoPlugin.Patches
+namespace HotLavaArchipelagoPlugin.Patches.Player
 {
     /// <summary>
     /// Modifies functions ran on the player controller

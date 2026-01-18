@@ -3,7 +3,7 @@ using HotLavaArchipelagoPlugin.Archipelago;
 using Klei.HotLava;
 using System.Threading.Tasks;
 
-namespace HotLavaArchipelagoPlugin.Patches
+namespace HotLavaArchipelagoPlugin.Patches.Game
 {
     [HarmonyPatch(typeof(LevelSingleton))]
     internal class LevelSingletonPatches

@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using Klei.HotLava.Rewards;
 
-namespace HotLavaArchipelagoPlugin.Patches
+namespace HotLavaArchipelagoPlugin.Patches.UI
 {
     [HarmonyPatch(typeof(GiftDropVisualization))]
     internal class GiftDropVisualizationPatches

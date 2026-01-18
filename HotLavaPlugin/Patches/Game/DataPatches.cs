@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using Klei.HotLava.Game;
 
-namespace HotLavaArchipelagoPlugin.Patches
+namespace HotLavaArchipelagoPlugin.Patches.Game
 {
     [HarmonyPatch(typeof(Data))]
     internal class DataPatches

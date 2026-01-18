@@ -12,7 +12,7 @@ using System;
 using System.Reflection;
 using UnityEngine;
 
-namespace HotLavaArchipelagoPlugin.Patches
+namespace HotLavaArchipelagoPlugin.Patches.UI
 {
     [HarmonyPatch(typeof(AwardsScreen))]
     internal class AwardsScreenPatches

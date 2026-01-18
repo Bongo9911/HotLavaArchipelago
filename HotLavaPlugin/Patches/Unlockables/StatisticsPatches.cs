@@ -5,7 +5,7 @@ using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
 using Klei.HotLava.Unlockables;
 
-namespace HotLavaArchipelagoPlugin.Patches
+namespace HotLavaArchipelagoPlugin.Patches.Unlockables
 {
     [HarmonyPatch(typeof(Statistics))]
     internal class StatisticsPatches

@@ -5,7 +5,7 @@ using Klei.HotLava;
 using Klei.HotLava.Character;
 using Klei.HotLava.Game;
 
-namespace HotLavaArchipelagoPlugin.Patches
+namespace HotLavaArchipelagoPlugin.Patches.Game
 {
     [HarmonyPatch(typeof(HotLavaGameContainer))]
     internal class HotLavaGameContainerPatches

@@ -6,7 +6,7 @@ using Klei.HotLava.UI;
 using System.Linq;
 using System.Reflection;
 
-namespace HotLavaArchipelagoPlugin.Patches
+namespace HotLavaArchipelagoPlugin.Patches.UI
 {
     [HarmonyPatch(typeof(WorldInfoLevelSelect))]
     internal class WorldInfoLevelSelectPatches
