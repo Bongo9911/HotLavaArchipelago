@@ -1,6 +1,6 @@
 ﻿using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
 using HotLavaArchipelagoPlugin.Enums;
-using HotLavaArchipelagoPlugin.Game;
+using HotLavaArchipelagoPlugin.Models.Game;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace HotLavaArchipelagoPlugin.Game
+namespace HotLavaArchipelagoPlugin.Models.Game
 {
     /// <summary>
     /// Information about a world in Hot Lava
@@ -9,6 +9,8 @@ namespace HotLavaArchipelagoPlugin.Game
     {
         [JsonIgnore]
         public static World Default => new World(string.Empty, string.Empty, string.Empty, []);
+
+        private ForceField[] _forceFields = [];
 
         /// <summary>
         /// The ID of the unlock for the world
@@ -31,7 +33,18 @@ namespace HotLavaArchipelagoPlugin.Game
         /// <summary>
         /// The force fields within the world
         /// </summary>
-        public ForceField[] ForceFields { get; set; } = [];
+        public ForceField[] ForceFields
+        {
+            get { return _forceFields; }
+            set
+            {
+                foreach (ForceField forceField in value)
+                {
+                    forceField.World = this;
+                }
+                _forceFields = value;
+            }
+        }
 
         public World(string unlockableId, string internalName, string name, Course[] courses)
         {

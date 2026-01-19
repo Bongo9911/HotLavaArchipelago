@@ -1,6 +1,8 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
+using HotLavaArchipelagoPlugin.Models.Game;
+using Newtonsoft.Json;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -21,6 +23,6 @@ public class Plugin : BaseUnityPlugin
 
         Logger.LogInfo($"Harmony patches applied!");
 
-        //Logger.LogInfo(JsonConvert.SerializeObject(Worlds.AllWorlds));
+        Logger.LogInfo(JsonConvert.SerializeObject(Worlds.AllWorlds));
     }
 }

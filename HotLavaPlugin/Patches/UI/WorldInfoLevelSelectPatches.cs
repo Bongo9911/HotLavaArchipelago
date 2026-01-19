@@ -21,12 +21,12 @@ namespace HotLavaArchipelagoPlugin.Patches.UI
             Plugin.Logger.LogInfo("Level Name: " + levelName);
 
             //TODO: placeholder for testing
-            if (levelName == "school")
-            {
-                locked = WorldInfoLevelSelect.LockState.Unlocked;
-                info_text = string.Empty;
-                return;
-            }
+            //if (levelName == "school")
+            //{
+            //    locked = WorldInfoLevelSelect.LockState.Unlocked;
+            //    info_text = string.Empty;
+            //    return;
+            //}
 
             if (Multiworld.ArchipelagoSession != null)
             {

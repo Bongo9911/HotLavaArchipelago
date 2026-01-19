@@ -1,7 +1,7 @@
 ﻿using HotLavaArchipelagoPlugin.Enums;
 using Newtonsoft.Json;
 
-namespace HotLavaArchipelagoPlugin.Game
+namespace HotLavaArchipelagoPlugin.Models.Game
 {
     /// <summary>
     /// A course contained within a world

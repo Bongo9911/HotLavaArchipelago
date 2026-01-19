@@ -8,12 +8,12 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
     internal class ForceFieldItem : Item
     {
         public string InternalWorldName { get; }
-        public string ObjectName { get; }
+        public Vector3 Position { get; }
 
-        public ForceFieldItem(long id, string name, string internalWorldName, string objectName) : base(id, name)
+        public ForceFieldItem(long id, string name, string internalWorldName, Vector3 position) : base(id, name)
         {
             InternalWorldName = internalWorldName;
-            ObjectName = objectName;
+            Position = position;
         }
 
         public override void GrantItem()
@@ -25,17 +25,16 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
 
             GameModeCompletedGate[] forceFields = Object.FindObjectsByType<GameModeCompletedGate>(FindObjectsSortMode.InstanceID);
 
-            GameModeCompletedGate? forceField = forceFields.FirstOrDefault(f => f.name == ObjectName);
+            GameModeCompletedGate? forceField = forceFields.FirstOrDefault(f => f.transform.position == Position);
 
             if (forceField != null)
             {
-                Plugin.Logger.LogInfo("Deactivating force field: " + ObjectName);
                 //TODO: only play this if not already played
                 forceField.PlayDeactivationAnimation();
             }
             else
             {
-                Plugin.Logger.LogInfo("Could not find force field: " + ObjectName);
+                Plugin.Logger.LogInfo("Could not find force field: " + Position.x + ", " + Position.y + ", " + Position.z);
                 Plugin.Logger.LogInfo("Found force fields: ");
 
                 foreach (GameModeCompletedGate gameModeCompletedGate in forceFields)

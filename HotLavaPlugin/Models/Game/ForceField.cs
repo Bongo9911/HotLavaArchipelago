@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
+using UnityEngine;
 
-namespace HotLavaArchipelagoPlugin.Game
+namespace HotLavaArchipelagoPlugin.Models.Game
 {
     /// <summary>
     /// A force field within a world preventing progression
@@ -10,14 +11,14 @@ namespace HotLavaArchipelagoPlugin.Game
         [JsonIgnore]
         public World World = World.Default;
 
-        [JsonIgnore]
-        public string ObjectName { get; }
         public string Name { get; }
+        [JsonIgnore]
+        public Vector3 Position { get; }
 
-        public ForceField(string objectName, string name)
+        public ForceField(string name, Vector3 position)
         {
-            ObjectName = objectName;
             Name = name;
+            Position = position;
         }
     }
 }

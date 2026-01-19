@@ -1,7 +1,7 @@
 ﻿using HotLavaArchipelagoPlugin.Enums;
 using Newtonsoft.Json;
 
-namespace HotLavaArchipelagoPlugin.Game
+namespace HotLavaArchipelagoPlugin.Models.Game
 {
     /// <summary>
     /// A star unlockable by completing a challenge in a course

@@ -1,7 +1,8 @@
 ﻿using HotLavaArchipelagoPlugin.Enums;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace HotLavaArchipelagoPlugin.Game
+namespace HotLavaArchipelagoPlugin.Models.Game
 {
     internal static class Worlds
     {
@@ -88,11 +89,11 @@ namespace HotLavaArchipelagoPlugin.Game
         ])
         {
             ForceFields = [
-                new ForceField("gamemode_completed_force_field", "Gym/Office Hallway"),
-                new ForceField("gamemode_completed_force_field (1)", "Office Hallway/Janitor's Closet"),
-                new ForceField("gamemode_completed_force_field (2)", "Office Hallway/Back Hallway"),
-                new ForceField("gamemode_completed_force_field (3)", "Computer Lab Hallway/Back Hallway"),
-                new ForceField("gamemode_completed_force_field (4)", "Back Hallway/Side Entrance"),
+                new ForceField("Gym/Office Hallway", new Vector3(33.752f, 1.76f, 1.6f)),
+                new ForceField("Office Hallway/Janitor's Closet", new Vector3(24.622f, 1.758f, 25.966f)),
+                new ForceField("Office Hallway/Back Hallway", new Vector3(18.55f, 1.86f, 29.089f)),
+                new ForceField("Computer Lab Hallway/Back Hallway", new Vector3(0.853f, 1.633f, 25.97f)),
+                new ForceField("Back Hallway/Side Entrance", new Vector3(-1.35f, 1.86f, 29.089f)),
             ]
         };
 
@@ -175,14 +176,110 @@ namespace HotLavaArchipelagoPlugin.Game
         ])
         {
             ForceFields = [
-                new ForceField("gamemode_completed_force_field", "Spawn/Basketball Courts"),
-                new ForceField("gamemode_completed_force_field (1)", "Basketball Courts/Sports Day Side"),
+                new ForceField("Spawn/Basketball Courts", new Vector3(17.603f, 2.501f, 14.035f)),
+                new ForceField("Basketball Courts/Sports Day Side", new Vector3(17.4f, 2.5f, -11.5f)),
+            ]
+        };
+
+        public static World School => new World("212f728535833224287d420c81f43ef1", "school", "School", [
+            new Course("ABCs and 123s", [
+                new Star("57e0344bd3abfb4449346d182cd8e901", "Complete the course", StarType.CourseComplete),
+                new Star("2ee56bdf1e09d1a4eb0170081b60b883", "Complete in under 12:00", StarType.MinTime),
+                new Star("b2311faf93b83d0428c2a97d1ee72c6b", "Complete in under 05:00", StarType.MinTime),
+                new Star("a14a4456df2c527479a4889c2555ae0a", "No Deaths", StarType.NoDeaths),
+                new Star("9f6ad9759e59fc14cbffdd76792c9796", "Grab the golden pin", StarType.GoldenPin),
+                new Star("d15988c45557cd641b5c1fed6d28b93c", "Find the hidden G.A.T. comic", StarType.Comic),
+                new Star("21c2d3bc6b1078546a556f6065b9944f", "Buddy Mode", StarType.Buddy),
+            ]),
+            new Course("Middle School Mischief", [
+                new Star("73c90f4f92fb86e4d8643e0efe67f386", "Complete the course", StarType.CourseComplete),
+                new Star("f495576fc3c4f654d97c874f8c48235f", "Complete in under 11:00", StarType.MinTime),
+                new Star("bf0d228482a8f564d80bc8fc3919834e", "Complete in under 03:00", StarType.MinTime),
+                new Star("bcc4ecc8b68979143924c78e147e54cb", "No Deaths", StarType.NoDeaths),
+                new Star("de32cab8a4473d045a1095a17f779697", "Grab the golden pin", StarType.GoldenPin),
+                new Star("d419edaf69289854f95c5c075c934b8c", "Find the hidden G.A.T. comic", StarType.Comic),
+                new Star("b2f7d84f93346b84880bf32ccb684c5a", "Buddy Mode", StarType.Buddy),
+            ]),
+            new Course("Repeat the Grade", [
+                new Star("72a71e5e6cb185843940831aff9f05d9", "Complete the course", StarType.CourseComplete),
+                new Star("12bc63b0a54486449b09fa0883f5937a", "Complete in under 10:00", StarType.MinTime),
+                new Star("ab81decce36f68b4db6801c220184dad", "Complete in under 03:30", StarType.MinTime),
+                new Star("77e419b13b4e62d4f857c36a8a9622b7", "No Deaths", StarType.NoDeaths),
+                new Star("f0271c912e6562745aa87f64120386ca", "Grab the golden pin", StarType.GoldenPin),
+                new Star("c4c3c7f707f83a74a91fd35a3c996200", "Find the hidden G.A.T. comic", StarType.Comic),
+                new Star("893408fe1ea036b4db838b1f48e25271", "Buddy Mode", StarType.Buddy),
+            ]),
+            new Course("Senior Trip", [
+                new Star("972ec486a5a1b8d4c9d5d5c6894ff904", "Complete the course", StarType.CourseComplete),
+                new Star("28b6b575cd513074fb9b9408bf3b46d9", "Complete in under 08:00", StarType.MinTime),
+                new Star("ee745e4fd95cc00468fa3ce854a39245", "Complete in under 03:00", StarType.MinTime),
+                new Star("18afc8a3a23bee045a7e502e8ee50216", "No Deaths", StarType.NoDeaths),
+                new Star("0fc1239839daab54686b01a5b36332c4", "Grab the golden pin", StarType.GoldenPin),
+                new Star("b27ebe301bf36cf46b6a42735638d6fa", "Find the hidden G.A.T. comic", StarType.Comic),
+                new Star("1620c9eae36334a4783950bdacc65a5d", "Buddy Mode", StarType.Buddy),
+            ]),
+            new Course("Freshman Frenzy", [
+                new Star("180ece11a7fb5c841bcbb633544e131f", "Complete the course", StarType.CourseComplete),
+                new Star("6b267b4581572464d8340e34babd9492", "Complete in under 10:00", StarType.MinTime),
+                new Star("a1eb55827bd43be4bbb57ddd7845ee9f", "Complete in under 03:30", StarType.MinTime),
+                new Star("c0e9b9f96d82eb84f8c579a1418440d4", "No Deaths", StarType.NoDeaths),
+                new Star("a003111804c160e4a96cbad1914e793e", "Grab the golden pin", StarType.GoldenPin),
+                new Star("3706423d30537ba4191a10e58d3b1611", "Find the hidden G.A.T. comic", StarType.Comic),
+                new Star("2fa7368db5bfb58489ec7e1a2adffa31", "Buddy Mode", StarType.Buddy),
+            ]),
+            new Course("Chase Your Sister", [
+                new Star("4d0edbf502e968b4a8a672e0a7355c81", "Complete the course", StarType.CourseComplete),
+                new Star("93120cacc4fb33b4a813d188d5696fd5", "Complete in under 02:00", StarType.MinTime),
+                new Star("c563a09d63593a54092506d5aca87747", "Complete in under 00:50", StarType.MinTime),
+                new Star("a8ff9a42e05c9c0448b37c1b8eb03412", "Tag your sister", StarType.Challenge),
+                new Star("b7a195d971b1d7848bb37ca8fcc68112", "Grab the golden pin", StarType.GoldenPin),
+                new Star("29f436273460d574fbdfa1d797f29d13", "Find the hidden G.A.T. comic", StarType.Comic),
+                new Star("30fdf0d70ac2f11469ea3a313dd76c2c", "Buddy Mode", StarType.Buddy),
+            ]),
+            new Course("Pogo Trial 1", CourseType.Pogo, [
+                new Star("e641257639cc2354aa58580dae083b03", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
+            ]),
+            new Course("Pogo Trial 2", CourseType.Pogo, [
+                new Star("e09457a7ecb51044fb72744ce6699e25", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
+            ]),
+            new Course("Pogo Trial 3", CourseType.Pogo, [
+                new Star("a9c4d26b69466bd45886f8825aff4054", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
+            ]),
+            new Course("Tiny Toy Trial", CourseType.TinyToy, [
+                new Star("ef5401ba94301e74fa8f32d8af2f429d", "Get to the finish line", StarType.TrialComplete),
+            ]),
+            new Course("Jetpack Trial", CourseType.Jetpack, [
+                new Star("b635ffc7a94e4eb4787160b9dc2b77fe", "Find all the checkpoints using the Jetpack", StarType.TrialComplete),
+            ]),
+            new Course("Chase the Grade", CourseType.Chase, [
+                new Star("bc1ad6587b18207469969deace0ac6c5", "Complete the course", StarType.TrialComplete),
+            ]),
+            new Course("All Course Marathon", CourseType.AllCourseMarathon, [
+                new Star("4aa7293d5e6db8d409a3655cfe6efefa", "Complete the course", StarType.TrialComplete),
+            ]),
+        ])
+        {
+            ForceFields = [
+                new ForceField("Atrium/Cafeteria", new Vector3(5.079f, 2.141f, 16.822f)),
+                new ForceField("Gym Hallway/Computer Lab", new Vector3(32.16f, 2.168f, -24.77f)),
+                new ForceField("Social Studies Hallway/Art Hallway", new Vector3(19f, 2.85f, -12.65f)),
+                new ForceField("Teacher's Lounge Hallway/Art Hallway", new Vector3(-23.64f, 2.85f, -12.65f)),
+                new ForceField("Social Studies Class Left", new Vector3(22.022f, 2.1f, 1.9f)),
+                new ForceField("English Hallway/Teacher's Lounge Hallway", new Vector3(-23.745f, 3.46f, 1.31f)),
+                new ForceField("Science Lab/Art Closet", new Vector3(4.046f, 2.177f, -24.828f)),
+                new ForceField("Art Hallway/Art Class", new Vector3(-10.526f, 2.704f, -18.816f)),
+                new ForceField("Gym Hallway/Science Lab", new Vector3(15.927f, 2.177f, -29.253f)),
+                new ForceField("Atrium/Social Studies Hallway", new Vector3(15.945f, 2.146f, 6.217f)),
+                new ForceField("Art Closet/Art Class", new Vector3(-0.077f, 2.687f, -28.871f)),
+                new ForceField("Social Studies Class Right", new Vector3(22.022f, 2.1f, -10.116f)),
+                new ForceField("Teacher's Lounge/Courtyard", new Vector3(-8.333f, 3.724f, -6.338f)),
             ]
         };
 
         public static IEnumerable<World> AllWorlds => [
             GymClass,
-            Playground
+            Playground,
+            School
         ];
     }
 }

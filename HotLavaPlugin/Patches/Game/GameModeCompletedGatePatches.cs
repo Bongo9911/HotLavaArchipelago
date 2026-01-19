@@ -29,12 +29,24 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
 
             LevelMetaData? currentLevel = LevelHelper.GetCurrentLevelMetaData();
 
+            Plugin.Logger.LogInfo("[" + barrierID + "] World: " + currentLevel?.name.Replace("_meta_data", ""));
+            Plugin.Logger.LogInfo("[" + barrierID + "] Name: " + __instance.name);
+            Plugin.Logger.LogInfo("[" + barrierID + "] Position: " + __instance.transform.position.x + ", " + __instance.transform.position.y + ", " + __instance.transform.position.z);
+
             foreach (GameModeContainer gameModeContainer in __instance.m_RequiredGameModes)
             {
-                Plugin.Logger.LogInfo("[" + barrierID + "] World: " + currentLevel?.name.Replace("_meta_data", ""));
                 Plugin.Logger.LogInfo("[" + barrierID + "] Level: " + currentLevel?.GetTranslatedName(gameModeContainer.m_GameMode));
-                Plugin.Logger.LogInfo("[" + barrierID + "] Name: " + __instance.name);
-                Plugin.Logger.LogInfo("[" + barrierID + "] Name: " + __instance.gameObject.name);
+            }
+
+
+            foreach (ForceFieldItem forceField in Items.AllItems.Values
+                .Where(m => m is ForceFieldItem)
+                .Select(m => (ForceFieldItem)m)
+                .Where(m => m.InternalWorldName == currentLevel?.GetWorldName()))
+            {
+                Plugin.Logger.LogInfo("[" + barrierID + "] Diff: " + (forceField.Position.x - __instance.transform.position.x) + ", "
+                    + (forceField.Position.y - __instance.transform.position.y) + ", "
+                    + (forceField.Position.z - __instance.transform.position.z));
             }
 
 
@@ -43,7 +55,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
                 ForceFieldItem? forceFieldItem = Items.AllItems.Values
                     .Where(m => m is ForceFieldItem)
                     .Select(m => (ForceFieldItem)m)
-                    .FirstOrDefault(m => m.InternalWorldName == currentLevel?.GetWorldName() && m.ObjectName == __instance.gameObject.name);
+                    .FirstOrDefault(m => m.InternalWorldName == currentLevel?.GetWorldName() && m.Position == __instance.transform.position);
 
                 if (forceFieldItem != null)
                 {
