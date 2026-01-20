@@ -3,14 +3,11 @@ using HarmonyLib;
 using HotLavaArchipelagoPlugin.Archipelago;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
-using HotLavaArchipelagoPlugin.Helpers;
-using Klei.HotLava.Inventory;
+using HotLavaArchipelagoPlugin.Factories;
 using Klei.HotLava.Rewards;
 using Klei.HotLava.UI;
-using Klei.HotLava.Unlockables;
 using System;
 using System.Reflection;
-using UnityEngine;
 
 namespace HotLavaArchipelagoPlugin.Patches.UI
 {
@@ -42,36 +39,15 @@ namespace HotLavaArchipelagoPlugin.Patches.UI
                     {
                         Item? item = Items.GetItem(itemInfo.ItemId);
 
-                        if (item != null && item is UnlockableItem unlockableItem)
+                        if (item != null)
                         {
-                            Unlockable? unlockable = UnlockableHelper.GetUnlockableById(unlockableItem.UnlockableId);
-
-                            if (unlockable != null)
-                            {
-                                //TODO: customize this text (Right now for world unlocks it tells you you are getting this for hitting a certain rank)
-
-                                //title = string.Format(STRINGS.UI.INGAME.CHARACTER_CANVAS.AWARD_SCREEN.UNLOCK_TITLE_FMT, unlockable.ToString());
-                                rewardVisualization = unlockable.LoadVisualization();
-                            }
+                            rewardVisualization = item.GetRewardVisualization(__instance.m_GiftDropData);
                         }
                     }
 
                     if (rewardVisualization == null)
                     {
-                        //Top text
-                        //title = "Found Item";
-
-                        ItemMetaDataEntry itemMetaDataEntry = ScriptableObject.CreateInstance<ItemMetaDataEntry>();
-                        itemMetaDataEntry.m_Category = eItemCategory.DECAL;
-
-                        Texture2D texture = new Texture2D(256, 256);
-                        texture.LoadImage(Properties.Resources.ArchipelagoLogo);
-                        itemMetaDataEntry.m_Sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
-
-                        rewardVisualization = __instance.m_GiftDropData.ItemViz[(int)eItemCategory.DECAL].ShallowCopy();
-                        rewardVisualization.Load(itemMetaDataEntry);
-                        //Bottom text
-                        //rewardVisualization.m_ScratchDescription = itemInfo.ItemDisplayName + " for " + itemInfo.Player.Name + " (" + itemInfo.LocationGame + ")";
+                        rewardVisualization = RewardVisualizationFactory.GetArchipelagoReward(__instance.m_GiftDropData);
                     }
 
                     rewardVisualization.m_ScratchDescription = itemInfo.ItemDisplayName + " for " + itemInfo.Player.Name + " (" + itemInfo.LocationGame + ")";

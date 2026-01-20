@@ -6,17 +6,17 @@ namespace HotLavaArchipelagoPlugin.Models.Game
     /// <summary>
     /// A star unlockable by completing a challenge in a course
     /// </summary>
-    internal class Star
+    internal class StarInfo
     {
         [JsonIgnore]
-        public Course Course { get; set; } = Course.Default;
+        public CourseInfo Course { get; set; } = CourseInfo.Default;
 
         [JsonIgnore]
         public string UnlockableId { get; }
         public string Name { get; }
         public StarType StarType { get; }
 
-        public Star(string unlockableId, string name, StarType starType = StarType.Generic)
+        public StarInfo(string unlockableId, string name, StarType starType = StarType.Generic)
         {
             UnlockableId = unlockableId;
             Name = name;

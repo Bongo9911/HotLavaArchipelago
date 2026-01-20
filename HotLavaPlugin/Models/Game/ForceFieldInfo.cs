@@ -6,16 +6,16 @@ namespace HotLavaArchipelagoPlugin.Models.Game
     /// <summary>
     /// A force field within a world preventing progression
     /// </summary>
-    internal class ForceField
+    internal class ForceFieldInfo
     {
         [JsonIgnore]
-        public World World = World.Default;
+        public WorldInfo World = WorldInfo.Default;
 
         public string Name { get; }
         [JsonIgnore]
         public Vector3 Position { get; }
 
-        public ForceField(string name, Vector3 position)
+        public ForceFieldInfo(string name, Vector3 position)
         {
             Name = name;
             Position = position;

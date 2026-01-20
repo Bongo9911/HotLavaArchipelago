@@ -1,4 +1,6 @@
-﻿namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
+﻿using Klei.HotLava.Rewards;
+
+namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
 {
     /// <summary>
     /// An item that can be granted by Archipelago
@@ -24,5 +26,12 @@
         /// Grants the item to the player
         /// </summary>
         public abstract void GrantItem();
+
+        /// <summary>
+        /// Gets the reward visualization to display in the awards screen
+        /// </summary>
+        /// <param name="giftDropVisualization">The gift drop visualization base</param>
+        /// <returns>The reward visualization</returns>
+        public abstract RewardVisualization GetRewardVisualization(GiftDropVisualization giftDropVisualization);
     }
 }

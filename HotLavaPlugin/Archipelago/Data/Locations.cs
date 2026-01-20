@@ -28,16 +28,16 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
             Dictionary<long, Location> locations = new Dictionary<long, Location>();
 
             long worldIdOffset = 100;
-            foreach (World world in Worlds.AllWorlds)
+            foreach (WorldInfo world in Worlds.AllWorlds)
             {
                 long courseIdOffset = 0;
-                foreach (Course course in world.Courses)
+                foreach (CourseInfo course in world.Courses)
                 {
                     for (long i = 0; i < course.Stars.Count(); ++i)
                     {
-                        Star star = course.Stars[i];
+                        StarInfo star = course.Stars[i];
                         long locationId = worldIdOffset + courseIdOffset + i;
-                        locations.Add(locationId, new StarLocation(locationId, star.UnlockableId, star.ToString(), star.StarType));
+                        locations.Add(locationId, new StarLocation(locationId, star));
                     }
 
                     if (course.CourseType == CourseType.Standard)

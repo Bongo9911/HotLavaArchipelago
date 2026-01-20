@@ -1,5 +1,8 @@
-﻿using HotLavaArchipelagoPlugin.Helpers;
+﻿using HotLavaArchipelagoPlugin.Factories;
+using HotLavaArchipelagoPlugin.Helpers;
+using HotLavaArchipelagoPlugin.Models.Game;
 using Klei.HotLava.Gameplay;
+using Klei.HotLava.Rewards;
 using System.Linq;
 using UnityEngine;
 
@@ -10,12 +13,14 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
         public string InternalWorldName { get; }
         public Vector3 Position { get; }
 
-        public ForceFieldItem(long id, string name, string internalWorldName, Vector3 position) : base(id, name)
+        public ForceFieldItem(long id, ForceFieldInfo forceField)
+            : base(id, forceField.World.Name + " - Deactivate Force Field - " + forceField.Name)
         {
-            InternalWorldName = internalWorldName;
-            Position = position;
+            InternalWorldName = forceField.World.InternalName;
+            Position = forceField.Position;
         }
 
+        /// <inheritdoc/>
         public override void GrantItem()
         {
             string? currentWorld = LevelHelper.GetCurrentWorldName();
@@ -42,6 +47,12 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
                     Plugin.Logger.LogInfo(gameModeCompletedGate.name);
                 }
             }
+        }
+
+        /// <inheritdoc/>
+        public override RewardVisualization GetRewardVisualization(GiftDropVisualization giftDropVisualization)
+        {
+            return RewardVisualizationFactory.FromImage(giftDropVisualization, Properties.Resources.ForceField);
         }
     }
 }

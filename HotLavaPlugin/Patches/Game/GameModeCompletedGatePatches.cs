@@ -38,23 +38,9 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
                 Plugin.Logger.LogInfo("[" + barrierID + "] Level: " + currentLevel?.GetTranslatedName(gameModeContainer.m_GameMode));
             }
 
-
-            foreach (ForceFieldItem forceField in Items.AllItems.Values
-                .Where(m => m is ForceFieldItem)
-                .Select(m => (ForceFieldItem)m)
-                .Where(m => m.InternalWorldName == currentLevel?.GetWorldName()))
-            {
-                Plugin.Logger.LogInfo("[" + barrierID + "] Diff: " + (forceField.Position.x - __instance.transform.position.x) + ", "
-                    + (forceField.Position.y - __instance.transform.position.y) + ", "
-                    + (forceField.Position.z - __instance.transform.position.z));
-            }
-
-
             if (Multiworld.ArchipelagoSession != null)
             {
-                ForceFieldItem? forceFieldItem = Items.AllItems.Values
-                    .Where(m => m is ForceFieldItem)
-                    .Select(m => (ForceFieldItem)m)
+                ForceFieldItem? forceFieldItem = Items.GetItems<ForceFieldItem>()
                     .FirstOrDefault(m => m.InternalWorldName == currentLevel?.GetWorldName() && m.Position == __instance.transform.position);
 
                 if (forceFieldItem != null)

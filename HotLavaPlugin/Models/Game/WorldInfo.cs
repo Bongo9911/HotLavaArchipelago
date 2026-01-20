@@ -5,12 +5,12 @@ namespace HotLavaArchipelagoPlugin.Models.Game
     /// <summary>
     /// Information about a world in Hot Lava
     /// </summary>
-    internal class World
+    internal class WorldInfo
     {
         [JsonIgnore]
-        public static World Default => new World(string.Empty, string.Empty, string.Empty, []);
+        public static WorldInfo Default => new WorldInfo(string.Empty, string.Empty, string.Empty, []);
 
-        private ForceField[] _forceFields = [];
+        private ForceFieldInfo[] _forceFields = [];
 
         /// <summary>
         /// The ID of the unlock for the world
@@ -29,16 +29,16 @@ namespace HotLavaArchipelagoPlugin.Models.Game
         /// <summary>
         /// The courses the world contains
         /// </summary>
-        public Course[] Courses { get; }
+        public CourseInfo[] Courses { get; }
         /// <summary>
         /// The force fields within the world
         /// </summary>
-        public ForceField[] ForceFields
+        public ForceFieldInfo[] ForceFields
         {
             get { return _forceFields; }
             set
             {
-                foreach (ForceField forceField in value)
+                foreach (ForceFieldInfo forceField in value)
                 {
                     forceField.World = this;
                 }
@@ -46,14 +46,14 @@ namespace HotLavaArchipelagoPlugin.Models.Game
             }
         }
 
-        public World(string unlockableId, string internalName, string name, Course[] courses)
+        public WorldInfo(string unlockableId, string internalName, string name, CourseInfo[] courses)
         {
             UnlockableId = unlockableId;
             InternalName = internalName;
             Name = name;
             Courses = courses;
 
-            foreach (Course course in Courses)
+            foreach (CourseInfo course in Courses)
             {
                 course.World = this;
             }

@@ -19,264 +19,264 @@ namespace HotLavaArchipelagoPlugin.Models.Game
         /// </summary>
 
         //TODO: This unlock is for the tutorial first load, is there a better one to use?
-        public static World GymClass => new World("786e99dd02dbd5c479922d67978d8ceb", "tutorial", "Gym Class", [
-            new Course("Gym Jam", [
-                new Star("8e72934736772e94eaa50290f7ae341a", "Complete the course", StarType.CourseComplete),
-                new Star("2c2765d96036f40438807ce21e92b229", "Complete in under 08:00", StarType.MinTime),
-                new Star("2b6db09b813d3f54cb1424cbf312ca8d", "Complete in under 02:10", StarType.MinTime),
-                new Star("e7991396471eede4d82f90334472ae2d", "Reach a speed of 9", StarType.Challenge),
-                new Star("2f492a67f28d82c429c93fa9e48bfe3e", "No Deaths", StarType.NoDeaths),
-                new Star("718fac78ec94caa478f347b892adae7a", "Grab the golden pin", StarType.GoldenPin),
-                new Star("7680ae1ce1a1c1f49afc80c4e50df8a1", "Buddy Mode", StarType.Buddy),
+        public static WorldInfo GymClass => new WorldInfo("786e99dd02dbd5c479922d67978d8ceb", "tutorial", "Gym Class", [
+            new CourseInfo("Gym Jam", [
+                new StarInfo("8e72934736772e94eaa50290f7ae341a", "Complete the course", StarType.CourseComplete),
+                new StarInfo("2c2765d96036f40438807ce21e92b229", "Complete in under 08:00", StarType.MinTime),
+                new StarInfo("2b6db09b813d3f54cb1424cbf312ca8d", "Complete in under 02:10", StarType.MinTime),
+                new StarInfo("e7991396471eede4d82f90334472ae2d", "Reach a speed of 9", StarType.Challenge),
+                new StarInfo("2f492a67f28d82c429c93fa9e48bfe3e", "No Deaths", StarType.NoDeaths),
+                new StarInfo("718fac78ec94caa478f347b892adae7a", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("7680ae1ce1a1c1f49afc80c4e50df8a1", "Buddy Mode", StarType.Buddy),
             ]),
-            new Course("Trampoline Trouble", [
-                new Star("52813bff26455a34c92918c183c034fe", "Complete the course", StarType.CourseComplete),
-                new Star("181644ae625180e4eb6989129d83e2fb", "Complete in under 02:30", StarType.MinTime),
-                new Star("3262cf7f58754504dbb378912ea87f07", "Complete in under 01:00", StarType.MinTime),
-                new Star("0059648cfcaf1d3459f89b8b76db5eef", "Don't perform any swings", StarType.Challenge),
-                new Star("5d26c3d1697052c45a3f29ab54d8bb0d", "No Deaths", StarType.NoDeaths),
-                new Star("1a2ff5486c095154c9bf507773051774", "Grab the golden pin", StarType.GoldenPin),
-                new Star("540b0bdc06ed2dd4887deff906e0575f", "Buddy Mode", StarType.Buddy),
+            new CourseInfo("Trampoline Trouble", [
+                new StarInfo("52813bff26455a34c92918c183c034fe", "Complete the course", StarType.CourseComplete),
+                new StarInfo("181644ae625180e4eb6989129d83e2fb", "Complete in under 02:30", StarType.MinTime),
+                new StarInfo("3262cf7f58754504dbb378912ea87f07", "Complete in under 01:00", StarType.MinTime),
+                new StarInfo("0059648cfcaf1d3459f89b8b76db5eef", "Don't perform any swings", StarType.Challenge),
+                new StarInfo("5d26c3d1697052c45a3f29ab54d8bb0d", "No Deaths", StarType.NoDeaths),
+                new StarInfo("1a2ff5486c095154c9bf507773051774", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("540b0bdc06ed2dd4887deff906e0575f", "Buddy Mode", StarType.Buddy),
             ]),
-            new Course("Livin' on the Ledge", [
-                new Star("f2aca0ab34ef5a34fb9b3d9a52087aff", "Complete the course", StarType.CourseComplete),
-                new Star("c689392b82845f948b1a088de15c27ab", "Complete in under 02:00", StarType.MinTime),
-                new Star("513a99591da7c8f49855898242e338e7", "Complete in under 00:55", StarType.MinTime),
-                new Star("dc67bb49b6bdd3f4ba6af59e7f46dc7e", "Spend less than 25 seconds on the ground", StarType.Challenge),
-                new Star("df11767c8cafed7429faabbe863fac18", "No Deaths", StarType.NoDeaths),
-                new Star("3a0ab619a819e514cb7aa6c7ceaa3175", "Grab the golden pin", StarType.GoldenPin),
-                new Star("2b821237eb81a37448942997afb21e9e", "Buddy Mode", StarType.Buddy),
+            new CourseInfo("Livin' on the Ledge", [
+                new StarInfo("f2aca0ab34ef5a34fb9b3d9a52087aff", "Complete the course", StarType.CourseComplete),
+                new StarInfo("c689392b82845f948b1a088de15c27ab", "Complete in under 02:00", StarType.MinTime),
+                new StarInfo("513a99591da7c8f49855898242e338e7", "Complete in under 00:55", StarType.MinTime),
+                new StarInfo("dc67bb49b6bdd3f4ba6af59e7f46dc7e", "Spend less than 25 seconds on the ground", StarType.Challenge),
+                new StarInfo("df11767c8cafed7429faabbe863fac18", "No Deaths", StarType.NoDeaths),
+                new StarInfo("3a0ab619a819e514cb7aa6c7ceaa3175", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("2b821237eb81a37448942997afb21e9e", "Buddy Mode", StarType.Buddy),
             ]),
-            new Course("Surfing Surfaces", [
-                new Star("b772330c648bc5b4dbf560e1636a765b", "Complete the course", StarType.CourseComplete),
-                new Star("720fa9c239a1b224eae03b1dd031c9c5", "Complete in under 01:50", StarType.MinTime),
-                new Star("4218afbc7f4895141a4ebd26d61272d3", "Complete in under 00:50", StarType.MinTime),
-                new Star("a6179cec5a395964a807d262ec059a9e", "Reach a speed of 10.5", StarType.Challenge),
-                new Star("5bd4d45837fdac649965d0e2b89e63d7", "No Deaths", StarType.NoDeaths),
-                new Star("7ed7e2810fd00a14aaea4f267e33400e", "Grab the golden pin", StarType.GoldenPin),
-                new Star("d2a264a37b85ab045a885dc98fa2ad56", "Buddy Mode", StarType.Buddy),
+            new CourseInfo("Surfing Surfaces", [
+                new StarInfo("b772330c648bc5b4dbf560e1636a765b", "Complete the course", StarType.CourseComplete),
+                new StarInfo("720fa9c239a1b224eae03b1dd031c9c5", "Complete in under 01:50", StarType.MinTime),
+                new StarInfo("4218afbc7f4895141a4ebd26d61272d3", "Complete in under 00:50", StarType.MinTime),
+                new StarInfo("a6179cec5a395964a807d262ec059a9e", "Reach a speed of 10.5", StarType.Challenge),
+                new StarInfo("5bd4d45837fdac649965d0e2b89e63d7", "No Deaths", StarType.NoDeaths),
+                new StarInfo("7ed7e2810fd00a14aaea4f267e33400e", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("d2a264a37b85ab045a885dc98fa2ad56", "Buddy Mode", StarType.Buddy),
             ]),
-            new Course("Pole Vault", [
-                new Star("b854fd83bb9c6b2438d05cfdaba66a91", "Complete the course", StarType.CourseComplete),
-                new Star("3bb1fbe4b84c03a4086c6ac366f2ba27", "Complete in under 02:30", StarType.MinTime),
-                new Star("f89d1fb8ad92a634d8703d0b8bb1c976", "Complete in under 01:10", StarType.MinTime),
-                new Star("6bc239d7f01e9ee40a4ce3687f205482", "Spend less than 30 seconds on the ground", StarType.Challenge),
-                new Star("f8a55461338a712468a59dcd64888350", "No Deaths", StarType.NoDeaths),
-                new Star("5101c9e9015f4204bb42649a58127217", "Grab the golden pin", StarType.GoldenPin),
-                new Star("b6fb416d4c5c4984db326bab8e23079a", "Buddy Mode", StarType.Buddy),
+            new CourseInfo("Pole Vault", [
+                new StarInfo("b854fd83bb9c6b2438d05cfdaba66a91", "Complete the course", StarType.CourseComplete),
+                new StarInfo("3bb1fbe4b84c03a4086c6ac366f2ba27", "Complete in under 02:30", StarType.MinTime),
+                new StarInfo("f89d1fb8ad92a634d8703d0b8bb1c976", "Complete in under 01:10", StarType.MinTime),
+                new StarInfo("6bc239d7f01e9ee40a4ce3687f205482", "Spend less than 30 seconds on the ground", StarType.Challenge),
+                new StarInfo("f8a55461338a712468a59dcd64888350", "No Deaths", StarType.NoDeaths),
+                new StarInfo("5101c9e9015f4204bb42649a58127217", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("b6fb416d4c5c4984db326bab8e23079a", "Buddy Mode", StarType.Buddy),
             ]),
-            new Course("Chase Your Sister", [
-                new Star("39d3e311aa4b8dc4e92da8ec2fc093e1", "Complete the course", StarType.CourseComplete),
-                new Star("46a134cc36e348d4eb3416dc4f9df9de", "Complete in under 01:10", StarType.MinTime),
-                new Star("f6a106bb664df5a4089b4fa5101f0152", "Complete in under 00:45", StarType.MinTime),
-                new Star("34f041456579a904a98c746ea6e6bb2e", "Don't perform any swings", StarType.Challenge),
-                new Star("34a0bf50ab8394f46a9a94542fbfc553", "Tag your sister", StarType.Challenge),
-                new Star("a45613d4c2daadb4aa581548048d2c7a", "Grab the golden pin", StarType.GoldenPin),
-                new Star("078d212bcd4e55a4f9fe32de2cf0ad2b", "Buddy Mode", StarType.Buddy), //TODO: should this be treated as a separate course/trial?
+            new CourseInfo("Chase Your Sister", [
+                new StarInfo("39d3e311aa4b8dc4e92da8ec2fc093e1", "Complete the course", StarType.CourseComplete),
+                new StarInfo("46a134cc36e348d4eb3416dc4f9df9de", "Complete in under 01:10", StarType.MinTime),
+                new StarInfo("f6a106bb664df5a4089b4fa5101f0152", "Complete in under 00:45", StarType.MinTime),
+                new StarInfo("34f041456579a904a98c746ea6e6bb2e", "Don't perform any swings", StarType.Challenge),
+                new StarInfo("34a0bf50ab8394f46a9a94542fbfc553", "Tag your sister", StarType.Challenge),
+                new StarInfo("a45613d4c2daadb4aa581548048d2c7a", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("078d212bcd4e55a4f9fe32de2cf0ad2b", "Buddy Mode", StarType.Buddy), //TODO: should this be treated as a separate course/trial?
             ]),
-            new Course("Pogo Trial", CourseType.Pogo, [
-                new Star("5069ece9ed4a8ed479d1743620a34023", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
+            new CourseInfo("Pogo Trial", CourseType.Pogo, [
+                new StarInfo("5069ece9ed4a8ed479d1743620a34023", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
             ]),
-            new Course("Tiny Toy Trial", CourseType.TinyToy, [
-                new Star("98310f580476ff04384f6abd4357370e", "Get to the finish line", StarType.TrialComplete),
+            new CourseInfo("Tiny Toy Trial", CourseType.TinyToy, [
+                new StarInfo("98310f580476ff04384f6abd4357370e", "Get to the finish line", StarType.TrialComplete),
             ]),
-            new Course("Jetpack Trial", CourseType.Jetpack, [
-                new Star("62137bb4c16995d4aaf2f385225156e8", "Find all the checkpoints using the Jetpack", StarType.TrialComplete),
+            new CourseInfo("Jetpack Trial", CourseType.Jetpack, [
+                new StarInfo("62137bb4c16995d4aaf2f385225156e8", "Find all the checkpoints using the Jetpack", StarType.TrialComplete),
             ]),
-            new Course("All Course Marathon", CourseType.AllCourseMarathon, [
-                new Star("e9ee84430ecf11740beb41326451d414", "Complete the course", StarType.TrialComplete),
-            ]),
-        ])
-        {
-            ForceFields = [
-                new ForceField("Gym/Office Hallway", new Vector3(33.752f, 1.76f, 1.6f)),
-                new ForceField("Office Hallway/Janitor's Closet", new Vector3(24.622f, 1.758f, 25.966f)),
-                new ForceField("Office Hallway/Back Hallway", new Vector3(18.55f, 1.86f, 29.089f)),
-                new ForceField("Computer Lab Hallway/Back Hallway", new Vector3(0.853f, 1.633f, 25.97f)),
-                new ForceField("Back Hallway/Side Entrance", new Vector3(-1.35f, 1.86f, 29.089f)),
-            ]
-        };
-
-        public static World Playground => new World("83328d77e87a0d34b8cc4aae038bd158", "playground", "Playground", [
-            new Course("Recess", [
-                new Star("60dff4f3d39f9664d8cde41acf5a9465", "Complete the course", StarType.CourseComplete),
-                new Star("e6704c37a77263d4fb352b2ebe0c9dd5", "Complete in under 07:00", StarType.MinTime),
-                new Star("4e708a47372bdfd4c96d9853dd7204ac", "Complete in under 02:10", StarType.MinTime),
-                new Star("724bcc52ae9d6df46a1fe83bc9e5f3b7", "No Deaths", StarType.NoDeaths),
-                new Star("5a0c11e0ebfe8a642acdcb3f224e44c5", "Grab the golden pin", StarType.GoldenPin),
-                new Star("f0804c3773358e54ea3381ab1d9a4fa4", "Find the hidden G.A.T. comic", StarType.Comic),
-                new Star("36f06de3ffe852648bbf28e3f8383a1a", "Buddy Mode", StarType.Buddy),
-            ]),
-            new Course("Big Kids Side", [
-                new Star("1ce626b7d30c7984bafa0241356ca1aa", "Complete the course", StarType.CourseComplete),
-                new Star("d0a1872e506424544a944d02f1273cba", "Complete in under 08:00", StarType.MinTime),
-                new Star("a92ec2a42e5efbf4eaf8b574dd625253", "Complete in under 02:45", StarType.MinTime),
-                new Star("f417c8cd9958fe44a8c8bfb747a14856", "No Deaths", StarType.NoDeaths),
-                new Star("f3605b943b5651b4eb7289ce220d4cef", "Grab the golden pin", StarType.GoldenPin),
-                new Star("985db81c1b97b00498884c81ce9c1001", "Find the hidden G.A.T. comic", StarType.Comic),
-                new Star("fe07e2dc513868a4cad555546bd3ce1c", "Buddy Mode", StarType.Buddy),
-            ]),
-            new Course("Bouncy Castle", [
-                new Star("25da304df7917554c932e0db2ed12bbe", "Complete the course", StarType.CourseComplete),
-                new Star("45851bf0a9623944fad09518b9be8a54", "Complete in under 04:30", StarType.MinTime),
-                new Star("d7a3953016f961c43b8c97b3c538d838", "Complete in under 01:45", StarType.MinTime),
-                new Star("15ba77a1f2ff6ec45a5d8a6ce1a2d7d3", "No Deaths", StarType.NoDeaths),
-                new Star("b13ffe80cf201d54b9f48af60809cbd6", "Grab the golden pin", StarType.GoldenPin),
-                new Star("81d32f5a10c05fe4c88a74abb7db2b84", "Find the hidden G.A.T. comic", StarType.Comic),
-                new Star("623714b5444588f43a7e8d01a84b6525", "Buddy Mode", StarType.Buddy),
-            ]),
-            new Course("Back to Class", [
-                new Star("888924c3b32682b4eba329c0840548d8", "Complete the course", StarType.CourseComplete),
-                new Star("bcceae8fcf65da644b7252e135889074", "Complete in under 06:00", StarType.MinTime),
-                new Star("1a524b89d300c44468b7057596730d82", "Complete in under 01:45", StarType.MinTime),
-                new Star("3377dfa30ba551447b5c15d4f276c2c6", "No Deaths", StarType.NoDeaths),
-                new Star("8c335e082a2eb024aa36d8c2e6cadb48", "Grab the golden pin", StarType.GoldenPin),
-                new Star("69f0cf9071aad05479efee996377ea21", "Find the hidden G.A.T. comic", StarType.Comic),
-                new Star("748605251b94a514f8ec0f85415ffa91", "Buddy Mode", StarType.Buddy),
-            ]),
-            new Course("Sports Day", [
-                new Star("b9de4719a85dd0f48be1ef9df00248f5", "Complete the course", StarType.CourseComplete),
-                new Star("8d1c5b5442d995f428a89236adaa7900", "Complete in under 01:40", StarType.MinTime),
-                new Star("1b1ddc847b094bd4aafe998d05829548", "Complete in under 01:10", StarType.MinTime),
-                new Star("d6d01532f4668284382bdbde28e3b59d", "No Deaths", StarType.NoDeaths),
-                new Star("b3eb8fe6d65356a49a0cf46e288c69f6", "Grab the golden pin", StarType.GoldenPin),
-                new Star("04ffbbd04e97bb441a90e7c7fb0d052e", "Find the hidden G.A.T. comic", StarType.Comic),
-                new Star("c96eefdfbaa06d0459b7eec5221cd510", "Buddy Mode", StarType.Buddy),
-            ]),
-            new Course("Chase the Big Kid", [
-                new Star("edd7311d9d1623e4891f8d4b955d345e", "Complete the course", StarType.CourseComplete),
-                new Star("9a08d0a4fd4585c4fac47e975c79ad0d", "Complete in under 01:15", StarType.MinTime),
-                new Star("a1b0ed2d2c267ae4d8391a364830160f", "Complete in under 00:58", StarType.MinTime),
-                new Star("ce5ef6bbd31e325499fb9cf28fd80d36", "Tag your sister", StarType.Challenge),
-                new Star("e621f981cf18e2242b26195512632798", "Grab the golden pin", StarType.GoldenPin),
-                new Star("732eafb0ad0d6c547921c904d1ee4073", "Find the hidden G.A.T. comic", StarType.Comic),
-                new Star("c96eefdfbaa06d0459b7eec5221cd510", "Buddy Mode", StarType.Buddy),
-            ]),
-            new Course("Pogo Trial 1", CourseType.Pogo, [
-                new Star("1a56d171c35fcf547980a37d8f7f7960", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
-            ]),
-            new Course("Pogo Trial 2", CourseType.Pogo, [
-                new Star("9fc0edaa2793c9c45927c92caf5634b3", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
-            ]),
-            new Course("Tiny Toy Trial 1", CourseType.TinyToy, [
-                new Star("415b0dd0ab657c840a3073f2e952cb6c", "Get to the finish line", StarType.TrialComplete),
-            ]),
-            new Course("Tiny Toy Trial 2", CourseType.TinyToy, [
-                new Star("5896145f43d1a6a4dbce56b1dbf7ca61", "Get to the finish line", StarType.TrialComplete),
-            ]),
-            new Course("Jetpack Trial", CourseType.Jetpack, [
-                new Star("6065e19024fa4cc4d9d9ea20e581a25b", "Find all the checkpoints using the Jetpack", StarType.TrialComplete),
-            ]),
-            new Course("Chase the Grade", CourseType.Chase, [
-                new Star("d5c3b1aaf1343a143a7186eafdcdeaad", "Complete the course", StarType.TrialComplete),
-            ]),
-            new Course("All Course Marathon", CourseType.AllCourseMarathon, [
-                new Star("234d3bf0d0df2af408329011a45dfd1b", "Complete the course", StarType.TrialComplete),
+            new CourseInfo("All Course Marathon", CourseType.AllCourseMarathon, [
+                new StarInfo("e9ee84430ecf11740beb41326451d414", "Complete the course", StarType.TrialComplete),
             ]),
         ])
         {
             ForceFields = [
-                new ForceField("Spawn/Basketball Courts", new Vector3(17.603f, 2.501f, 14.035f)),
-                new ForceField("Basketball Courts/Sports Day Side", new Vector3(17.4f, 2.5f, -11.5f)),
+                new ForceFieldInfo("Gym/Office Hallway", new Vector3(33.752f, 1.76f, 1.6f)),
+                new ForceFieldInfo("Office Hallway/Janitor's Closet", new Vector3(24.622f, 1.758f, 25.966f)),
+                new ForceFieldInfo("Office Hallway/Back Hallway", new Vector3(18.55f, 1.86f, 29.089f)),
+                new ForceFieldInfo("Computer Lab Hallway/Back Hallway", new Vector3(0.853f, 1.633f, 25.97f)),
+                new ForceFieldInfo("Back Hallway/Side Entrance", new Vector3(-1.35f, 1.86f, 29.089f)),
             ]
         };
 
-        public static World School => new World("212f728535833224287d420c81f43ef1", "school", "School", [
-            new Course("ABCs and 123s", [
-                new Star("57e0344bd3abfb4449346d182cd8e901", "Complete the course", StarType.CourseComplete),
-                new Star("2ee56bdf1e09d1a4eb0170081b60b883", "Complete in under 12:00", StarType.MinTime),
-                new Star("b2311faf93b83d0428c2a97d1ee72c6b", "Complete in under 05:00", StarType.MinTime),
-                new Star("a14a4456df2c527479a4889c2555ae0a", "No Deaths", StarType.NoDeaths),
-                new Star("9f6ad9759e59fc14cbffdd76792c9796", "Grab the golden pin", StarType.GoldenPin),
-                new Star("d15988c45557cd641b5c1fed6d28b93c", "Find the hidden G.A.T. comic", StarType.Comic),
-                new Star("21c2d3bc6b1078546a556f6065b9944f", "Buddy Mode", StarType.Buddy),
+        public static WorldInfo Playground => new WorldInfo("83328d77e87a0d34b8cc4aae038bd158", "playground", "Playground", [
+            new CourseInfo("Recess", [
+                new StarInfo("60dff4f3d39f9664d8cde41acf5a9465", "Complete the course", StarType.CourseComplete),
+                new StarInfo("e6704c37a77263d4fb352b2ebe0c9dd5", "Complete in under 07:00", StarType.MinTime),
+                new StarInfo("4e708a47372bdfd4c96d9853dd7204ac", "Complete in under 02:10", StarType.MinTime),
+                new StarInfo("724bcc52ae9d6df46a1fe83bc9e5f3b7", "No Deaths", StarType.NoDeaths),
+                new StarInfo("5a0c11e0ebfe8a642acdcb3f224e44c5", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("f0804c3773358e54ea3381ab1d9a4fa4", "Find the hidden G.A.T. comic", StarType.Comic),
+                new StarInfo("36f06de3ffe852648bbf28e3f8383a1a", "Buddy Mode", StarType.Buddy),
             ]),
-            new Course("Middle School Mischief", [
-                new Star("73c90f4f92fb86e4d8643e0efe67f386", "Complete the course", StarType.CourseComplete),
-                new Star("f495576fc3c4f654d97c874f8c48235f", "Complete in under 11:00", StarType.MinTime),
-                new Star("bf0d228482a8f564d80bc8fc3919834e", "Complete in under 03:00", StarType.MinTime),
-                new Star("bcc4ecc8b68979143924c78e147e54cb", "No Deaths", StarType.NoDeaths),
-                new Star("de32cab8a4473d045a1095a17f779697", "Grab the golden pin", StarType.GoldenPin),
-                new Star("d419edaf69289854f95c5c075c934b8c", "Find the hidden G.A.T. comic", StarType.Comic),
-                new Star("b2f7d84f93346b84880bf32ccb684c5a", "Buddy Mode", StarType.Buddy),
+            new CourseInfo("Big Kids Side", [
+                new StarInfo("1ce626b7d30c7984bafa0241356ca1aa", "Complete the course", StarType.CourseComplete),
+                new StarInfo("d0a1872e506424544a944d02f1273cba", "Complete in under 08:00", StarType.MinTime),
+                new StarInfo("a92ec2a42e5efbf4eaf8b574dd625253", "Complete in under 02:45", StarType.MinTime),
+                new StarInfo("f417c8cd9958fe44a8c8bfb747a14856", "No Deaths", StarType.NoDeaths),
+                new StarInfo("f3605b943b5651b4eb7289ce220d4cef", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("985db81c1b97b00498884c81ce9c1001", "Find the hidden G.A.T. comic", StarType.Comic),
+                new StarInfo("fe07e2dc513868a4cad555546bd3ce1c", "Buddy Mode", StarType.Buddy),
             ]),
-            new Course("Repeat the Grade", [
-                new Star("72a71e5e6cb185843940831aff9f05d9", "Complete the course", StarType.CourseComplete),
-                new Star("12bc63b0a54486449b09fa0883f5937a", "Complete in under 10:00", StarType.MinTime),
-                new Star("ab81decce36f68b4db6801c220184dad", "Complete in under 03:30", StarType.MinTime),
-                new Star("77e419b13b4e62d4f857c36a8a9622b7", "No Deaths", StarType.NoDeaths),
-                new Star("f0271c912e6562745aa87f64120386ca", "Grab the golden pin", StarType.GoldenPin),
-                new Star("c4c3c7f707f83a74a91fd35a3c996200", "Find the hidden G.A.T. comic", StarType.Comic),
-                new Star("893408fe1ea036b4db838b1f48e25271", "Buddy Mode", StarType.Buddy),
+            new CourseInfo("Bouncy Castle", [
+                new StarInfo("25da304df7917554c932e0db2ed12bbe", "Complete the course", StarType.CourseComplete),
+                new StarInfo("45851bf0a9623944fad09518b9be8a54", "Complete in under 04:30", StarType.MinTime),
+                new StarInfo("d7a3953016f961c43b8c97b3c538d838", "Complete in under 01:45", StarType.MinTime),
+                new StarInfo("15ba77a1f2ff6ec45a5d8a6ce1a2d7d3", "No Deaths", StarType.NoDeaths),
+                new StarInfo("b13ffe80cf201d54b9f48af60809cbd6", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("81d32f5a10c05fe4c88a74abb7db2b84", "Find the hidden G.A.T. comic", StarType.Comic),
+                new StarInfo("623714b5444588f43a7e8d01a84b6525", "Buddy Mode", StarType.Buddy),
             ]),
-            new Course("Senior Trip", [
-                new Star("972ec486a5a1b8d4c9d5d5c6894ff904", "Complete the course", StarType.CourseComplete),
-                new Star("28b6b575cd513074fb9b9408bf3b46d9", "Complete in under 08:00", StarType.MinTime),
-                new Star("ee745e4fd95cc00468fa3ce854a39245", "Complete in under 03:00", StarType.MinTime),
-                new Star("18afc8a3a23bee045a7e502e8ee50216", "No Deaths", StarType.NoDeaths),
-                new Star("0fc1239839daab54686b01a5b36332c4", "Grab the golden pin", StarType.GoldenPin),
-                new Star("b27ebe301bf36cf46b6a42735638d6fa", "Find the hidden G.A.T. comic", StarType.Comic),
-                new Star("1620c9eae36334a4783950bdacc65a5d", "Buddy Mode", StarType.Buddy),
+            new CourseInfo("Back to Class", [
+                new StarInfo("888924c3b32682b4eba329c0840548d8", "Complete the course", StarType.CourseComplete),
+                new StarInfo("bcceae8fcf65da644b7252e135889074", "Complete in under 06:00", StarType.MinTime),
+                new StarInfo("1a524b89d300c44468b7057596730d82", "Complete in under 01:45", StarType.MinTime),
+                new StarInfo("3377dfa30ba551447b5c15d4f276c2c6", "No Deaths", StarType.NoDeaths),
+                new StarInfo("8c335e082a2eb024aa36d8c2e6cadb48", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("69f0cf9071aad05479efee996377ea21", "Find the hidden G.A.T. comic", StarType.Comic),
+                new StarInfo("748605251b94a514f8ec0f85415ffa91", "Buddy Mode", StarType.Buddy),
             ]),
-            new Course("Freshman Frenzy", [
-                new Star("180ece11a7fb5c841bcbb633544e131f", "Complete the course", StarType.CourseComplete),
-                new Star("6b267b4581572464d8340e34babd9492", "Complete in under 10:00", StarType.MinTime),
-                new Star("a1eb55827bd43be4bbb57ddd7845ee9f", "Complete in under 03:30", StarType.MinTime),
-                new Star("c0e9b9f96d82eb84f8c579a1418440d4", "No Deaths", StarType.NoDeaths),
-                new Star("a003111804c160e4a96cbad1914e793e", "Grab the golden pin", StarType.GoldenPin),
-                new Star("3706423d30537ba4191a10e58d3b1611", "Find the hidden G.A.T. comic", StarType.Comic),
-                new Star("2fa7368db5bfb58489ec7e1a2adffa31", "Buddy Mode", StarType.Buddy),
+            new CourseInfo("Sports Day", [
+                new StarInfo("b9de4719a85dd0f48be1ef9df00248f5", "Complete the course", StarType.CourseComplete),
+                new StarInfo("8d1c5b5442d995f428a89236adaa7900", "Complete in under 01:40", StarType.MinTime),
+                new StarInfo("1b1ddc847b094bd4aafe998d05829548", "Complete in under 01:10", StarType.MinTime),
+                new StarInfo("d6d01532f4668284382bdbde28e3b59d", "No Deaths", StarType.NoDeaths),
+                new StarInfo("b3eb8fe6d65356a49a0cf46e288c69f6", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("04ffbbd04e97bb441a90e7c7fb0d052e", "Find the hidden G.A.T. comic", StarType.Comic),
+                new StarInfo("c96eefdfbaa06d0459b7eec5221cd510", "Buddy Mode", StarType.Buddy),
             ]),
-            new Course("Chase Your Sister", [
-                new Star("4d0edbf502e968b4a8a672e0a7355c81", "Complete the course", StarType.CourseComplete),
-                new Star("93120cacc4fb33b4a813d188d5696fd5", "Complete in under 02:00", StarType.MinTime),
-                new Star("c563a09d63593a54092506d5aca87747", "Complete in under 00:50", StarType.MinTime),
-                new Star("a8ff9a42e05c9c0448b37c1b8eb03412", "Tag your sister", StarType.Challenge),
-                new Star("b7a195d971b1d7848bb37ca8fcc68112", "Grab the golden pin", StarType.GoldenPin),
-                new Star("29f436273460d574fbdfa1d797f29d13", "Find the hidden G.A.T. comic", StarType.Comic),
-                new Star("30fdf0d70ac2f11469ea3a313dd76c2c", "Buddy Mode", StarType.Buddy),
+            new CourseInfo("Chase the Big Kid", [
+                new StarInfo("edd7311d9d1623e4891f8d4b955d345e", "Complete the course", StarType.CourseComplete),
+                new StarInfo("9a08d0a4fd4585c4fac47e975c79ad0d", "Complete in under 01:15", StarType.MinTime),
+                new StarInfo("a1b0ed2d2c267ae4d8391a364830160f", "Complete in under 00:58", StarType.MinTime),
+                new StarInfo("ce5ef6bbd31e325499fb9cf28fd80d36", "Tag your sister", StarType.Challenge),
+                new StarInfo("e621f981cf18e2242b26195512632798", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("732eafb0ad0d6c547921c904d1ee4073", "Find the hidden G.A.T. comic", StarType.Comic),
+                new StarInfo("c96eefdfbaa06d0459b7eec5221cd510", "Buddy Mode", StarType.Buddy),
             ]),
-            new Course("Pogo Trial 1", CourseType.Pogo, [
-                new Star("e641257639cc2354aa58580dae083b03", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
+            new CourseInfo("Pogo Trial 1", CourseType.Pogo, [
+                new StarInfo("1a56d171c35fcf547980a37d8f7f7960", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
             ]),
-            new Course("Pogo Trial 2", CourseType.Pogo, [
-                new Star("e09457a7ecb51044fb72744ce6699e25", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
+            new CourseInfo("Pogo Trial 2", CourseType.Pogo, [
+                new StarInfo("9fc0edaa2793c9c45927c92caf5634b3", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
             ]),
-            new Course("Pogo Trial 3", CourseType.Pogo, [
-                new Star("a9c4d26b69466bd45886f8825aff4054", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
+            new CourseInfo("Tiny Toy Trial 1", CourseType.TinyToy, [
+                new StarInfo("415b0dd0ab657c840a3073f2e952cb6c", "Get to the finish line", StarType.TrialComplete),
             ]),
-            new Course("Tiny Toy Trial", CourseType.TinyToy, [
-                new Star("ef5401ba94301e74fa8f32d8af2f429d", "Get to the finish line", StarType.TrialComplete),
+            new CourseInfo("Tiny Toy Trial 2", CourseType.TinyToy, [
+                new StarInfo("5896145f43d1a6a4dbce56b1dbf7ca61", "Get to the finish line", StarType.TrialComplete),
             ]),
-            new Course("Jetpack Trial", CourseType.Jetpack, [
-                new Star("b635ffc7a94e4eb4787160b9dc2b77fe", "Find all the checkpoints using the Jetpack", StarType.TrialComplete),
+            new CourseInfo("Jetpack Trial", CourseType.Jetpack, [
+                new StarInfo("6065e19024fa4cc4d9d9ea20e581a25b", "Find all the checkpoints using the Jetpack", StarType.TrialComplete),
             ]),
-            new Course("Chase the Grade", CourseType.Chase, [
-                new Star("bc1ad6587b18207469969deace0ac6c5", "Complete the course", StarType.TrialComplete),
+            new CourseInfo("Chase the Grade", CourseType.Chase, [
+                new StarInfo("d5c3b1aaf1343a143a7186eafdcdeaad", "Complete the course", StarType.TrialComplete),
             ]),
-            new Course("All Course Marathon", CourseType.AllCourseMarathon, [
-                new Star("4aa7293d5e6db8d409a3655cfe6efefa", "Complete the course", StarType.TrialComplete),
+            new CourseInfo("All Course Marathon", CourseType.AllCourseMarathon, [
+                new StarInfo("234d3bf0d0df2af408329011a45dfd1b", "Complete the course", StarType.TrialComplete),
             ]),
         ])
         {
             ForceFields = [
-                new ForceField("Atrium/Cafeteria", new Vector3(5.079f, 2.141f, 16.822f)),
-                new ForceField("Gym Hallway/Computer Lab", new Vector3(32.16f, 2.168f, -24.77f)),
-                new ForceField("Social Studies Hallway/Art Hallway", new Vector3(19f, 2.85f, -12.65f)),
-                new ForceField("Teacher's Lounge Hallway/Art Hallway", new Vector3(-23.64f, 2.85f, -12.65f)),
-                new ForceField("Social Studies Class Left", new Vector3(22.022f, 2.1f, 1.9f)),
-                new ForceField("English Hallway/Teacher's Lounge Hallway", new Vector3(-23.745f, 3.46f, 1.31f)),
-                new ForceField("Science Lab/Art Closet", new Vector3(4.046f, 2.177f, -24.828f)),
-                new ForceField("Art Hallway/Art Class", new Vector3(-10.526f, 2.704f, -18.816f)),
-                new ForceField("Gym Hallway/Science Lab", new Vector3(15.927f, 2.177f, -29.253f)),
-                new ForceField("Atrium/Social Studies Hallway", new Vector3(15.945f, 2.146f, 6.217f)),
-                new ForceField("Art Closet/Art Class", new Vector3(-0.077f, 2.687f, -28.871f)),
-                new ForceField("Social Studies Class Right", new Vector3(22.022f, 2.1f, -10.116f)),
-                new ForceField("Teacher's Lounge/Courtyard", new Vector3(-8.333f, 3.724f, -6.338f)),
+                new ForceFieldInfo("Spawn/Basketball Courts", new Vector3(17.603f, 2.501f, 14.035f)),
+                new ForceFieldInfo("Basketball Courts/Sports Day Side", new Vector3(17.4f, 2.5f, -11.5f)),
             ]
         };
 
-        public static IEnumerable<World> AllWorlds => [
+        public static WorldInfo School => new WorldInfo("212f728535833224287d420c81f43ef1", "school", "School", [
+            new CourseInfo("ABCs and 123s", [
+                new StarInfo("57e0344bd3abfb4449346d182cd8e901", "Complete the course", StarType.CourseComplete),
+                new StarInfo("2ee56bdf1e09d1a4eb0170081b60b883", "Complete in under 12:00", StarType.MinTime),
+                new StarInfo("b2311faf93b83d0428c2a97d1ee72c6b", "Complete in under 05:00", StarType.MinTime),
+                new StarInfo("a14a4456df2c527479a4889c2555ae0a", "No Deaths", StarType.NoDeaths),
+                new StarInfo("9f6ad9759e59fc14cbffdd76792c9796", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("d15988c45557cd641b5c1fed6d28b93c", "Find the hidden G.A.T. comic", StarType.Comic),
+                new StarInfo("21c2d3bc6b1078546a556f6065b9944f", "Buddy Mode", StarType.Buddy),
+            ]),
+            new CourseInfo("Middle School Mischief", [
+                new StarInfo("73c90f4f92fb86e4d8643e0efe67f386", "Complete the course", StarType.CourseComplete),
+                new StarInfo("f495576fc3c4f654d97c874f8c48235f", "Complete in under 11:00", StarType.MinTime),
+                new StarInfo("bf0d228482a8f564d80bc8fc3919834e", "Complete in under 03:00", StarType.MinTime),
+                new StarInfo("bcc4ecc8b68979143924c78e147e54cb", "No Deaths", StarType.NoDeaths),
+                new StarInfo("de32cab8a4473d045a1095a17f779697", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("d419edaf69289854f95c5c075c934b8c", "Find the hidden G.A.T. comic", StarType.Comic),
+                new StarInfo("b2f7d84f93346b84880bf32ccb684c5a", "Buddy Mode", StarType.Buddy),
+            ]),
+            new CourseInfo("Repeat the Grade", [
+                new StarInfo("72a71e5e6cb185843940831aff9f05d9", "Complete the course", StarType.CourseComplete),
+                new StarInfo("12bc63b0a54486449b09fa0883f5937a", "Complete in under 10:00", StarType.MinTime),
+                new StarInfo("ab81decce36f68b4db6801c220184dad", "Complete in under 03:30", StarType.MinTime),
+                new StarInfo("77e419b13b4e62d4f857c36a8a9622b7", "No Deaths", StarType.NoDeaths),
+                new StarInfo("f0271c912e6562745aa87f64120386ca", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("c4c3c7f707f83a74a91fd35a3c996200", "Find the hidden G.A.T. comic", StarType.Comic),
+                new StarInfo("893408fe1ea036b4db838b1f48e25271", "Buddy Mode", StarType.Buddy),
+            ]),
+            new CourseInfo("Senior Trip", [
+                new StarInfo("972ec486a5a1b8d4c9d5d5c6894ff904", "Complete the course", StarType.CourseComplete),
+                new StarInfo("28b6b575cd513074fb9b9408bf3b46d9", "Complete in under 08:00", StarType.MinTime),
+                new StarInfo("ee745e4fd95cc00468fa3ce854a39245", "Complete in under 03:00", StarType.MinTime),
+                new StarInfo("18afc8a3a23bee045a7e502e8ee50216", "No Deaths", StarType.NoDeaths),
+                new StarInfo("0fc1239839daab54686b01a5b36332c4", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("b27ebe301bf36cf46b6a42735638d6fa", "Find the hidden G.A.T. comic", StarType.Comic),
+                new StarInfo("1620c9eae36334a4783950bdacc65a5d", "Buddy Mode", StarType.Buddy),
+            ]),
+            new CourseInfo("Freshman Frenzy", [
+                new StarInfo("180ece11a7fb5c841bcbb633544e131f", "Complete the course", StarType.CourseComplete),
+                new StarInfo("6b267b4581572464d8340e34babd9492", "Complete in under 10:00", StarType.MinTime),
+                new StarInfo("a1eb55827bd43be4bbb57ddd7845ee9f", "Complete in under 03:30", StarType.MinTime),
+                new StarInfo("c0e9b9f96d82eb84f8c579a1418440d4", "No Deaths", StarType.NoDeaths),
+                new StarInfo("a003111804c160e4a96cbad1914e793e", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("3706423d30537ba4191a10e58d3b1611", "Find the hidden G.A.T. comic", StarType.Comic),
+                new StarInfo("2fa7368db5bfb58489ec7e1a2adffa31", "Buddy Mode", StarType.Buddy),
+            ]),
+            new CourseInfo("Chase Your Sister", [
+                new StarInfo("4d0edbf502e968b4a8a672e0a7355c81", "Complete the course", StarType.CourseComplete),
+                new StarInfo("93120cacc4fb33b4a813d188d5696fd5", "Complete in under 02:00", StarType.MinTime),
+                new StarInfo("c563a09d63593a54092506d5aca87747", "Complete in under 00:50", StarType.MinTime),
+                new StarInfo("a8ff9a42e05c9c0448b37c1b8eb03412", "Tag your sister", StarType.Challenge),
+                new StarInfo("b7a195d971b1d7848bb37ca8fcc68112", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo("29f436273460d574fbdfa1d797f29d13", "Find the hidden G.A.T. comic", StarType.Comic),
+                new StarInfo("30fdf0d70ac2f11469ea3a313dd76c2c", "Buddy Mode", StarType.Buddy),
+            ]),
+            new CourseInfo("Pogo Trial 1", CourseType.Pogo, [
+                new StarInfo("e641257639cc2354aa58580dae083b03", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
+            ]),
+            new CourseInfo("Pogo Trial 2", CourseType.Pogo, [
+                new StarInfo("e09457a7ecb51044fb72744ce6699e25", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
+            ]),
+            new CourseInfo("Pogo Trial 3", CourseType.Pogo, [
+                new StarInfo("a9c4d26b69466bd45886f8825aff4054", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
+            ]),
+            new CourseInfo("Tiny Toy Trial", CourseType.TinyToy, [
+                new StarInfo("ef5401ba94301e74fa8f32d8af2f429d", "Get to the finish line", StarType.TrialComplete),
+            ]),
+            new CourseInfo("Jetpack Trial", CourseType.Jetpack, [
+                new StarInfo("b635ffc7a94e4eb4787160b9dc2b77fe", "Find all the checkpoints using the Jetpack", StarType.TrialComplete),
+            ]),
+            new CourseInfo("Chase the Grade", CourseType.Chase, [
+                new StarInfo("bc1ad6587b18207469969deace0ac6c5", "Complete the course", StarType.TrialComplete),
+            ]),
+            new CourseInfo("All Course Marathon", CourseType.AllCourseMarathon, [
+                new StarInfo("4aa7293d5e6db8d409a3655cfe6efefa", "Complete the course", StarType.TrialComplete),
+            ]),
+        ])
+        {
+            ForceFields = [
+                new ForceFieldInfo("Atrium/Cafeteria", new Vector3(5.079f, 2.141f, 16.822f)),
+                new ForceFieldInfo("Gym Hallway/Computer Lab", new Vector3(32.16f, 2.168f, -24.77f)),
+                new ForceFieldInfo("Social Studies Hallway/Art Hallway", new Vector3(19f, 2.85f, -12.65f)),
+                new ForceFieldInfo("Teacher's Lounge Hallway/Art Hallway", new Vector3(-23.64f, 2.85f, -12.65f)),
+                new ForceFieldInfo("Social Studies Class Left", new Vector3(22.022f, 2.1f, 1.9f)),
+                new ForceFieldInfo("English Hallway/Teacher's Lounge Hallway", new Vector3(-23.745f, 3.46f, 1.31f)),
+                new ForceFieldInfo("Science Lab/Art Closet", new Vector3(4.046f, 2.177f, -24.828f)),
+                new ForceFieldInfo("Art Hallway/Art Class", new Vector3(-10.526f, 2.704f, -18.816f)),
+                new ForceFieldInfo("Gym Hallway/Science Lab", new Vector3(15.927f, 2.177f, -29.253f)),
+                new ForceFieldInfo("Atrium/Social Studies Hallway", new Vector3(15.945f, 2.146f, 6.217f)),
+                new ForceFieldInfo("Art Closet/Art Class", new Vector3(-0.077f, 2.687f, -28.871f)),
+                new ForceFieldInfo("Social Studies Class Right", new Vector3(22.022f, 2.1f, -10.116f)),
+                new ForceFieldInfo("Teacher's Lounge/Courtyard", new Vector3(-8.333f, 3.724f, -6.338f)),
+            ]
+        };
+
+        public static IEnumerable<WorldInfo> AllWorlds => [
             GymClass,
             Playground,
             School

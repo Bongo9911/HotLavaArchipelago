@@ -1,14 +1,19 @@
 ﻿using HotLavaArchipelagoPlugin.Enums;
+using HotLavaArchipelagoPlugin.Models.Game;
 
 namespace HotLavaArchipelagoPlugin.Archipelago.Models.Locations
 {
     internal class StarLocation : UnlockableLocation
     {
+        /// <summary>
+        /// The type of star
+        /// </summary>
         public StarType StarType { get; }
-        public StarLocation(long locationId, string unlockableId, string unlockableDescription, StarType starType)
-            : base(locationId, unlockableId, unlockableDescription)
+
+        public StarLocation(long locationId, StarInfo star)
+            : base(locationId, star.UnlockableId, star.ToString())
         {
-            StarType = starType;
+            StarType = star.StarType;
         }
     }
 }

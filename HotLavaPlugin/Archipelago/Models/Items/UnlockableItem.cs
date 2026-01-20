@@ -1,4 +1,7 @@
-﻿using Klei.HotLava.Unlockables;
+﻿using HotLavaArchipelagoPlugin.Factories;
+using HotLavaArchipelagoPlugin.Helpers;
+using Klei.HotLava.Rewards;
+using Klei.HotLava.Unlockables;
 using System.Linq;
 
 namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
@@ -15,11 +18,27 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
             UnlockableId = unlockabledId;
         }
 
+        /// <inheritdoc/>
         public override void GrantItem()
         {
             Unlockable unlockable = Statistics.AllUnlockables.FirstOrDefault(u => u.m_Key.m_Value == UnlockableId);
 
             Statistics.UnlockUnlockable(unlockable, true);
+        }
+
+        /// <inheritdoc/>
+        public override RewardVisualization GetRewardVisualization(GiftDropVisualization giftDropVisualization)
+        {
+            Unlockable? unlockable = UnlockableHelper.GetUnlockableById(UnlockableId);
+
+            if (unlockable != null)
+            {
+                return unlockable.LoadVisualization();
+            }
+            else
+            {
+                return RewardVisualizationFactory.GetArchipelagoReward(giftDropVisualization);
+            }
         }
     }
 }

@@ -69,5 +69,25 @@ namespace HotLavaArchipelagoPlugin.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ForceField {
+            get {
+                object obj = ResourceManager.GetObject("ForceField", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] XPShard {
+            get {
+                object obj = ResourceManager.GetObject("XPShard", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

@@ -6,26 +6,26 @@ namespace HotLavaArchipelagoPlugin.Models.Game
     /// <summary>
     /// A course contained within a world
     /// </summary>
-    internal class Course
+    internal class CourseInfo
     {
         [JsonIgnore]
-        public static Course Default => new Course(string.Empty, []);
+        public static CourseInfo Default => new CourseInfo(string.Empty, []);
 
         [JsonIgnore]
-        public World World { get; set; } = World.Default;
+        public WorldInfo World { get; set; } = WorldInfo.Default;
         public string Name { get; }
         public CourseType CourseType { get; }
-        public Star[] Stars { get; set; }
+        public StarInfo[] Stars { get; set; }
 
-        public Course(string name, Star[] stars) : this(name, CourseType.Standard, stars) { }
+        public CourseInfo(string name, StarInfo[] stars) : this(name, CourseType.Standard, stars) { }
 
-        public Course(string name, CourseType courseType, Star[] stars)
+        public CourseInfo(string name, CourseType courseType, StarInfo[] stars)
         {
             Name = name;
             CourseType = courseType;
             Stars = stars;
 
-            foreach (Star star in stars)
+            foreach (StarInfo star in stars)
             {
                 star.Course = this;
             }

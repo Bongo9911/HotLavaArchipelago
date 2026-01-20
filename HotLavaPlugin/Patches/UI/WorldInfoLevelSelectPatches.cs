@@ -30,9 +30,7 @@ namespace HotLavaArchipelagoPlugin.Patches.UI
 
             if (Multiworld.ArchipelagoSession != null)
             {
-                WorldUnlockItem? worldUnlockItem = Items.AllItems.Values
-                    .Where(m => m is WorldUnlockItem)
-                    .Select(m => (WorldUnlockItem)m)
+                WorldUnlockItem? worldUnlockItem = Items.GetItems<WorldUnlockItem>()
                     .FirstOrDefault(m => m.InternalName == levelName);
 
                 if (worldUnlockItem != null && Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == worldUnlockItem.Id))
