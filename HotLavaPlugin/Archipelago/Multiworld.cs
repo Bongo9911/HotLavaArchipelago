@@ -3,11 +3,13 @@ using Archipelago.MultiClient.Net.BounceFeatures.DeathLink;
 using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Helpers;
 using Archipelago.MultiClient.Net.MessageLog.Messages;
+using Archipelago.MultiClient.Net.MessageLog.Parts;
 using Archipelago.MultiClient.Net.Models;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
 using HotLavaArchipelagoPlugin.Enums;
+using HotLavaArchipelagoPlugin.Extensions;
 using HotLavaArchipelagoPlugin.Helpers;
 using System;
 using System.Collections.Generic;
@@ -37,7 +39,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 
             if (!roomUrl.Contains("://"))
             {
-                roomUrl = "http://" + roomUrl;
+                roomUrl = "ws://" + roomUrl;
             }
 
             Uri roomUri;
@@ -156,10 +158,8 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 
             Plugin.Logger.LogInfo("Received Item: " + receivedItem.ItemName);
 
-            //UIHelper.SendNotificationMessage("Received <color=#8e7cc3>" + receivedItem.ItemDisplayName + "</color> from <color=#ffd966>"
-            //    + receivedItem.Player.Name + "</color> (<color=#93c47d>" + receivedItem.LocationDisplayName + "</color>)");
-            //UIHelper.SendNotificationMessage("Received " + receivedItem.ItemDisplayName + " from "
-            //    + receivedItem.Player.Name + " (" + receivedItem.LocationDisplayName);
+            UIHelper.SendNotificationMessage("Received <color=#8e7cc3>" + receivedItem.ItemDisplayName + "</color> from <color=#ffd966>"
+                + receivedItem.Player.Name + "</color> (<color=#93c47d>" + receivedItem.LocationDisplayName + "</color>)");
 
             Item? item = Items.GetItem(receivedItem.ItemId);
 
@@ -179,8 +179,27 @@ namespace HotLavaArchipelagoPlugin.Archipelago
         /// <param name="logMessage">The message received from the server</param>
         public static void OnMessageReceived(LogMessage logMessage)
         {
-            //TODO: handle colors for message parts
-            UIHelper.SendChatMessage(logMessage.ToString());
+            string message = string.Empty;
+
+            foreach (MessagePart messagePart in logMessage.Parts)
+            {
+                if (messagePart.PaletteColor != null)
+                {
+                    message += "<color=" + messagePart.Color.ToHexColorCode() + ">";
+                }
+
+                message += messagePart.Text;
+
+                if (messagePart.PaletteColor != null)
+                {
+                    message += "</color>";
+                }
+            }
+
+            Plugin.Logger.LogInfo("Message received: " + logMessage.ToString());
+            Plugin.Logger.LogInfo("Message formatted: " + message);
+
+            UIHelper.SendChatMessage(message);
         }
 
         public static void SendLocationCheck(long locationId)
@@ -203,6 +222,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 .Where(l => l is StarLocation)
                 .Select(l => (StarLocation)l)
                 .Where(l => l.StarType == StarType.CourseComplete)
+                .Where(l => ArchipelagoSession.Locations.AllLocations.Contains(l.LocationID)) //Filter out disabled location checks
                 .All(l => ArchipelagoSession.Locations.AllLocationsChecked.Contains(l.LocationID));
 
             if (shouldRelease)

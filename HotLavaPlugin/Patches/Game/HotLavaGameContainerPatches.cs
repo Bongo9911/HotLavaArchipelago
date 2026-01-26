@@ -11,7 +11,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
     internal class HotLavaGameContainerPatches
     {
         [HarmonyPatch(nameof(HotLavaGameContainer.OnKilled))]
-        [HarmonyPostfix]
+        [HarmonyPrefix]
         public static void OnKilled_Postfix(PlayerController __instance, OnKilledInfo on_killed_info)
         {
             Plugin.Logger.LogInfo("Player died because: " + on_killed_info.m_Reason);
