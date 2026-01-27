@@ -364,11 +364,88 @@ namespace HotLavaArchipelagoPlugin.Models.Game
             ]
         };
 
+        public static WorldInfo MasterClass => new WorldInfo("6bd78323a271b804890f9bd232ae0abb", "mastery_gym", "Master Class", [
+            new CourseInfo("Air Control Mastery", [
+                new StarInfo("399017d32e64e7147850bb221ad9a330", "Complete the course", StarType.CourseComplete),
+                new StarInfo("d9f265807b6647a46a071e38d0f43199", "Complete in under 02:30", StarType.MinTime),
+                new StarInfo("5745104145f93b54fb585474ed7f395f", "Complete in under 01:00", StarType.MinTime),
+                new StarInfo("a19ee0938f049324b8e0f5c2994926f9", "No Deaths", StarType.NoDeaths),
+                new StarInfo("05207fb7837a51645b97a0b17b018f4c", "Reach a speed of 4.5", StarType.Challenge),
+                new StarInfo("59b9c6018baa64c48961b3f4d897e49e", "Grab the golden pin", StarType.GoldenPin),
+            ]),
+            new CourseInfo("Wall Jump Mastery", [
+                new StarInfo("eb5e3cb0b7b99b04284d730869ce9fb6", "Complete the course", StarType.CourseComplete),
+                new StarInfo("377e30517bff4ac47929b80aecda0062", "Complete in under 02:30", StarType.MinTime),
+                new StarInfo("52e25e2c6bf4c454c8d44ef4d6b66688", "Complete in under 00:50", StarType.MinTime),
+                new StarInfo("b90b53beac85f6c4098e99c45a51b279", "No Deaths", StarType.NoDeaths),
+                new StarInfo("3517d5ce270ecd64c9c75ffb7f3f475e", "Spend less than 10 seconds on the ground", StarType.Challenge),
+                new StarInfo("1a2ff5486c095154c9bf507773051774", "Grab the golden pin", StarType.GoldenPin),
+            ]),
+            new CourseInfo("Surf Mastery", [
+                new StarInfo("4c31e47b2b82aa64e94b5a4e67139775", "Complete the course", StarType.CourseComplete),
+                new StarInfo("079222fa9d56f2242a92321dd8d5a599", "Complete in under 01:00", StarType.MinTime),
+                new StarInfo("4a6c828b9643ba4459bd1ae1f978dadb", "Complete in under 00:30", StarType.MinTime),
+                new StarInfo("75645b25d426a094090d1cccadcf9d8d", "No Deaths", StarType.NoDeaths),
+                new StarInfo("417d208b1ed26b148987a5aa7c4ca388", "Complete in 5 jumps or less", StarType.Challenge),
+                new StarInfo("5101c9e9015f4204bb42649a58127217", "Grab the golden pin", StarType.GoldenPin),
+            ]),
+            new CourseInfo("Boosting Mastery", [
+                new StarInfo("5b3155d2c67f23b41b5b0ba6bf1d6740", "Complete the course", StarType.CourseComplete),
+                new StarInfo("b7922c4cbf053554bb909c37ec79be1a", "Complete in under 04:00", StarType.MinTime),
+                new StarInfo("ac633c1cbf3212d4f95012155cd973e3", "Complete in under 01:00", StarType.MinTime),
+                new StarInfo("245dcd87539561241bc955e5fa833fab", "No Deaths", StarType.NoDeaths),
+                new StarInfo("9e048a77386525d4297f9775efcb19bc", "Reach a speed of 5.5", StarType.Challenge),
+                new StarInfo("3a0ab619a819e514cb7aa6c7ceaa3175", "Grab the golden pin", StarType.GoldenPin),
+            ]),
+            new CourseInfo("Wind Tunnel Mastery", [
+                new StarInfo("cd8c91a38849df5459afed878e70071b", "Complete the course", StarType.CourseComplete),
+                new StarInfo("bdf016c29782aae43b9774c23d505fd0", "Complete in under 01:00", StarType.MinTime),
+                new StarInfo("a7ce1e8f9ec2b6948a3b6ad889c26876", "Complete in under 00:30", StarType.MinTime),
+                new StarInfo("2a07db3d496a8ac4fa4ab923375af82f", "No Deaths", StarType.NoDeaths),
+                new StarInfo("b5c4c4bffc5aac04c864a1f502e10e35", "Spend less than 5 seconds on the ground", StarType.Challenge),
+                new StarInfo("7ed7e2810fd00a14aaea4f267e33400e", "Grab the golden pin", StarType.GoldenPin),
+            ]),
+            new CourseInfo("Honors Gym Class", [
+                new StarInfo("878f8f8195d19424aa87e2208d772141", "Complete the course", StarType.CourseComplete),
+                new StarInfo("5ea9aa8d87657b944b5c2dcc3d4cb3e3", "Complete in under 04:30", StarType.MinTime),
+                new StarInfo("ccf6b59e15b3b7d4b8b69bbc4dbcda13", "Complete in under 02:00", StarType.MinTime),
+                new StarInfo("61f2faa484a77ca4f946157b8a8db437", "No Deaths", StarType.NoDeaths),
+                new StarInfo("837d73aefc94673408942e14f960f13a", "Reach a speed of 9", StarType.Challenge),
+                new StarInfo("a45613d4c2daadb4aa581548048d2c7a", "Grab the golden pin", StarType.GoldenPin),
+            ]),
+            new CourseInfo("Pogo Trial", CourseType.Pogo, [
+                new StarInfo("18fb5a39cfc1f434694fdb7f9f2e87b2", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
+            ]),
+            new CourseInfo("Tiny Toy Trial", CourseType.TinyToy, [
+                new StarInfo("a4cb9f0819847fa4a85dc913af64ac57", "Get to the finish line", StarType.TrialComplete),
+            ]),
+            new CourseInfo("Jetpack Trial", CourseType.Jetpack, [
+                new StarInfo("57638f812bae42d43b2a164910db9f86", "Find all the checkpoints using the Jetpack", StarType.TrialComplete),
+            ]),
+            new CourseInfo("All Course Marathon", CourseType.AllCourseMarathon, [
+                new StarInfo("4ed34eb6dd88bce4e8f33c59d6a122f5", "Complete the course", StarType.TrialComplete),
+            ]),
+        ]);
+
+        //public static WorldInfo Basement => new WorldInfo("baf5e18a2fbcc64409f83e53e836cb42", "basement", "Basement", [
+        //    new CourseInfo("Race to the Summit", [
+        //        new StarInfo("16834aaf2d1962e44b22cbf1bd2d3a6f", "Complete the course", StarType.CourseComplete),
+        //        new StarInfo("058594844899efe45b805507f1addd7b", "Complete in under 10:00", StarType.MinTime),
+        //        new StarInfo("f87018bfc1f842740b56c2a1a92cf4a5", "Complete in under 03:00", StarType.MinTime),
+        //        new StarInfo("9f8de75e70e8b5942842e8fb62b50a58", "No Deaths", StarType.NoDeaths),
+        //        new StarInfo("d73a042fdcb801841864b76903065548", "Grab the golden pin", StarType.GoldenPin),
+        //        new StarInfo("89dcbb351c916b944ae2d04c72a1ba22", "Find the hidden G.A.T. comic", StarType.Comic),
+        //        new StarInfo("996d266c518979d438cbbe4a4a6b7b4a", "Buddy Mode", StarType.Buddy),
+        //    ]),
+        //]);
+
         public static IEnumerable<WorldInfo> AllWorlds => [
             GymClass,
             Playground,
             School,
             Wholesale,
+            MasterClass,
+            //Basement,
         ];
     }
 }
