@@ -24,5 +24,7 @@ public class Plugin : BaseUnityPlugin
         Logger.LogInfo($"Harmony patches applied!");
 
         Logger.LogInfo(JsonConvert.SerializeObject(Worlds.AllWorlds));
+
+        //GameObject gameObj = GuidDictionary.LoadAsset<GameObject>(new Guid("5ecb96c9d45e3a64a8618a5715a26b20"));
     }
 }

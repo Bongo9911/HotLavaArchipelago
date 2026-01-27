@@ -14,12 +14,20 @@ namespace HotLavaArchipelagoPlugin.Factories
         /// <returns>The reward visualization</returns>
         public static RewardVisualization FromImage(GiftDropVisualization giftDropVisualization, byte[] image)
         {
-            Texture2D texture = new Texture2D(256, 256);
-            texture.LoadImage(image);
+            return FromSprite(giftDropVisualization, SpriteFactory.FromImage(image));
+        }
 
+        /// <summary>
+        /// Generates a reward visualization from a sprite
+        /// </summary>
+        /// <param name="giftDropVisualization">The gift drop visualization base</param>
+        /// <param name="sprite">The sprite to use for generation</param>
+        /// <returns>The reward visualization</returns>
+        public static RewardVisualization FromSprite(GiftDropVisualization giftDropVisualization, Sprite sprite)
+        {
             ItemMetaDataEntry itemMetaDataEntry = ScriptableObject.CreateInstance<ItemMetaDataEntry>();
             itemMetaDataEntry.m_Category = eItemCategory.DECAL;
-            itemMetaDataEntry.m_Sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+            itemMetaDataEntry.m_Sprite = sprite;
 
             RewardVisualization rewardVisualization = giftDropVisualization.ItemViz[(int)eItemCategory.DECAL].ShallowCopy();
             rewardVisualization.Load(itemMetaDataEntry);
@@ -29,7 +37,7 @@ namespace HotLavaArchipelagoPlugin.Factories
 
         public static RewardVisualization GetArchipelagoReward(GiftDropVisualization giftDropVisualization)
         {
-            return FromImage(giftDropVisualization, Properties.Resources.ArchipelagoLogo);
+            return FromSprite(giftDropVisualization, SpriteFactory.GetArchipelagoSprite());
         }
     }
 }
