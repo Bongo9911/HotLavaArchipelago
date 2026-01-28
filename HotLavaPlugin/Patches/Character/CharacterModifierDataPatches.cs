@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using HotLavaArchipelagoPlugin.Factories;
 using HotLavaArchipelagoPlugin.Gameplay.Modifiers;
+using Klei.HotLava.Character.Modifiers;
 using Klei.HotLava.Settings;
 using System;
 using System.Reflection;
@@ -23,21 +24,35 @@ namespace HotLavaArchipelagoPlugin.Patches.Character
             FieldInfo modifiersProp = typeof(CharacterModifierData).GetField("m_Modifiers", BindingFlags.NonPublic | BindingFlags.Instance);
             Array modifiers = (Array)modifiersProp.GetValue(data);
 
-            object modifier = modifiers.GetValue(modifiers.Length - 1);
-            FieldInfo modifierProp = modifier.GetType().GetField("m_Modifier", BindingFlags.NonPublic | BindingFlags.Instance);
-            modifierProp.SetValue(modifier, ScriptableObject.CreateInstance<ArchipelagoModifier>());
+            object modifierCopy = modifiers.GetValue(modifiers.Length - 1);
+            FieldInfo modifierProp = modifierCopy.GetType().GetField("m_Modifier", BindingFlags.NonPublic | BindingFlags.Instance);
 
-            FieldInfo iconProp = modifier.GetType().GetField("m_Icon", BindingFlags.NonPublic | BindingFlags.Instance);
-            iconProp.SetValue(modifier, SpriteFactory.GetArchipelagoSprite());
+            ArchipelagoModifier archipelagoModifier = ScriptableObject.CreateInstance<ArchipelagoModifier>();
 
-            Array newModifiers = Array.CreateInstance(modifier.GetType(), modifiers.Length + 1);
+            for (int i = 0; i < modifiers.Length; ++i)
+            {
+                PlayerControllerModifier modifier = (PlayerControllerModifier)modifierProp.GetValue(modifiers.GetValue(i));
+
+                if (modifier is LungeModifier lungeModifier)
+                {
+                    archipelagoModifier.m_LungeVelociyCurve = lungeModifier.m_LungeVelociyCurve;
+                    archipelagoModifier.m_ClamberVelocityCurve = lungeModifier.m_ClamberVelocityCurve;
+                }
+            }
+
+            modifierProp.SetValue(modifierCopy, archipelagoModifier);
+
+            FieldInfo iconProp = modifierCopy.GetType().GetField("m_Icon", BindingFlags.NonPublic | BindingFlags.Instance);
+            iconProp.SetValue(modifierCopy, SpriteFactory.GetArchipelagoSprite());
+
+            Array newModifiers = Array.CreateInstance(modifierCopy.GetType(), modifiers.Length + 1);
 
             for (int i = 0; i < modifiers.Length; i++)
             {
                 newModifiers.SetValue(modifiers.GetValue(i), i);
             }
 
-            newModifiers.SetValue(modifier, modifiers.Length);
+            newModifiers.SetValue(modifierCopy, modifiers.Length);
 
             modifiersProp.SetValue(data, newModifiers);
 
