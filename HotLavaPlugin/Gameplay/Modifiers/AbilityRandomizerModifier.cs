@@ -71,6 +71,10 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
             }
         }
 
+        public override bool CanCrouch => true;
+        public override bool CanSurf => true;
+        public override bool CanWallRun => true;
+
         public override bool CanReach
         {
             get

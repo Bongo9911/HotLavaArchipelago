@@ -5,6 +5,7 @@ using Archipelago.MultiClient.Net.Helpers;
 using Archipelago.MultiClient.Net.MessageLog.Messages;
 using Archipelago.MultiClient.Net.MessageLog.Parts;
 using Archipelago.MultiClient.Net.Models;
+using BepInEx;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
@@ -64,11 +65,6 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 ArchipelagoSession.Items.ItemReceived += OnItemReceived;
                 ArchipelagoSession.Locations.CheckedLocationsUpdated += OnLocationsChecked;
 
-                //DeathLinkService = ArchipelagoSession.CreateDeathLinkService();
-
-                //DeathLinkService.OnDeathLinkReceived += OnDeathLinkReceived;
-                //DeathLinkService.EnableDeathLink();
-
                 await ArchipelagoSession.ConnectAsync();
 
                 Plugin.Logger.LogInfo("Connected to Archipelago");
@@ -113,6 +109,9 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 }
                 else
                 {
+                    DeathLinkService = ArchipelagoSession.CreateDeathLinkService();
+                    DeathLinkService.OnDeathLinkReceived += OnDeathLinkReceived;
+
                     await ScoutAllLocations();
 
                     Plugin.Logger.LogInfo("Successfully logged in to Archipelago");
@@ -146,8 +145,11 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 if (location != null)
                 {
                     //TODO: This may crash the game if called when not in profile, need to add preventative measures
-                    location.CheckLocation();
-                    CheckGoalCompleted();
+                    ThreadingHelper.Instance.StartSyncInvoke(() =>
+                    {
+                        location.CheckLocation();
+                        CheckGoalCompleted();
+                    });
                 }
             }
         }
@@ -188,7 +190,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 message += Color.Magenta.ToHexColorCode();
             }
 
-            message += ">" + receivedItem.Player.Name + "</color> (<color=" + Color.Blue.ToHexColorCode() + ">" + receivedItem.LocationDisplayName + "</color>)";
+            message += ">" + receivedItem.Player.Name + "</color> (<color=" + Color.White.ToHexColorCode() + ">" + receivedItem.LocationDisplayName + "</color>)";
 
             UIHelper.SendNotificationMessage(message);
 
@@ -196,7 +198,10 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 
             if (item != null)
             {
-                item.GrantItem();
+                ThreadingHelper.Instance.StartSyncInvoke(() =>
+                {
+                    item.GrantItem();
+                });
             }
 
             //TODO: should we only call this and save the return value?
