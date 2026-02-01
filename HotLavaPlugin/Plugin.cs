@@ -31,10 +31,10 @@ public class Plugin : BaseUnityPlugin
 
         Logger.LogInfo(JsonConvert.SerializeObject(Worlds.AllWorlds));
 
-        ConfigArchipelagoHost = Config.Bind("Archipelago", "Host", "archipelago.gg", "The host name of the Archipelago server");
-        ConfigArchipelagoPort = Config.Bind("Archipelago", "Port", 38281, "The port for the Archipelago server");
-        ConfigArchipelagoPlayerName = Config.Bind("Archipelago", "PlayerName", "Player", "Your slot name in your YAML file");
-        ConfigArchipelagoPassword = Config.Bind("Archipelago", "Password", string.Empty, "The password for connecting to the server, if one is required");
+        ConfigArchipelagoHost = Config.Bind("Archipelago", "Host", "archipelago.gg", new ConfigDescription("The host name of the Archipelago server", null, new ConfigurationManagerAttributes { Order = 4 }));
+        ConfigArchipelagoPort = Config.Bind("Archipelago", "Port", 38281, new ConfigDescription("The port for the Archipelago server", null, new ConfigurationManagerAttributes { Order = 3 }));
+        ConfigArchipelagoPlayerName = Config.Bind("Archipelago", "PlayerName", "Player", new ConfigDescription("Your slot name in your YAML file", null, new ConfigurationManagerAttributes { Order = 2 }));
+        ConfigArchipelagoPassword = Config.Bind("Archipelago", "Password", string.Empty, new ConfigDescription("The password for connecting to the server, if one is required", null, new ConfigurationManagerAttributes { Order = 1 }));
 
         //GameObject gameObj = GuidDictionary.LoadAsset<GameObject>(new Guid("5ecb96c9d45e3a64a8618a5715a26b20"));
     }

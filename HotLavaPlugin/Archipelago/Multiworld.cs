@@ -29,37 +29,15 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 
         public static async Task ParseArchipelagoConnectMessage(string message)
         {
-            string[] split = message.Split(" ");
+            PlayerName = Plugin.ConfigArchipelagoPlayerName.Value;
 
-            if (split.Length < 3)
-            {
-                UIHelper.ShowPopup("Not enough arguments provided. Format: /apconnect <roomUrl> <playerName> [<password>]");
-            }
-
-            string roomUrl = split[1];
-
-            if (!roomUrl.Contains("://"))
-            {
-                roomUrl = "ws://" + roomUrl;
-            }
-
-            Uri roomUri;
-            try
-            {
-                roomUri = new Uri(roomUrl);
-            }
-            catch (Exception)
-            {
-                UIHelper.ShowPopup("Failed to parse provided URL for room");
-                return;
-            }
-
-            PlayerName = split[2];
-            string? password = split.Length > 3 ? split[3] : null;
+            string host = Plugin.ConfigArchipelagoHost.Value;
+            int port = Plugin.ConfigArchipelagoPort.Value;
+            string password = Plugin.ConfigArchipelagoPassword.Value;
 
             try
             {
-                ArchipelagoSession = ArchipelagoSessionFactory.CreateSession(roomUri.Host, roomUri.Port);
+                ArchipelagoSession = ArchipelagoSessionFactory.CreateSession(host, port);
 
                 ArchipelagoSession.MessageLog.OnMessageReceived += OnMessageReceived;
                 ArchipelagoSession.Items.ItemReceived += OnItemReceived;
