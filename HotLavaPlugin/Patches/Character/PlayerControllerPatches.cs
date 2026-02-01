@@ -28,7 +28,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Character
         {
             FieldInfo m_IsSlidingFieldInfo = typeof(PlayerController).GetField("m_IsSliding", BindingFlags.Instance | BindingFlags.NonPublic);
 
-            m_IsSlidingFieldInfo.SetValue(__instance, __instance.Modifier is ArchipelagoModifier && __instance.Grounded && __instance.GetCachedInput().y > 0f && !__instance.Surfing);
+            m_IsSlidingFieldInfo.SetValue(__instance, __instance.Modifier is AbilityRandomizerModifier && __instance.Grounded && __instance.GetCachedInput().y > 0f && !__instance.Surfing);
             if ((bool)m_IsSlidingFieldInfo.GetValue(__instance))
             {
                 PlayerRig playerRig = (PlayerRig)typeof(PlayerController).GetField("m_PlayerRig", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance);

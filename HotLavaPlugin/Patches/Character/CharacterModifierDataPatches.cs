@@ -27,7 +27,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Character
             object modifierCopy = modifiers.GetValue(modifiers.Length - 1);
             FieldInfo modifierProp = modifierCopy.GetType().GetField("m_Modifier", BindingFlags.NonPublic | BindingFlags.Instance);
 
-            ArchipelagoModifier archipelagoModifier = ScriptableObject.CreateInstance<ArchipelagoModifier>();
+            AbilityRandomizerModifier archipelagoModifier = ScriptableObject.CreateInstance<AbilityRandomizerModifier>();
 
             for (int i = 0; i < modifiers.Length; ++i)
             {
@@ -35,12 +35,15 @@ namespace HotLavaArchipelagoPlugin.Patches.Character
 
                 if (modifier is LungeModifier lungeModifier)
                 {
-                    archipelagoModifier.m_LungeVelociyCurve = lungeModifier.m_LungeVelociyCurve;
-                    archipelagoModifier.m_ClamberVelocityCurve = lungeModifier.m_ClamberVelocityCurve;
+                    AbilityRandomizerModifier.LungeModifier = lungeModifier;
                 }
                 else if (modifier is DoubleJumpModifier doubleJumpModifier)
                 {
-                    archipelagoModifier.m_NoDoubleJumpMaterials = doubleJumpModifier.m_NoDoubleJumpMaterials;
+                    AbilityRandomizerModifier.DoubleJumpModifier = doubleJumpModifier;
+                }
+                else if (modifier is SlideJumpModifier slideJumpModifier)
+                {
+                    AbilityRandomizerModifier.SlideJumpModifier = slideJumpModifier;
                 }
             }
 

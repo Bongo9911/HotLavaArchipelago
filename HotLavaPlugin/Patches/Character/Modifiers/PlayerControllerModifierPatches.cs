@@ -2,7 +2,7 @@
 using HotLavaArchipelagoPlugin.Gameplay.Modifiers;
 using Klei.HotLava.Character.Modifiers;
 
-namespace HotLavaArchipelagoPlugin.Patches.Character
+namespace HotLavaArchipelagoPlugin.Patches.Character.Modifiers
 {
     [HarmonyPatch(typeof(PlayerControllerModifier))]
     internal class PlayerControllerModifierPatches
@@ -11,7 +11,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Character
         [HarmonyPrefix]
         public static bool MovesetName_Prefix(PlayerControllerModifier __instance, ref string __result)
         {
-            if (__instance is ArchipelagoModifier)
+            if (__instance is AbilityRandomizerModifier)
             {
                 __result = "Ability Randomizer";
                 return false;
@@ -23,7 +23,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Character
         [HarmonyPrefix]
         public static bool MovesetDescription_Prefix(PlayerControllerModifier __instance, ref string __result)
         {
-            if (__instance is ArchipelagoModifier)
+            if (__instance is AbilityRandomizerModifier)
             {
                 __result = "Unlock abilities by completing location checks";
                 return false;

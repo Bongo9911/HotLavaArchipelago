@@ -158,8 +158,39 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 
             Plugin.Logger.LogInfo("Received Item: " + receivedItem.ItemName);
 
-            UIHelper.SendNotificationMessage("Received <color=#8e7cc3>" + receivedItem.ItemDisplayName + "</color> from <color=#ffd966>"
-                + receivedItem.Player.Name + "</color> (<color=#93c47d>" + receivedItem.LocationDisplayName + "</color>)");
+            string message = "Received <color=";
+
+            if (receivedItem.Flags.HasFlag(ItemFlags.Advancement))
+            {
+                message += Color.Plum.ToHexColorCode();
+            }
+            else if (receivedItem.Flags.HasFlag(ItemFlags.NeverExclude))
+            {
+                message += Color.SlateBlue.ToHexColorCode();
+            }
+            else if (receivedItem.Flags.HasFlag(ItemFlags.Trap))
+            {
+                message += Color.Salmon.ToHexColorCode();
+            }
+            else
+            {
+                message += Color.Cyan.ToHexColorCode();
+            }
+
+            message += ">" + receivedItem.ItemDisplayName + "</color> from <color=";
+
+            if (receivedItem.Player.Slot == ArchipelagoSession.Players.ActivePlayer.Slot)
+            {
+                message += Color.Yellow.ToHexColorCode();
+            }
+            else
+            {
+                message += Color.Magenta.ToHexColorCode();
+            }
+
+            message += ">" + receivedItem.Player.Name + "</color> (<color=" + Color.Blue.ToHexColorCode() + ">" + receivedItem.LocationDisplayName + "</color>)";
+
+            UIHelper.SendNotificationMessage(message);
 
             Item? item = Items.GetItem(receivedItem.ItemId);
 
