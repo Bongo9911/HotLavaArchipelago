@@ -21,91 +21,81 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
         private bool _hasVaultJump = true;
         #endregion
 
-        #region DoubleJumpModifier
+        #region DoubleJump Settings
         [Header("DoubleJumpModifier")]
         [Tooltip("Don't double jump when on these materials. Probably want Trampoline and Bouncy.")]
+        //Set in CharacterModifierDataPatches
         public List<PhysicMaterial> m_NoDoubleJumpMaterials;
 
-        private bool m_DidDoubleJump;
-
         [Tooltip("Amount of current speed to add after a double jump.")]
+        [Range(0f, 2f)]
         public float m_DoubleJumpSpeedMultiplier = 0.7f;
 
         [Tooltip("Amount of height you gain on a double jump.")]
+        [Range(0f, 2f)]
         public float m_DoubleJumpHeightMultiplier = 0.8f;
 
         [Tooltip("Maximum current speed to carry into the jump. Most useful when m_DoubleJumpSpeedMultiplier is above 1.")]
+        [Min(0f)]
         public float m_DoubleJumpMaxSpeedBoost = 1000f;
 
         [Tooltip("Gravity applied during double jump. Otherwise uses m_GravityMultiplier.")]
+        [Range(0f, 5f)]
         public float m_DoubleJumpGravityMultiplier = 1f;
+
+        private bool m_DidDoubleJump;
 
         public bool DidDoubleJump => m_DidDoubleJump;
 
-        public override float GravityMultiplier
-        {
-            get
-            {
-                if (m_DidDoubleJump)
-                {
-                    return m_DoubleJumpGravityMultiplier;
-                }
-
-                return base.GravityMultiplier;
-            }
-        }
+        public override float GravityMultiplier => m_DidDoubleJump ? m_DoubleJumpGravityMultiplier : base.GravityMultiplier;
         #endregion
 
-        #region Lunge Settings
+        #region Vault/Lunge Settings
         [Header("Lunge Settings")]
-        //Animation Curves are initialized in CharacterModifierDataPatches
+        //Animation Curves set in CharacterModifierDataPatches
         public AnimationCurve m_LungeVelociyCurve;
-
         public AnimationCurve m_ClamberVelocityCurve;
 
+        [Tooltip("Always allow clamber regardless of lunge state")]
         public bool m_AlwaysAllowClamber;
 
+        [Tooltip("Height range to detect climbable ledges when falling")]
+        [Range(0.1f, 1f)]
         public float m_ClimbDetectHeightFalling = 0.3f;
 
+        [Tooltip("Height range to detect climbable ledges when rising")]
+        [Range(0.1f, 1f)]
         public float m_ClimbDetectHeightRising = 0.6f;
 
+        [Tooltip("Minimum vertical velocity required to trigger climb detection")]
+        [Min(0f)]
         public float m_ClimbDetectMinVelocity = 1f;
 
         private float m_LungeTimer;
-
         private float m_ClamberTimer;
-
-        private bool m_IsLunging;
-
-        private bool m_CanLunge = true;
-
-        private bool m_IsClambering;
-
-        private bool m_ActionPressed;
-
-        private bool m_ReadyState;
-
         private float m_ClamberDuration;
-
         private float m_OriginalVelocityFlat;
 
         private Vector3 m_OriginalVelocity;
-
         private Vector3 m_LungeDirection;
+
+        private bool m_IsLunging;
+        private bool m_CanLunge = true;
+        private bool m_IsClambering;
+        private bool m_ActionPressed;
+        private bool m_ReadyState;
 
         private EventInstance LungeJump;
         #endregion
 
-        #region Slide Jump
+        #region Slide Jump State
         private bool lastFrameSlide;
-
         private bool previouslyClimbing;
         #endregion
 
         #region Abilities
         public override bool CanBhop => _hasBoostJump;
         public override bool CanPerfectJump => _hasBoostJump || _hasVaultJump;
-
         public override bool CanGrab => !m_IsClambering;
         public override bool CanCrouch => true;
         public override bool CanSurf => true;
@@ -114,14 +104,55 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
         #endregion
 
         #region Cached Reflection
-        private MethodInfo _isJumpPressedThisFrameMethod = typeof(PlayerController).GetMethod("IsJumpPressedThisFrame", BindingFlags.NonPublic | BindingFlags.Instance);
-        private FieldInfo _inFanTunnelField = typeof(PlayerController).GetField("m_InFanTunnel", BindingFlags.NonPublic | BindingFlags.Instance);
-        private FieldInfo _canBounceField = typeof(PlayerController).GetField("CanBounce", BindingFlags.NonPublic | BindingFlags.Instance);
-        private FieldInfo _itemGrabberField = typeof(PlayerController).GetField("m_ItemGrabber", BindingFlags.Instance | BindingFlags.NonPublic);
-        private MethodInfo _dropAllItemMethod = typeof(ItemGrabber).GetMethod("DropAllItem", BindingFlags.Instance | BindingFlags.NonPublic);
+        private MethodInfo _isJumpPressedThisFrameMethod;
+        private FieldInfo _inFanTunnelField;
+        private FieldInfo _canBounceField;
+        private FieldInfo _itemGrabberField;
+        private MethodInfo _dropAllItemMethod;
+        #endregion
+
+        #region Cached Constants
+        // Pre-calculated constants to avoid repeated calculations
+        private const float BOOST_JUMP_MIN_DISTANCE = 0.75f;
+        private const float DOUBLE_JUMP_GROUND_CHECK_DISTANCE = 1.8f;
+        private const float DOUBLE_JUMP_FALLING_VELOCITY = -1.5f;
+        private const float DOUBLE_JUMP_MIN_DISTANCE = 0.3f;
+        private const float NORMAL_DOT_THRESHOLD = 0.6f;
+        private const float FORWARD_INPUT_THRESHOLD = 0.7f;
+        private const float CAMERA_DOT_THRESHOLD = 0.6f;
+        private const float CAMERA_DOT_HIGH = 0.9f;
+        private const float FALLING_VELOCITY_THRESHOLD = -0.8f;
+        private const float CLIMB_VELOCITY_SCALE = 0.3f;
+        private const float SLIDE_JUMP_FORWARD_SPEED = 5.99f;
+        private const float SLIDE_JUMP_CHARGE = 0.3f;
+        private const float SLIDE_JUMP_MIN_TIME = 0.15f;
+        private const float NORMAL_JUMP_SPEED_MULT = 0.85f;
+        private const float CLAMBER_DIRECTION_LERP = 0.7f;
+        private const float DISTANCE_WEIGHT_MULT = 0.4f;
+        private const float DISTANCE_OFFSET = 0.2f;
+        private const float CLIMB_TIME_MODIFIER = 0.24f;
+        private const float CEILING_CHECK_HEIGHT = 1.5f;
+
+        // Raycast offset multipliers
+        private const float FAR_OFFSET_MULT = 0.16f;
+        private const float MID_OFFSET_MULT = 0.08f;
+        private const float NEAR_OFFSET_MULT = 0.02f;
+        #endregion
+
+        #region Cached Allocations
+        // Reusable arrays to avoid GC allocations
+        private readonly RaycastHit[] _raycastHits = new RaycastHit[2];
+        private readonly RaycastHit[] _ceilingHits = new RaycastHit[1];
+        private readonly Vector3[] _raycastOrigins = new Vector3[3];
+        private readonly object[] _emptyArgs = new object[0];
         #endregion
 
         #region Unity Lifecycle
+        private void Awake()
+        {
+            CacheReflectionMembers();
+        }
+
         public override void Update()
         {
             if (!m_PlayerController.IsMine) return;
@@ -158,6 +189,23 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
         }
         #endregion
 
+        #region Initialization
+        private void CacheReflectionMembers()
+        {
+            if (_isJumpPressedThisFrameMethod != null) return;
+
+            var playerControllerType = typeof(PlayerController);
+            var itemGrabberType = typeof(ItemGrabber);
+            var bindingFlags = BindingFlags.NonPublic | BindingFlags.Instance;
+
+            _isJumpPressedThisFrameMethod = playerControllerType.GetMethod("IsJumpPressedThisFrame", bindingFlags);
+            _inFanTunnelField = playerControllerType.GetField("m_InFanTunnel", bindingFlags);
+            _canBounceField = playerControllerType.GetField("CanBounce", bindingFlags);
+            _itemGrabberField = playerControllerType.GetField("m_ItemGrabber", bindingFlags);
+            _dropAllItemMethod = itemGrabberType.GetMethod("DropAllItem", bindingFlags);
+        }
+        #endregion
+
         #region Double Jump Logic
         private void DoubleJumpUpdate()
         {
@@ -166,7 +214,7 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
             if (_hasBoostJump)
             {
                 // Reduce the feeling of double jumping when you think you should boost
-                canDoubleJump = canDoubleJump && m_PlayerController.DistanceToGround > 0.75f;
+                canDoubleJump = canDoubleJump && m_PlayerController.DistanceToGround > BOOST_JUMP_MIN_DISTANCE;
             }
 
             m_PlayerController.PlayerRigAnimator.SetDoubleJump(to: false);
@@ -183,14 +231,16 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
 
         private bool CanPerformDoubleJumpAtCurrentPosition()
         {
-            float distanceToGround = m_PlayerController.Grounder.DistanceToGround;
+            var grounder = m_PlayerController.Grounder;
+            float distanceToGround = grounder.DistanceToGround;
             float verticalVelocity = m_PlayerController.Velocity.y;
 
             // Player is too close to ground and falling fast
-            if (distanceToGround < 1.8f && verticalVelocity < -1.5f)
+            if (distanceToGround < DOUBLE_JUMP_GROUND_CHECK_DISTANCE && verticalVelocity < DOUBLE_JUMP_FALLING_VELOCITY)
             {
                 // Only allow if not very close to ground or on a valid material
-                return distanceToGround >= 0.3f || !m_NoDoubleJumpMaterials.Contains(m_PlayerController.Grounder.NearGroundMaterial);
+                return distanceToGround >= DOUBLE_JUMP_MIN_DISTANCE ||
+                       !m_NoDoubleJumpMaterials.Contains(grounder.NearGroundMaterial);
             }
 
             return true;
@@ -210,9 +260,10 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
                 m_DoubleJumpMaxSpeedBoost
             );
 
+            var rigidBody = m_PlayerController.RigidBody;
             m_PlayerController.Jumper.Jump(
                 m_PlayerController.GetCachedInput().normalized,
-                m_PlayerController.RigidBody.velocity.normalized,
+                rigidBody.velocity.normalized,
                 speedBoost
             );
 
@@ -243,8 +294,9 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
             }
 
             m_ActionPressed = false;
-            m_PlayerController.PlayerRigAnimator.SetIsEdgeClimbing(m_IsClambering);
-            m_PlayerController.PlayerRigAnimator.SetIsLunging(m_IsLunging);
+            var animator = m_PlayerController.PlayerRigAnimator;
+            animator.SetIsEdgeClimbing(m_IsClambering);
+            animator.SetIsLunging(m_IsLunging);
         }
 
         private void HandleVaultJumpInReadyState()
@@ -268,13 +320,10 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
 
         private bool TryStartClamber(float cameraDot)
         {
-            if (m_IsClambering)
-            {
-                return false;
-            }
+            if (m_IsClambering) return false;
 
             bool canClamber = PerformClimbCheck(cameraDot, out float detectDistance, out float climbHeight);
-            bool movingForward = m_PlayerController.GetCachedInput().y > 0.7f;
+            bool movingForward = m_PlayerController.GetCachedInput().y > FORWARD_INPUT_THRESHOLD;
             bool forwardVelocityBelowMin = m_PlayerController.Velocity.y < m_ClimbDetectMinVelocity;
             bool allowClamber = m_AlwaysAllowClamber ? (forwardVelocityBelowMin && movingForward) : !m_CanLunge;
 
@@ -290,15 +339,17 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
         private void StartClamber(float cameraDot, float detectDistance, float climbHeight)
         {
             m_IsClambering = true;
-            m_OriginalVelocity = m_PlayerController.RigidBody.velocity;
+            var rigidBody = m_PlayerController.RigidBody;
+            m_OriginalVelocity = rigidBody.velocity;
 
             DropAllHeldItems();
 
-            Runtime.PlayOneShotAttached(Klei.HotLava.Audio.Event.HANDGRAB_ON_VAULT, m_PlayerController.gameObject).StartAndRelease();
+            Runtime.PlayOneShotAttached(Klei.HotLava.Audio.Event.HANDGRAB_ON_VAULT, m_PlayerController.gameObject)
+                .StartAndRelease();
 
             // If player is farther from the ledge, make climb animation shorter
-            float distanceWeight = (detectDistance - 0.2f) * 0.4f;
-            float climbTimeModifier = Mathf.Clamp01(cameraDot) * 0.24f - distanceWeight;
+            float distanceWeight = (detectDistance - DISTANCE_OFFSET) * DISTANCE_WEIGHT_MULT;
+            float climbTimeModifier = Mathf.Clamp01(cameraDot) * CLIMB_TIME_MODIFIER - distanceWeight;
             m_ClamberDuration = m_ClamberVelocityCurve.keys[m_ClamberVelocityCurve.length - 1].time + climbTimeModifier;
 
             m_PlayerController.PlayerRigAnimator.SetEdgeClimbingHeight(climbHeight);
@@ -306,16 +357,17 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
 
         private void UpdateClambering()
         {
-            if (!m_IsClambering)
-            {
-                return;
-            }
+            if (!m_IsClambering) return;
 
             m_ClamberTimer += Time.fixedDeltaTime;
 
             if (m_ClamberTimer < m_ClamberDuration)
             {
-                Vector3 climbDirection = Vector3.Slerp(m_PlayerController.m_CameraBase.forward, Vector3.up, 0.7f);
+                Vector3 climbDirection = Vector3.Slerp(
+                    m_PlayerController.m_CameraBase.forward,
+                    Vector3.up,
+                    CLAMBER_DIRECTION_LERP
+                );
                 m_PlayerController.RigidBody.velocity = climbDirection * m_ClamberVelocityCurve.Evaluate(m_ClamberTimer);
             }
             else
@@ -326,12 +378,15 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
 
         private void FinishClamber()
         {
-            m_OriginalVelocity.y *= 0.3f;
-            m_OriginalVelocity.x = Mathf.Min(m_OriginalVelocity.x, m_PlayerController.ForwardSpeed);
-            m_OriginalVelocity.z = Mathf.Min(m_OriginalVelocity.z, m_PlayerController.ForwardSpeed);
+            float forwardSpeed = m_PlayerController.ForwardSpeed;
+
+            m_OriginalVelocity.y *= CLIMB_VELOCITY_SCALE;
+            m_OriginalVelocity.x = Mathf.Min(m_OriginalVelocity.x, forwardSpeed);
+            m_OriginalVelocity.z = Mathf.Min(m_OriginalVelocity.z, forwardSpeed);
             m_PlayerController.RigidBody.velocity = m_OriginalVelocity;
 
-            Runtime.PlayOneShotAttached(Klei.HotLava.Audio.Event.HANDGRAB_OFF_VALUT, m_PlayerController.gameObject).StartAndRelease();
+            Runtime.PlayOneShotAttached(Klei.HotLava.Audio.Event.HANDGRAB_OFF_VALUT, m_PlayerController.gameObject)
+                .StartAndRelease();
 
             m_ClamberTimer = 0f;
             m_IsClambering = false;
@@ -339,12 +394,14 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
 
         private void StartLunge()
         {
-            m_OriginalVelocity = m_PlayerController.RigidBody.velocity;
+            var rigidBody = m_PlayerController.RigidBody;
+            m_OriginalVelocity = rigidBody.velocity;
             m_OriginalVelocityFlat = m_PlayerController.FlatSpeed;
             m_LungeDirection = m_PlayerController.CameraForward;
 
+            bool isCameraAttached = m_PlayerController.IsCameraAttached;
             LungeJump = Runtime.PlayOneShotAttached(Klei.HotLava.Audio.Event.JUMP_LUNGE_2D3D, m_PlayerController.gameObject)
-                .SetAudioParameter("3d", (!m_PlayerController.IsCameraAttached) ? 1 : 0)
+                .SetAudioParameter("3d", isCameraAttached ? 0 : 1)
                 .SetAudioParameter("velocity_horizontal", m_OriginalVelocityFlat)
                 .StartAndRelease();
 
@@ -354,16 +411,14 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
 
         private void UpdateLunging()
         {
-            if (!m_IsLunging)
-            {
-                return;
-            }
+            if (!m_IsLunging) return;
 
             m_LungeTimer += Time.fixedDeltaTime;
 
             if (m_LungeTimer < m_LungeVelociyCurve.keys[m_LungeVelociyCurve.length - 1].time)
             {
-                m_PlayerController.RigidBody.velocity = m_OriginalVelocity + m_LungeDirection * m_LungeVelociyCurve.Evaluate(m_LungeTimer);
+                m_PlayerController.RigidBody.velocity = m_OriginalVelocity +
+                    m_LungeDirection * m_LungeVelociyCurve.Evaluate(m_LungeTimer);
             }
             else
             {
@@ -382,10 +437,13 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
         {
             if (m_IsLunging)
             {
-                m_PlayerController.RigidBody.velocity = Vector3.zero;
+                var rigidBody = m_PlayerController.RigidBody;
+                rigidBody.velocity = Vector3.zero;
+
                 if (m_PlayerController.Climbing)
                 {
-                    m_PlayerController.AttachVelocity = m_PlayerController.AttachVelocity.normalized * m_PlayerController.ForwardSpeed;
+                    m_PlayerController.AttachVelocity = m_PlayerController.AttachVelocity.normalized *
+                        m_PlayerController.ForwardSpeed;
                 }
             }
 
@@ -403,16 +461,15 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
 
         private bool PerformClimbCheck(float cameraDot, out float detectDistance, out float climbHeight)
         {
-            RaycastHit[] hits = new RaycastHit[2];
             detectDistance = 0f;
             climbHeight = 0f;
 
-            Vector3[] raycastOrigins = GetClimbCheckOrigins(cameraDot);
+            PopulateClimbCheckOrigins(cameraDot);
             float scanRange = GetClimbScanRange(cameraDot);
 
-            foreach (Vector3 origin in raycastOrigins)
+            foreach (Vector3 origin in _raycastOrigins)
             {
-                if (CheckForClimbableSpot(origin, scanRange, hits, out detectDistance, out climbHeight))
+                if (CheckForClimbableSpot(origin, scanRange, out detectDistance, out climbHeight))
                 {
                     if (HasCeilingObstruction(origin))
                     {
@@ -425,37 +482,40 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
             return false;
         }
 
-        private Vector3[] GetClimbCheckOrigins(float cameraDot)
+        private void PopulateClimbCheckOrigins(float cameraDot)
         {
-            float farOffset = m_PlayerController.ColliderRadius + 0.16f * m_PlayerController.Scale;
-            float midOffset = m_PlayerController.ColliderRadius + 0.08f * m_PlayerController.Scale;
-            float nearOffset = m_PlayerController.ColliderRadius + 0.02f * m_PlayerController.Scale;
+            float scale = m_PlayerController.Scale;
+            float colliderRadius = m_PlayerController.ColliderRadius;
 
-            Vector3 checkDirection = (cameraDot > 0f) ? m_PlayerController.CameraForward : m_PlayerController.m_CameraBase.forward;
+            float farOffset = colliderRadius + FAR_OFFSET_MULT * scale;
+            float midOffset = colliderRadius + MID_OFFSET_MULT * scale;
+            float nearOffset = colliderRadius + NEAR_OFFSET_MULT * scale;
 
-            return
-            [
-                m_PlayerController.m_CameraBase.position + checkDirection * farOffset,
-                m_PlayerController.m_CameraBase.position + checkDirection * midOffset,
-                m_PlayerController.m_CameraBase.position + checkDirection * nearOffset
-            ];
+            Vector3 checkDirection = (cameraDot > 0f) ?
+                m_PlayerController.CameraForward :
+                m_PlayerController.m_CameraBase.forward;
+
+            Vector3 basePosition = m_PlayerController.m_CameraBase.position;
+            _raycastOrigins[0] = basePosition + checkDirection * farOffset;
+            _raycastOrigins[1] = basePosition + checkDirection * midOffset;
+            _raycastOrigins[2] = basePosition + checkDirection * nearOffset;
         }
 
         private float GetClimbScanRange(float cameraDot)
         {
-            float scanRange = (m_PlayerController.Velocity.y > -0.8f)
+            float scanRange = (m_PlayerController.Velocity.y > FALLING_VELOCITY_THRESHOLD)
                 ? m_ClimbDetectHeightRising
                 : m_ClimbDetectHeightFalling;
 
-            if (cameraDot > 0.6f)
+            if (cameraDot > CAMERA_DOT_THRESHOLD)
             {
-                scanRange *= 0.9f;
+                scanRange *= CAMERA_DOT_HIGH;
             }
 
             return scanRange;
         }
 
-        private bool CheckForClimbableSpot(Vector3 origin, float scanRange, RaycastHit[] hits, out float detectDistance, out float climbHeight)
+        private bool CheckForClimbableSpot(Vector3 origin, float scanRange, out float detectDistance, out float climbHeight)
         {
             detectDistance = 0f;
             climbHeight = 0f;
@@ -463,24 +523,23 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
             int hitCount = Physics.RaycastNonAlloc(
                 origin,
                 Vector3.down,
-                hits,
+                _raycastHits,
                 scanRange,
                 LevelSingleton.m_LayerWorld,
                 QueryTriggerInteraction.Ignore
             );
 
-            if (hitCount <= 0)
-            {
-                return false;
-            }
+            if (hitCount <= 0) return false;
+
+            float basePositionY = m_PlayerController.BasePosition.y;
 
             for (int i = 0; i < hitCount; i++)
             {
                 // Make sure surface is flat enough to be climbed on
-                if (Vector3.Dot(hits[i].normal, Vector3.up) > 0.6f)
+                if (Vector3.Dot(_raycastHits[i].normal, Vector3.up) > NORMAL_DOT_THRESHOLD)
                 {
-                    climbHeight = hits[i].point.y - m_PlayerController.BasePosition.y;
-                    detectDistance = hits[i].distance;
+                    climbHeight = _raycastHits[i].point.y - basePositionY;
+                    detectDistance = _raycastHits[i].distance;
                     return true;
                 }
             }
@@ -490,13 +549,11 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
 
         private bool HasCeilingObstruction(Vector3 origin)
         {
-            RaycastHit[] ceilingHits = new RaycastHit[1];
-
             int ceilingHitCount = Physics.RaycastNonAlloc(
                 origin,
                 Vector3.up,
-                ceilingHits,
-                1.5f,
+                _ceilingHits,
+                CEILING_CHECK_HEIGHT,
                 LevelSingleton.m_LayerWorld,
                 QueryTriggerInteraction.Ignore
             );
@@ -506,8 +563,8 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
                 ceilingHitCount = Physics.RaycastNonAlloc(
                     m_PlayerController.m_CameraBase.position,
                     Vector3.up,
-                    ceilingHits,
-                    1.5f,
+                    _ceilingHits,
+                    CEILING_CHECK_HEIGHT,
                     LevelSingleton.m_LayerWorld,
                     QueryTriggerInteraction.Ignore
                 );
@@ -539,12 +596,13 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
 
         private void UpdateClimbingState()
         {
-            if (!previouslyClimbing && m_PlayerController.Climbing)
+            bool isClimbing = m_PlayerController.Climbing;
+
+            if (!previouslyClimbing && isClimbing)
             {
                 previouslyClimbing = true;
             }
-
-            if (previouslyClimbing && m_PlayerController.Grounded)
+            else if (previouslyClimbing && m_PlayerController.Grounded)
             {
                 previouslyClimbing = false;
             }
@@ -564,49 +622,48 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
 
         private void PerformSlideJump()
         {
-            if (Time.time - m_PlayerController.CrouchStateChangeTimeStamp <= 0.15f)
+            if (Time.time - m_PlayerController.CrouchStateChangeTimeStamp <= SLIDE_JUMP_MIN_TIME)
             {
                 return;
             }
 
-            Vector3 velocity = m_PlayerController.m_CameraBase.forward * 5.99f;
-            velocity.y = m_PlayerController.RigidBody.velocity.y;
-            m_PlayerController.RigidBody.velocity = velocity;
-            m_PlayerController.PlayerRigAnimator.SetJumpCharge(0.3f);
+            var rigidBody = m_PlayerController.RigidBody;
+            Vector3 velocity = m_PlayerController.m_CameraBase.forward * SLIDE_JUMP_FORWARD_SPEED;
+            velocity.y = rigidBody.velocity.y;
+            rigidBody.velocity = velocity;
+
+            m_PlayerController.PlayerRigAnimator.SetJumpCharge(SLIDE_JUMP_CHARGE);
 
             if (m_PlayerController.IsCameraAttached)
             {
                 Runtime.PlayOneShotAttached(Klei.HotLava.Audio.Event.JUMP_SLIDEJUMP, m_PlayerController.gameObject)
                     .SetAudioParameter("velocity_horizontal", m_PlayerController.FlatSpeed)
-                    .SetAudioParameter("3d", (!m_PlayerController.IsCameraAttached) ? 1 : 0)
+                    .SetAudioParameter("3d", 0)
                     .StartAndRelease();
             }
         }
 
         private void PerformNormalJump()
         {
-            Vector3 velocity = m_PlayerController.RigidBody.velocity;
+            var rigidBody = m_PlayerController.RigidBody;
+            Vector3 velocity = rigidBody.velocity;
             velocity.y = 0f;
 
             float flatSpeedMultiplier = GetJumpSpeedMultiplier();
-            velocity = velocity.normalized * Mathf.Max(
+            float targetSpeed = Mathf.Max(
                 m_PlayerController.FlatSpeed * flatSpeedMultiplier,
                 m_PlayerController.CurrentTargetSpeed
             );
 
-            velocity.y = m_PlayerController.RigidBody.velocity.y;
-            m_PlayerController.RigidBody.velocity = velocity;
+            velocity = velocity.normalized * targetSpeed;
+            velocity.y = rigidBody.velocity.y;
+            rigidBody.velocity = velocity;
         }
 
         private float GetJumpSpeedMultiplier()
         {
-            // Don't lose speed while jumping if player has boost or vault jump
-            if (_hasBoostJump || _hasVaultJump)
-            {
-                return 1f;
-            }
-
-            return 0.85f;
+            // Don't lose speed while jumping if player has advanced abilities
+            return (_hasBoostJump || _hasVaultJump) ? 1f : NORMAL_JUMP_SPEED_MULT;
         }
 
         private void UpdateSlideState()
@@ -626,12 +683,13 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
 
         private void AdjustVelocityForSlope()
         {
+            var rigidBody = m_PlayerController.RigidBody;
             Vector3 projectedVelocity = Vector3.ProjectOnPlane(
-                m_PlayerController.RigidBody.velocity,
+                rigidBody.velocity,
                 m_PlayerController.Grounder.GroundContactNormal
             );
 
-            m_PlayerController.RigidBody.velocity = projectedVelocity.normalized * m_PlayerController.CurrentTargetSpeed;
+            rigidBody.velocity = projectedVelocity.normalized * m_PlayerController.CurrentTargetSpeed;
         }
         #endregion
 
@@ -655,13 +713,13 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
 
         private bool IsJumpPressedThisFrame()
         {
-            return (bool)_isJumpPressedThisFrameMethod.Invoke(m_PlayerController, []);
+            return (bool)_isJumpPressedThisFrameMethod.Invoke(m_PlayerController, _emptyArgs);
         }
 
         private void DropAllHeldItems()
         {
             ItemGrabber itemGrabber = (ItemGrabber)_itemGrabberField.GetValue(m_PlayerController);
-            _dropAllItemMethod.Invoke(itemGrabber, []);
+            _dropAllItemMethod.Invoke(itemGrabber, _emptyArgs);
         }
         #endregion
     }
