@@ -38,6 +38,10 @@ namespace HotLavaArchipelagoPlugin.Patches.Character
                     archipelagoModifier.m_LungeVelociyCurve = lungeModifier.m_LungeVelociyCurve;
                     archipelagoModifier.m_ClamberVelocityCurve = lungeModifier.m_ClamberVelocityCurve;
                 }
+                else if (modifier is DoubleJumpModifier doubleJumpModifier)
+                {
+                    archipelagoModifier.m_NoDoubleJumpMaterials = doubleJumpModifier.m_NoDoubleJumpMaterials;
+                }
             }
 
             modifierProp.SetValue(modifierCopy, archipelagoModifier);
