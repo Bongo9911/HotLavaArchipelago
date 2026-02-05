@@ -231,21 +231,21 @@ namespace HotLavaArchipelagoPlugin.Archipelago
         {
             if (ArchipelagoSession == null) return;
 
-            //bool shouldRelease = Locations.AllLocations
-            //    .Values
-            //    .Where(l => l is StarLocation)
-            //    .Select(l => (StarLocation)l)
-            //    .Where(l => l.StarType == StarType.CourseComplete)
-            //    .Where(l => ArchipelagoSession.Locations.AllLocations.Contains(l.LocationID)) //Filter out disabled location checks
-            //    .All(l => ArchipelagoSession.Locations.AllLocationsChecked.Contains(l.LocationID));
-
             bool shouldRelease = Locations.AllLocations
                 .Values
                 .Where(l => l is StarLocation)
                 .Select(l => (StarLocation)l)
-                .Where(l => l.Course.World.Name == "Master Class" && l.StarType == StarType.CourseComplete)
+                .Where(l => l.StarType == StarType.CourseComplete)
                 .Where(l => ArchipelagoSession.Locations.AllLocations.Contains(l.LocationID)) //Filter out disabled location checks
                 .All(l => ArchipelagoSession.Locations.AllLocationsChecked.Contains(l.LocationID));
+
+            //bool shouldRelease = Locations.AllLocations
+            //    .Values
+            //    .Where(l => l is StarLocation)
+            //    .Select(l => (StarLocation)l)
+            //    .Where(l => l.Course.World.Name == "Master Class" && l.StarType == StarType.CourseComplete)
+            //    .Where(l => ArchipelagoSession.Locations.AllLocations.Contains(l.LocationID)) //Filter out disabled location checks
+            //    .All(l => ArchipelagoSession.Locations.AllLocationsChecked.Contains(l.LocationID));
 
             if (shouldRelease)
             {
