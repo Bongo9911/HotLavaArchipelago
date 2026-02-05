@@ -11,6 +11,7 @@ namespace HotLavaArchipelagoPlugin.Models.Game
         public static WorldInfo Default => new WorldInfo(string.Empty, string.Empty, string.Empty, []);
 
         private ForceFieldInfo[] _forceFields = [];
+        private ForceFieldInfo[] _disabledForceFields = [];
 
         /// <summary>
         /// The ID of the unlock for the world
@@ -43,6 +44,21 @@ namespace HotLavaArchipelagoPlugin.Models.Game
                     forceField.World = this;
                 }
                 _forceFields = value;
+            }
+        }
+        /// <summary>
+        /// The disabled force fields within the world
+        /// </summary>
+        public ForceFieldInfo[] DisabledForceFields
+        {
+            get { return _disabledForceFields; }
+            set
+            {
+                foreach (ForceFieldInfo forceField in value)
+                {
+                    forceField.World = this;
+                }
+                _disabledForceFields = value;
             }
         }
 

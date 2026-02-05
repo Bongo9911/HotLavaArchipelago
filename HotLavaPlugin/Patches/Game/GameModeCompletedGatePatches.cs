@@ -73,6 +73,13 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
 
                     return false;
                 }
+                else
+                {
+                    //Disable all force fields that don't have items associated to them
+                    __instance.OnEnableConditionsMet(true);
+
+                    return false;
+                }
             }
 
             return true;

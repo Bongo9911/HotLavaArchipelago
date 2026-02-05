@@ -260,19 +260,21 @@ namespace HotLavaArchipelagoPlugin.Models.Game
         ])
         {
             ForceFields = [
-                new ForceFieldInfo("Atrium/Cafeteria", new Vector3(5.079f, 2.141f, 16.822f)),
                 new ForceFieldInfo("Gym Hallway/Computer Lab", new Vector3(32.16f, 2.168f, -24.77f)),
                 new ForceFieldInfo("Social Studies Hallway/Art Hallway", new Vector3(19f, 2.85f, -12.65f)),
                 new ForceFieldInfo("Teacher's Lounge Hallway/Art Hallway", new Vector3(-23.64f, 2.85f, -12.65f)),
-                new ForceFieldInfo("Social Studies Class Left", new Vector3(22.022f, 2.1f, 1.9f)),
                 new ForceFieldInfo("English Hallway/Teacher's Lounge Hallway", new Vector3(-23.745f, 3.46f, 1.31f)),
                 new ForceFieldInfo("Science Lab/Art Closet", new Vector3(4.046f, 2.177f, -24.828f)),
                 new ForceFieldInfo("Art Hallway/Art Class", new Vector3(-10.526f, 2.704f, -18.816f)),
+                new ForceFieldInfo("Art Closet/Art Class", new Vector3(-0.077f, 2.687f, -28.871f)),
+                new ForceFieldInfo("Teacher's Lounge/Courtyard", new Vector3(-8.333f, 3.724f, -6.338f)),
+            ],
+            DisabledForceFields = [
+                new ForceFieldInfo("Atrium/Cafeteria", new Vector3(5.079f, 2.141f, 16.822f)),
+                new ForceFieldInfo("Social Studies Class Left", new Vector3(22.022f, 2.1f, 1.9f)),
                 new ForceFieldInfo("Gym Hallway/Science Lab", new Vector3(15.927f, 2.177f, -29.253f)),
                 new ForceFieldInfo("Atrium/Social Studies Hallway", new Vector3(15.945f, 2.146f, 6.217f)),
-                new ForceFieldInfo("Art Closet/Art Class", new Vector3(-0.077f, 2.687f, -28.871f)),
                 new ForceFieldInfo("Social Studies Class Right", new Vector3(22.022f, 2.1f, -10.116f)),
-                new ForceFieldInfo("Teacher's Lounge/Courtyard", new Vector3(-8.333f, 3.724f, -6.338f)),
             ]
         };
 
