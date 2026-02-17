@@ -3,7 +3,10 @@ using HarmonyLib;
 using HotLavaArchipelagoPlugin.Archipelago;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
+using Klei.HotLava;
+using Klei.HotLava.Online;
 using Klei.HotLava.Unlockables;
+using System.Reflection;
 
 namespace HotLavaArchipelagoPlugin.Patches.Unlockables
 {
@@ -50,6 +53,37 @@ namespace HotLavaArchipelagoPlugin.Patches.Unlockables
                     //Don't use built in logic to check if unlocked
                     return false;
                 }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Overrides the number of stars that the player has collected in the UI
+        /// </summary>
+        /// <param name="__result"></param>
+        /// <returns></returns>
+        [HarmonyPatch("ComputeUnlockedChallengesCount")]
+        [HarmonyPrefix]
+        public static bool ComputeUnlockedChallengesCount_Prefix(ref uint __result)
+        {
+            if (Multiworld.ArchipelagoSession != null)
+            {
+                uint totalUnlocked = 999;
+
+                typeof(Statistics).GetField("s_UnlockedChallengeCount", BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, totalUnlocked);
+                typeof(Statistics).GetField("s_ComputedChallengeCount", BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, true);
+
+                __result = totalUnlocked;
+
+                Player player = (Player)typeof(Player).GetMethod("GetPlayer", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, [DistributionPlatform.LocalUser]);
+
+                if (player != null)
+                {
+                    typeof(Player).GetField("m_TotalChallengesUnlocked", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(player, (ushort)totalUnlocked);
+                }
+
+                return false;
             }
 
             return true;

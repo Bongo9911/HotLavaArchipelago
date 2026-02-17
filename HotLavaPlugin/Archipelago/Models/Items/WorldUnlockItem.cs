@@ -1,4 +1,5 @@
 ﻿using HotLavaArchipelagoPlugin.Models.Game;
+using Klei.HotLava.Rewards;
 
 namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
 {
@@ -13,6 +14,18 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
             : base(id, world.UnlockableId, "World Unlock - " + world.Name)
         {
             InternalName = world.InternalName;
+        }
+
+        public override RewardVisualization? GetRewardVisualization(GiftDropVisualization giftDropVisualization)
+        {
+            RewardVisualization? rewardVisualization = base.GetRewardVisualization(giftDropVisualization);
+
+            if (rewardVisualization == null)
+            {
+                //TODO: Custom
+            }
+
+            return rewardVisualization;
         }
     }
 }

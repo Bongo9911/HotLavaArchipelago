@@ -11,13 +11,18 @@ namespace HotLavaArchipelagoPlugin.Models.Game
         [JsonIgnore]
         public CourseInfo Course { get; set; } = CourseInfo.Default;
 
+        /// <summary>
+        /// The ID of the AP location
+        /// </summary>
+        public long LocationId { get; set; }
         [JsonIgnore]
         public string UnlockableId { get; }
         public string Name { get; }
         public StarType StarType { get; }
 
-        public StarInfo(string unlockableId, string name, StarType starType = StarType.Generic)
+        public StarInfo(long locationId, string unlockableId, string name, StarType starType = StarType.Generic)
         {
+            LocationId = locationId;
             UnlockableId = unlockableId;
             Name = name;
             StarType = starType;

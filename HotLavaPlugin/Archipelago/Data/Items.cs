@@ -44,21 +44,14 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
         /// <param name="itemDictionary">The item dictionary</param>
         private static void LoadWorldItems(Dictionary<long, Item> itemDictionary)
         {
-            long worldOffset = 100;
             foreach (WorldInfo world in Worlds.AllWorlds)
             {
-                itemDictionary.Add(worldOffset, new WorldUnlockItem(worldOffset, world));
-
-                long idOffset = 1;
+                itemDictionary.Add(world.ItemId, new WorldUnlockItem(world.ItemId, world));
 
                 foreach (ForceFieldInfo forceField in world.ForceFields)
                 {
-                    long id = worldOffset + idOffset;
-                    itemDictionary.Add(id, new ForceFieldItem(id, forceField));
-                    idOffset++;
+                    itemDictionary.Add(forceField.ItemId, new ForceFieldItem(forceField.ItemId, forceField));
                 }
-
-                worldOffset += 100;
             }
         }
 

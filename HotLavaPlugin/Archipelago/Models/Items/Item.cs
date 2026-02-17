@@ -32,6 +32,6 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
         /// </summary>
         /// <param name="giftDropVisualization">The gift drop visualization base</param>
         /// <returns>The reward visualization</returns>
-        public abstract RewardVisualization GetRewardVisualization(GiftDropVisualization giftDropVisualization);
+        public abstract RewardVisualization? GetRewardVisualization(GiftDropVisualization giftDropVisualization);
     }
 }

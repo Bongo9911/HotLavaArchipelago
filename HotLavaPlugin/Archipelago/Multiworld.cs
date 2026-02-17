@@ -9,9 +9,11 @@ using BepInEx;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
+using HotLavaArchipelagoPlugin.Archipelago.Models.Options;
 using HotLavaArchipelagoPlugin.Enums;
 using HotLavaArchipelagoPlugin.Extensions;
 using HotLavaArchipelagoPlugin.Helpers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +24,12 @@ namespace HotLavaArchipelagoPlugin.Archipelago
     internal class Multiworld
     {
         internal static ArchipelagoSession? ArchipelagoSession;
+        internal static SlotData SlotData = new SlotData();
+
         private static DeathLinkService? DeathLinkService = null;
         private static string PlayerName = "Unknown";
         private static Dictionary<long, ScoutedItemInfo> ScoutedItems = new Dictionary<long, ScoutedItemInfo>();
+
         private static Queue<ScoutedItemInfo> QueuedAwardItems = new Queue<ScoutedItemInfo>();
 
         public static async Task ParseArchipelagoConnectMessage(string message)
@@ -92,9 +97,13 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 
                     await ScoutAllLocations();
 
+                    SlotData = await ArchipelagoSession.DataStorage.GetSlotDataAsync<SlotData>();
+
                     Plugin.Logger.LogInfo("Successfully logged in to Archipelago");
                     Plugin.Logger.LogInfo("Archipelago Seed: " + ArchipelagoSession.RoomState.Seed);
                     UIHelper.ShowPopup("Successfully connected to Archipelago");
+
+                    Plugin.Logger.LogInfo("Data: " + JsonConvert.SerializeObject(SlotData));
                 }
             }
             catch (Exception ex)

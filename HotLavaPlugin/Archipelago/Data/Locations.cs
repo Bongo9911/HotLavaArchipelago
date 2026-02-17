@@ -1,5 +1,4 @@
 ﻿using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
-using HotLavaArchipelagoPlugin.Enums;
 using HotLavaArchipelagoPlugin.Models.Game;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,30 +26,15 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
         {
             Dictionary<long, Location> locations = new Dictionary<long, Location>();
 
-            long worldIdOffset = 100;
             foreach (WorldInfo world in Worlds.AllWorlds)
             {
-                long courseIdOffset = 0;
                 foreach (CourseInfo course in world.Courses)
                 {
-                    for (long i = 0; i < course.Stars.Count(); ++i)
+                    foreach (StarInfo star in course.Stars)
                     {
-                        StarInfo star = course.Stars[i];
-                        long locationId = worldIdOffset + courseIdOffset + i;
-                        locations.Add(locationId, new StarLocation(locationId, star));
-                    }
-
-                    if (course.CourseType == CourseType.Standard)
-                    {
-                        courseIdOffset += 10;
-                    }
-                    else
-                    {
-                        courseIdOffset += 1;
+                        locations.Add(star.LocationId, new StarLocation(star.LocationId, star));
                     }
                 }
-
-                worldIdOffset += 100;
             }
 
             return locations;
@@ -75,8 +59,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
         {
             return AllLocations.Values.Where(l => l is UnlockableLocation)
                 .Select(l => (UnlockableLocation)l)
-                .Where(l => l.UnlockableId == unlockableId)
-                .FirstOrDefault();
+                .FirstOrDefault(l => l.UnlockableId == unlockableId);
         }
     }
 }

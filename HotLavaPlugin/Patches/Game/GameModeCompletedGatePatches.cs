@@ -2,6 +2,7 @@
 using HotLavaArchipelagoPlugin.Archipelago;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
+using HotLavaArchipelagoPlugin.Archipelago.Models.Options;
 using HotLavaArchipelagoPlugin.Extensions;
 using HotLavaArchipelagoPlugin.Helpers;
 using Klei.HotLava;
@@ -40,45 +41,55 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
 
             if (Multiworld.ArchipelagoSession != null)
             {
-                ForceFieldItem? forceFieldItem = Items.GetItems<ForceFieldItem>()
-                    .FirstOrDefault(m => m.InternalWorldName == currentLevel?.GetWorldName() && m.Position == __instance.transform.position);
-
-                if (forceFieldItem != null)
+                if (Multiworld.SlotData.ForceFieldLogicOption == ForceFieldLogicOption.Disabled)
                 {
-                    bool isForceFieldUnlocked = Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == forceFieldItem.Id);
+                    __instance.OnEnableConditionsMet(true);
+                    return false;
+                }
+                else if (Multiworld.SlotData.ForceFieldLogicOption == ForceFieldLogicOption.Item)
+                {
+                    ForceFieldItem? forceFieldItem = Items.GetItems<ForceFieldItem>()
+                        .FirstOrDefault(m => m.InternalWorldName == currentLevel?.GetWorldName() && m.Position == __instance.transform.position);
 
-                    __instance.ClearList();
+                    if (forceFieldItem != null)
+                    {
+                        bool isForceFieldUnlocked = Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == forceFieldItem.Id);
 
-                    GameModeCompletedRequirement completedRequirement = UnityEngine.Object.Instantiate<GameModeCompletedRequirement>(__instance.m_RequirementTemplate, __instance.m_RequirementsList.transform);
-                    completedRequirement.m_GameModeName.text = "Unlock via Archipelago";
-                    completedRequirement.m_RequirementIcon.interactable = isForceFieldUnlocked;
-                    completedRequirement.gameObject.SetActive(true);
+                        __instance.ClearList();
 
-                    FieldInfo m_RowsField = typeof(GameModeCompletedGate).GetField("m_Rows", BindingFlags.NonPublic | BindingFlags.Instance);
-                    List<GameModeCompletedRequirement> m_Rows = (List<GameModeCompletedRequirement>)m_RowsField.GetValue(__instance);
-                    m_Rows.Add(completedRequirement);
+                        GameModeCompletedRequirement completedRequirement = UnityEngine.Object.Instantiate<GameModeCompletedRequirement>(__instance.m_RequirementTemplate, __instance.m_RequirementsList.transform);
+                        completedRequirement.m_GameModeName.text = "Unlock via Archipelago";
+                        completedRequirement.m_RequirementIcon.interactable = isForceFieldUnlocked;
+                        completedRequirement.gameObject.SetActive(true);
 
-                    __instance.OnEnableConditionsMet(isForceFieldUnlocked);
+                        FieldInfo m_RowsField = typeof(GameModeCompletedGate).GetField("m_Rows", BindingFlags.NonPublic | BindingFlags.Instance);
+                        List<GameModeCompletedRequirement> m_Rows = (List<GameModeCompletedRequirement>)m_RowsField.GetValue(__instance);
+                        m_Rows.Add(completedRequirement);
 
-                    //if (isForceFieldUnlocked)
-                    //{
-                    //    //TODO: check if this animation has already been played
-                    //    //__instance.PlayDeactivationAnimation();
-                    //    __instance.OnEnableConditionsMet(true);
-                    //}
-                    //else
-                    //{
-                    //    __instance.OnEnableConditionsMet(false);
-                    //}
+                        __instance.OnEnableConditionsMet(isForceFieldUnlocked);
+
+                        //if (isForceFieldUnlocked)
+                        //{
+                        //    //TODO: check if this animation has already been played
+                        //    //__instance.PlayDeactivationAnimation();
+                        //    __instance.OnEnableConditionsMet(true);
+                        //}
+                        //else
+                        //{
+                        //    __instance.OnEnableConditionsMet(false);
+                        //}
+                    }
+                    else
+                    {
+                        //Disable all force fields that don't have items associated to them
+                        __instance.OnEnableConditionsMet(true);
+                    }
 
                     return false;
                 }
                 else
                 {
-                    //Disable all force fields that don't have items associated to them
-                    __instance.OnEnableConditionsMet(true);
-
-                    return false;
+                    return true;
                 }
             }
 

@@ -11,5 +11,6 @@
         Comic,
         TrialComplete,
         Buddy,
+        BuddyChase,
     }
 }

@@ -8,11 +8,15 @@ namespace HotLavaArchipelagoPlugin.Models.Game
     internal class WorldInfo
     {
         [JsonIgnore]
-        public static WorldInfo Default => new WorldInfo(string.Empty, string.Empty, string.Empty, []);
+        public static WorldInfo Default => new WorldInfo(-1, string.Empty, string.Empty, string.Empty, []);
 
         private ForceFieldInfo[] _forceFields = [];
         private ForceFieldInfo[] _disabledForceFields = [];
 
+        /// <summary>
+        /// The id of the AP item for unlocking the world
+        /// </summary>
+        public long ItemId { get; set; }
         /// <summary>
         /// The ID of the unlock for the world
         /// </summary>
@@ -62,8 +66,9 @@ namespace HotLavaArchipelagoPlugin.Models.Game
             }
         }
 
-        public WorldInfo(string unlockableId, string internalName, string name, CourseInfo[] courses)
+        public WorldInfo(int itemId, string unlockableId, string internalName, string name, CourseInfo[] courses)
         {
+            ItemId = itemId;
             UnlockableId = unlockableId;
             InternalName = internalName;
             Name = name;

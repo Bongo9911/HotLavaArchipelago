@@ -15,7 +15,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
         }
 
         /// <inheritdoc/>
-        public override RewardVisualization GetRewardVisualization(GiftDropVisualization giftDropVisualization)
+        public override RewardVisualization? GetRewardVisualization(GiftDropVisualization giftDropVisualization)
         {
             return RewardVisualizationFactory.FromImage(giftDropVisualization, Properties.Resources.XPShard);
         }
