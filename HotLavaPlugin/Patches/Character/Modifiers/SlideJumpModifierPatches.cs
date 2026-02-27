@@ -1,6 +1,12 @@
 ﻿using HarmonyLib;
+using HotLavaArchipelagoPlugin.Archipelago;
+using HotLavaArchipelagoPlugin.Archipelago.Data;
+using HotLavaArchipelagoPlugin.Gameplay.Modifiers;
+using HotLavaArchipelagoPlugin.Helpers;
+using Klei.HotLava.Character;
 using Klei.HotLava.Character.Modifiers;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -15,15 +21,36 @@ namespace HotLavaArchipelagoPlugin.Patches.Character.Modifiers
         {
             MethodInfo getForwardVelocityMultiplier = AccessTools.Method(typeof(SlideJumpModifierPatches), nameof(SlideJumpModifierPatches.GetForwardVelocityMultiplier));
 
-            //Remove speed loss from Slide Jumping (TODO: Make this only be when using Ability Randomizer?)
             return new CodeMatcher(instructions).MatchForward(false, new CodeMatch(OpCodes.Ldc_R4, 0.85f))
                  .Set(OpCodes.Call, getForwardVelocityMultiplier)
                  .InstructionEnumeration();
         }
 
+        /// <summary>
+        /// Disables the ability to use Slide Jump if it has not been unlocked yet
+        /// </summary>
+        /// <returns>True if unlocked, else false</returns>
+        [HarmonyPatch(nameof(SlideJumpModifier.FixedUpdate))]
+        [HarmonyPrefix]
+        public static bool FixedUpdate_Prefix()
+        {
+            return Multiworld.ArchipelagoSession == null || Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == Items.SlideJump.Id);
+        }
+
         public static float GetForwardVelocityMultiplier()
         {
-            return 1f;
+            PlayerController? player = PlayerHelper.GetLocalPlayer();
+
+            float multiplier = 0.85f;
+
+            if (player == null) return multiplier;
+
+            if (Multiworld.ArchipelagoSession != null && player.Modifier is AbilityRandomizerModifier && Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == Items.SlideJump.Id))
+            {
+                multiplier = 1f;
+            }
+
+            return multiplier;
         }
     }
 }

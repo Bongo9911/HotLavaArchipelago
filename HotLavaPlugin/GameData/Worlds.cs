@@ -1,8 +1,9 @@
 ﻿using HotLavaArchipelagoPlugin.Enums;
+using HotLavaArchipelagoPlugin.Models.Game;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HotLavaArchipelagoPlugin.Models.Game
+namespace HotLavaArchipelagoPlugin.GameData
 {
     internal static class Worlds
     {

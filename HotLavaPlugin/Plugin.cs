@@ -2,7 +2,7 @@
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
-using HotLavaArchipelagoPlugin.Models.Game;
+using HotLavaArchipelagoPlugin.GameData;
 using Newtonsoft.Json;
 using System.Reflection;
 using System.Threading.Tasks;

@@ -143,7 +143,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 
         private static void OnItemReceived(ReceivedItemsHelper helper)
         {
-            ItemInfo receivedItem = helper.PeekItem();
+            ItemInfo receivedItem = helper.DequeueItem();
 
             Plugin.Logger.LogInfo("Received Item: " + receivedItem.ItemName);
 
@@ -190,9 +190,6 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                     item.GrantItem();
                 });
             }
-
-            //TODO: should we only call this and save the return value?
-            helper.DequeueItem();
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using HotLavaArchipelagoPlugin.Archipelago.Models.Locations;
+using HotLavaArchipelagoPlugin.GameData;
 using HotLavaArchipelagoPlugin.Models.Game;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,10 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
 
         private static Dictionary<long, Location> SetUpLocations()
         {
-            Dictionary<long, Location> locations = new Dictionary<long, Location>();
+            Dictionary<long, Location> locations = new Dictionary<long, Location>()
+            {
+                { 1, new StarLocation(1, new StarInfo(1, "786e99dd02dbd5c479922d67978d8ceb", "Complete the Intro.", Enums.StarType.CourseComplete)) }
+            };
 
             foreach (WorldInfo world in Worlds.AllWorlds)
             {

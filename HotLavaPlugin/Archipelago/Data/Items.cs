@@ -1,5 +1,7 @@
 ﻿using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
+using HotLavaArchipelagoPlugin.GameData;
 using HotLavaArchipelagoPlugin.Models.Game;
+using HotLavaArchipelagoPlugin.Properties;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,6 +10,14 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
     internal static class Items
     {
         private static Dictionary<long, Item>? _allItems = null;
+
+        public static AbilityItem DoubleJump { get; } = new AbilityItem(10, "Double Jump", Resources.DoubleJump);
+        public static AbilityItem BoostJump { get; } = new AbilityItem(11, "Boost Jump", Resources.BoostJump);
+        public static AbilityItem SlideJump { get; } = new AbilityItem(12, "Slide Jump", Resources.SlideJump);
+        public static AbilityItem VaultJump { get; } = new AbilityItem(13, "Vault Jump", Resources.VaultJump);
+
+        public static AbilityItem Crouch { get; } = new AbilityItem(20, "Crouch", Resources.Crouch);
+        public static AbilityItem Grab { get; } = new AbilityItem(21, "Grab", Resources.Grab);
 
         public static Dictionary<long, Item> AllItems
         {
@@ -31,6 +41,12 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
             Dictionary<long, Item> itemDictionary = new Dictionary<long, Item>()
             {
                 { 1, new XpShardItem(1) },
+                { DoubleJump.Id, DoubleJump },
+                { BoostJump.Id, BoostJump },
+                { SlideJump.Id, SlideJump },
+                { VaultJump.Id, VaultJump },
+                { Crouch.Id, Crouch },
+                { Grab.Id, Grab },
             };
 
             LoadWorldItems(itemDictionary);

@@ -1,9 +1,13 @@
-﻿using FMOD.Studio;
-using HarmonyLib;
+﻿using HarmonyLib;
+using HotLavaArchipelagoPlugin.Archipelago;
+using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Gameplay.Modifiers;
-using Klei.HotLava.Audio;
 using Klei.HotLava.Character;
+using Klei.HotLava.Character.Modifiers;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 
 namespace HotLavaArchipelagoPlugin.Patches.Character
 {
@@ -14,33 +18,26 @@ namespace HotLavaArchipelagoPlugin.Patches.Character
     internal class PlayerControllerPatches
     {
         [HarmonyPatch("StartCrouching")]
-        [HarmonyPrefix]
-        public static bool StartCrouching_Prefix(PlayerController __instance)
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> StartCrouching_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            //TODO: check if crouching is unlocked
-            //return false;
-            return true;
+            MethodInfo canSlideMethod = AccessTools.Method(typeof(PlayerControllerPatches), nameof(PlayerControllerPatches.CanSlide));
+
+            return new CodeMatcher(instructions).MatchForward(false, new CodeMatch(OpCodes.Isinst, typeof(SlideJumpModifier)))
+                 .Set(OpCodes.Call, canSlideMethod)
+                 .InstructionEnumeration();
         }
 
-        [HarmonyPatch("StartCrouching")]
-        [HarmonyPostfix]
-        public static void StartCrouching_Postfix(PlayerController __instance)
+        public static bool CanSlide(PlayerController playerController)
         {
-            FieldInfo m_IsSlidingFieldInfo = typeof(PlayerController).GetField("m_IsSliding", BindingFlags.Instance | BindingFlags.NonPublic);
+            bool canSlide = playerController.Modifier is SlideJumpModifier || playerController.Modifier is AbilityRandomizerModifier;
 
-            m_IsSlidingFieldInfo.SetValue(__instance, __instance.Modifier is AbilityRandomizerModifier && __instance.Grounded && __instance.GetCachedInput().y > 0f && !__instance.Surfing);
-            if ((bool)m_IsSlidingFieldInfo.GetValue(__instance))
+            if (canSlide && Multiworld.ArchipelagoSession != null)
             {
-                PlayerRig playerRig = (PlayerRig)typeof(PlayerController).GetField("m_PlayerRig", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance);
-
-                EventInstance eventInstance = Runtime
-                    .PlayOneShotAttached(Klei.HotLava.Audio.Event.CROUCHSLIDE_2D3D, playerRig.gameObject)
-                    .SetAudioParameter("3d", (!__instance.IsCameraAttached) ? 1 : 0)
-                    .StartAndRelease();
-
-                typeof(PlayerController).GetField("m_SlideInstance", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .SetValue(__instance, eventInstance);
+                canSlide &= Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == Items.SlideJump.Id);
             }
+
+            return canSlide;
         }
     }
 }

@@ -73,9 +73,69 @@ namespace HotLavaArchipelagoPlugin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] BoostJump {
+            get {
+                object obj = ResourceManager.GetObject("BoostJump", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Crouch {
+            get {
+                object obj = ResourceManager.GetObject("Crouch", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DoubleJump {
+            get {
+                object obj = ResourceManager.GetObject("DoubleJump", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] ForceField {
             get {
                 object obj = ResourceManager.GetObject("ForceField", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Grab {
+            get {
+                object obj = ResourceManager.GetObject("Grab", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SlideJump {
+            get {
+                object obj = ResourceManager.GetObject("SlideJump", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] VaultJump {
+            get {
+                object obj = ResourceManager.GetObject("VaultJump", resourceCulture);
                 return ((byte[])(obj));
             }
         }

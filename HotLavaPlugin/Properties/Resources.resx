@@ -121,8 +121,26 @@
   <data name="ArchipelagoLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\assets\ArchipelagoLogo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="BoostJump" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\assets\Abilities\BoostJump.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Crouch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\assets\Abilities\Crouch.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DoubleJump" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\assets\Abilities\DoubleJump.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="ForceField" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\assets\ForceField.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Grab" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\assets\Abilities\Grab.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SlideJump" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\assets\Abilities\SlideJump.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="VaultJump" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\assets\Abilities\VaultJump.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="XPShard" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\assets\XPShard.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

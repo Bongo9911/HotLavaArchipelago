@@ -37,7 +37,7 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
         #endregion
 
         #region Ability Properties
-        public override bool CanBhop => EnableBoostJump;
+        //public override bool CanBhop => EnableBoostJump;
 
         public override bool CanPerfectJump
         {
@@ -58,22 +58,22 @@ namespace HotLavaArchipelagoPlugin.Gameplay.Modifiers
             }
         }
 
-        public override bool CanGrab
-        {
-            get
-            {
-                bool canGrab = true;
+        //public override bool CanGrab
+        //{
+        //    get
+        //    {
+        //        bool canGrab = true;
 
-                if (EnableVaultJump && m_LungeModifier != null)
-                    canGrab &= m_LungeModifier.CanGrab;
+        //        if (EnableVaultJump && m_LungeModifier != null)
+        //            canGrab &= m_LungeModifier.CanGrab;
 
-                return canGrab;
-            }
-        }
+        //        return canGrab;
+        //    }
+        //}
 
-        public override bool CanCrouch => true;
-        public override bool CanSurf => true;
-        public override bool CanWallRun => true;
+        //public override bool CanCrouch => true;
+        //public override bool CanSurf => true;
+        //public override bool CanWallRun => true;
 
         public override bool CanReach
         {
