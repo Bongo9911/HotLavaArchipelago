@@ -18,11 +18,11 @@ namespace HotLavaArchipelagoPlugin.Patches.UI
         [HarmonyPrefix]
         public static bool DisplayAwards_Internal_Prefix(AwardsScreen __instance)
         {
-            if (Multiworld.ArchipelagoSession != null)
+            if (Multiworld.Connected)
             {
                 try
                 {
-                    ScoutedItemInfo? itemInfo = Multiworld.PopAwardsQueue();
+                    ScoutedItemInfo? itemInfo = Multiworld.Instance.PopAwardsQueue();
 
                     if (itemInfo == null)
                     {

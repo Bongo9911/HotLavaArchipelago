@@ -18,6 +18,10 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
 
         public static AbilityItem Crouch { get; } = new AbilityItem(20, "Crouch", Resources.Crouch);
         public static AbilityItem Grab { get; } = new AbilityItem(21, "Grab", Resources.Grab);
+        public static AbilityItem Surf { get; } = new AbilityItem(22, "Surf", Resources.Surf);
+        public static AbilityItem WallJump { get; } = new AbilityItem(23, "Wall Jump", Resources.WallJump);
+        public static AbilityItem Swing { get; } = new AbilityItem(24, "Swing", Resources.Swing);
+        public static AbilityItem Climb { get; } = new AbilityItem(25, "Climb", Resources.Climb);
 
         public static Dictionary<long, Item> AllItems
         {

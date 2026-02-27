@@ -28,12 +28,12 @@ namespace HotLavaArchipelagoPlugin.Patches.UI
             //    return;
             //}
 
-            if (Multiworld.ArchipelagoSession != null)
+            if (Multiworld.Connected)
             {
                 WorldUnlockItem? worldUnlockItem = Items.GetItems<WorldUnlockItem>()
                     .FirstOrDefault(m => m.InternalName == levelName);
 
-                if (worldUnlockItem != null && Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == worldUnlockItem.Id))
+                if (worldUnlockItem != null && Multiworld.HasReceivedItem(worldUnlockItem))
                 {
                     locked = WorldInfoLevelSelect.LockState.Unlocked;
                     info_text = string.Empty;

@@ -14,13 +14,13 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
         {
             if (message.StartsWith("/apconnect"))
             {
-                Task.Run(() => Multiworld.ParseArchipelagoConnectMessage(message)).GetAwaiter().GetResult();
+                Task.Run(() => Multiworld.Connect(message)).GetAwaiter().GetResult();
                 return false;
             }
 
-            if (Multiworld.ArchipelagoSession != null)
+            if (Multiworld.Connected)
             {
-                Multiworld.ArchipelagoSession.Say(message);
+                Multiworld.Instance.ArchipelagoSession.Say(message);
             }
 
             return true;

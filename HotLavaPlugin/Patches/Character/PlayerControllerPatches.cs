@@ -5,7 +5,6 @@ using HotLavaArchipelagoPlugin.Gameplay.Modifiers;
 using Klei.HotLava.Character;
 using Klei.HotLava.Character.Modifiers;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -32,9 +31,9 @@ namespace HotLavaArchipelagoPlugin.Patches.Character
         {
             bool canSlide = playerController.Modifier is SlideJumpModifier || playerController.Modifier is AbilityRandomizerModifier;
 
-            if (canSlide && Multiworld.ArchipelagoSession != null)
+            if (canSlide && Multiworld.Connected)
             {
-                canSlide &= Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == Items.SlideJump.Id);
+                canSlide &= Multiworld.HasReceivedItem(Items.SlideJump);
             }
 
             return canSlide;

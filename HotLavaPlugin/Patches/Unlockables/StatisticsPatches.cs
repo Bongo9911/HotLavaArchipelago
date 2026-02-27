@@ -16,21 +16,21 @@ namespace HotLavaArchipelagoPlugin.Patches.Unlockables
         {
             Plugin.Logger.LogInfo("Unlocking: " + unlockable.ToString());
 
-            if (Multiworld.ArchipelagoSession != null)
+            if (Multiworld.Connected)
             {
                 Location? location = Locations.GetUnlockableLocation(unlockable.m_Key.m_Value);
 
                 //Don't recheck locations that have already been checked
-                if (location != null && !Multiworld.ArchipelagoSession.Locations.AllLocationsChecked.Contains(location.LocationID))
+                if (location != null && !Multiworld.HasCheckedLocation(location))
                 {
                     Plugin.Logger.LogInfo("Sending AP Check for: " + location.LocationID);
-                    Multiworld.SendLocationCheck(location.LocationID);
+                    Multiworld.Instance.SendLocationCheck(location.LocationID);
 
-                    ScoutedItemInfo? scoutedItemInfo = Multiworld.GetItemForLocation(location.LocationID);
+                    ScoutedItemInfo? scoutedItemInfo = Multiworld.Instance.GetItemForLocation(location.LocationID);
                     if (scoutedItemInfo != null)
                     {
                         Plugin.Logger.LogInfo("Queueing scouted itme: " + scoutedItemInfo.ItemDisplayName);
-                        Multiworld.QueueAwardItem(scoutedItemInfo);
+                        Multiworld.Instance.QueueAwardItem(scoutedItemInfo);
                     }
                 }
             }
@@ -40,13 +40,13 @@ namespace HotLavaArchipelagoPlugin.Patches.Unlockables
         [HarmonyPrefix]
         public static bool HasUnlockedUnlockable_PreFix(Unlockable unlockable, ref bool __result)
         {
-            if (Multiworld.ArchipelagoSession != null)
+            if (Multiworld.Connected)
             {
                 Location? location = Locations.GetUnlockableLocation(unlockable.m_Key.m_Value);
 
                 if (location != null)
                 {
-                    __result = Multiworld.ArchipelagoSession.Locations.AllLocationsChecked.Contains(location.LocationID);
+                    __result = Multiworld.HasCheckedLocation(location);
                     //Don't use built in logic to check if unlocked
                     return false;
                 }

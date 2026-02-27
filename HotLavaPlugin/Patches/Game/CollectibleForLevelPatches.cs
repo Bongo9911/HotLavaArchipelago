@@ -14,7 +14,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
         [HarmonyPrefix]
         public static bool OnEnable_Prefix(CollectibleForLevel __instance)
         {
-            if (Multiworld.ArchipelagoSession != null && __instance.m_Unlockable != null)
+            if (Multiworld.Connected && __instance.m_Unlockable != null)
             {
                 Location? location = Locations.GetUnlockableLocation(__instance.m_Unlockable.m_Key.m_Value);
 
@@ -23,11 +23,11 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
                     if (starLocation.StarType == StarType.GoldenPin || starLocation.StarType == StarType.Comic)
                     {
                         //TODO: Check if player has unlocked collectibles
-                        if (true)
-                        {
-                            __instance.gameObject.SetActive(false);
-                            return false;
-                        }
+                        //if (true)
+                        //{
+                        //    __instance.gameObject.SetActive(false);
+                        //    return false;
+                        //}
                     }
 
                     __instance.m_XRayMode = true;

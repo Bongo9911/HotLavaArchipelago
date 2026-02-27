@@ -39,21 +39,21 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
                 Plugin.Logger.LogInfo("[" + barrierID + "] Level: " + currentLevel?.GetTranslatedName(gameModeContainer.m_GameMode));
             }
 
-            if (Multiworld.ArchipelagoSession != null)
+            if (Multiworld.Connected)
             {
-                if (Multiworld.SlotData.ForceFieldLogicOption == ForceFieldLogicOption.Disabled)
+                if (Multiworld.Instance.SlotData.ForceFieldLogicOption == ForceFieldLogicOption.Disabled)
                 {
                     __instance.OnEnableConditionsMet(true);
                     return false;
                 }
-                else if (Multiworld.SlotData.ForceFieldLogicOption == ForceFieldLogicOption.Item)
+                else if (Multiworld.Instance.SlotData.ForceFieldLogicOption == ForceFieldLogicOption.Item)
                 {
                     ForceFieldItem? forceFieldItem = Items.GetItems<ForceFieldItem>()
                         .FirstOrDefault(m => m.InternalWorldName == currentLevel?.GetWorldName() && m.Position == __instance.transform.position);
 
                     if (forceFieldItem != null)
                     {
-                        bool isForceFieldUnlocked = Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == forceFieldItem.Id);
+                        bool isForceFieldUnlocked = Multiworld.HasReceivedItem(forceFieldItem);
 
                         __instance.ClearList();
 

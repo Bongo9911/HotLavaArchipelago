@@ -23,88 +23,58 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 {
     internal class Multiworld
     {
-        internal static ArchipelagoSession? ArchipelagoSession;
-        internal static SlotData SlotData = new SlotData();
+        private static Multiworld? _instance = null;
 
-        private static DeathLinkService? DeathLinkService = null;
-        private static string PlayerName = "Unknown";
-        private static Dictionary<long, ScoutedItemInfo> ScoutedItems = new Dictionary<long, ScoutedItemInfo>();
-
-        private static Queue<ScoutedItemInfo> QueuedAwardItems = new Queue<ScoutedItemInfo>();
-
-        public static async Task ParseArchipelagoConnectMessage(string message)
+        public static Multiworld Instance
         {
-            PlayerName = Plugin.ConfigArchipelagoPlayerName.Value;
+            get
+            {
+                if (_instance == null)
+                {
+                    throw new NullReferenceException("Multiworld has not been initialized");
+                }
+                return _instance;
+            }
+        }
+        /// <summary>
+        /// Whether there is an active archipelago connection
+        /// </summary>
+        public static bool Connected
+        {
+            get
+            {
+                return _instance != null;
+            }
+        }
 
-            string host = Plugin.ConfigArchipelagoHost.Value;
-            int port = Plugin.ConfigArchipelagoPort.Value;
-            string password = Plugin.ConfigArchipelagoPassword.Value;
+        internal ArchipelagoSession ArchipelagoSession;
+        internal SlotData SlotData = new SlotData();
 
+        private DeathLinkService? DeathLinkService = null;
+        private string PlayerName = "Unknown";
+        private Dictionary<long, ScoutedItemInfo> ScoutedItems = new Dictionary<long, ScoutedItemInfo>();
+
+        private Queue<ScoutedItemInfo> QueuedAwardItems = new Queue<ScoutedItemInfo>();
+
+        public Multiworld(ArchipelagoSession archipelagoSession)
+        {
+            ArchipelagoSession = archipelagoSession;
+        }
+
+        public static async Task Connect(string message)
+        {
             try
             {
-                ArchipelagoSession = ArchipelagoSessionFactory.CreateSession(host, port);
+                string host = Plugin.ConfigArchipelagoHost.Value;
+                int port = Plugin.ConfigArchipelagoPort.Value;
 
-                ArchipelagoSession.MessageLog.OnMessageReceived += OnMessageReceived;
-                ArchipelagoSession.Items.ItemReceived += OnItemReceived;
-                ArchipelagoSession.Locations.CheckedLocationsUpdated += OnLocationsChecked;
+                ArchipelagoSession archipelagoSession = ArchipelagoSessionFactory.CreateSession(host, port);
 
-                await ArchipelagoSession.ConnectAsync();
+                Multiworld multiworld = new Multiworld(archipelagoSession);
 
-                Plugin.Logger.LogInfo("Connected to Archipelago");
+                await multiworld.ConnectAsync();
 
-                //https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/network%20protocol.md
-                const string gameName = "Hot Lava";
-                const ItemsHandlingFlags itemsHandlingFlags = ItemsHandlingFlags.AllItems;
-                Version minArchipelagoVersion = new Version(0, 6, 5);
-                string[] tags = ["DeathLink"];
-                const string? uuid = null;
-                const bool requestSlotData = true;
-
-                LoginResult loginResult = await ArchipelagoSession.LoginAsync(
-                    gameName, // Name of the game implemented by this client, SHOULD match what is used in the world implementation
-                    PlayerName, // Name of the slot to connect as (a.k.a player name)
-                    itemsHandlingFlags,
-                    minArchipelagoVersion, // Minimum Archipelago API specification version which this client can successfuly interface with
-                    tags,
-                    uuid, // Unique identifier for this player/client, if null randomly generated
-                    password, // Password that was set when the room was created
-                    requestSlotData // If the LoginResult should contain the slot data
-                );
-
-                if (loginResult is LoginFailure loginFailure)
-                {
-                    string errors = "";
-
-                    foreach (string error in loginFailure.Errors)
-                    {
-                        errors += "\r\n" + error;
-                    }
-
-                    if (string.IsNullOrEmpty(errors))
-                    {
-                        errors = "\r\n" + "An unknown error";
-                    }
-
-                    UIHelper.ShowPopup("Failed to login to Archipelago due to:" + errors);
-                    await ArchipelagoSession.Socket.DisconnectAsync();
-                    ArchipelagoSession = null;
-                    DeathLinkService = null;
-                }
-                else
-                {
-                    DeathLinkService = ArchipelagoSession.CreateDeathLinkService();
-                    DeathLinkService.OnDeathLinkReceived += OnDeathLinkReceived;
-
-                    await ScoutAllLocations();
-
-                    SlotData = await ArchipelagoSession.DataStorage.GetSlotDataAsync<SlotData>();
-
-                    Plugin.Logger.LogInfo("Successfully logged in to Archipelago");
-                    Plugin.Logger.LogInfo("Archipelago Seed: " + ArchipelagoSession.RoomState.Seed);
-                    UIHelper.ShowPopup("Successfully connected to Archipelago");
-
-                    Plugin.Logger.LogInfo("Data: " + JsonConvert.SerializeObject(SlotData));
-                }
+                _instance = multiworld;
             }
             catch (Exception ex)
             {
@@ -113,18 +83,93 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             }
         }
 
-        private static async Task ScoutAllLocations()
+        private async Task ConnectAsync()
         {
-            ScoutedItems = await ArchipelagoSession!.Locations
+            PlayerName = Plugin.ConfigArchipelagoPlayerName.Value;
+            string password = Plugin.ConfigArchipelagoPassword.Value;
+
+            ArchipelagoSession.MessageLog.OnMessageReceived += OnMessageReceived;
+            ArchipelagoSession.Items.ItemReceived += OnItemReceived;
+            ArchipelagoSession.Locations.CheckedLocationsUpdated += OnLocationsChecked;
+
+            await ArchipelagoSession.ConnectAsync();
+
+            Plugin.Logger.LogInfo("Connected to Archipelago");
+
+            //https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/network%20protocol.md
+            const string gameName = "Hot Lava";
+            const ItemsHandlingFlags itemsHandlingFlags = ItemsHandlingFlags.AllItems;
+            Version minArchipelagoVersion = new Version(0, 6, 5);
+            string[] tags = ["DeathLink"];
+            const string? uuid = null;
+            const bool requestSlotData = true;
+
+            LoginResult loginResult = await ArchipelagoSession.LoginAsync(
+                gameName, // Name of the game implemented by this client, SHOULD match what is used in the world implementation
+                PlayerName, // Name of the slot to connect as (a.k.a player name)
+                itemsHandlingFlags,
+                minArchipelagoVersion, // Minimum Archipelago API specification version which this client can successfuly interface with
+                tags,
+                uuid, // Unique identifier for this player/client, if null randomly generated
+                password, // Password that was set when the room was created
+                requestSlotData // If the LoginResult should contain the slot data
+            );
+
+            if (loginResult is LoginFailure loginFailure)
+            {
+                string errors = "";
+
+                foreach (string error in loginFailure.Errors)
+                {
+                    errors += "\r\n" + error;
+                }
+
+                if (string.IsNullOrEmpty(errors))
+                {
+                    errors = "\r\n" + "An unknown error";
+                }
+
+                UIHelper.ShowPopup("Failed to login to Archipelago due to:" + errors);
+                await ArchipelagoSession.Socket.DisconnectAsync();
+            }
+            else
+            {
+                await InitializeAsync();
+
+                Plugin.Logger.LogInfo("Successfully logged in to Archipelago");
+                Plugin.Logger.LogInfo("Archipelago Seed: " + ArchipelagoSession.RoomState.Seed);
+                UIHelper.ShowPopup("Successfully connected to Archipelago");
+            }
+        }
+
+        private async Task InitializeAsync()
+        {
+            await InitializeDeathLink();
+            await ScoutAllLocations();
+
+            SlotData = await ArchipelagoSession.DataStorage.GetSlotDataAsync<SlotData>();
+
+            Plugin.Logger.LogInfo("Data: " + JsonConvert.SerializeObject(SlotData));
+        }
+
+        private async Task InitializeDeathLink()
+        {
+            DeathLinkService = ArchipelagoSession.CreateDeathLinkService();
+            DeathLinkService.OnDeathLinkReceived += OnDeathLinkReceived;
+        }
+
+        private async Task ScoutAllLocations()
+        {
+            ScoutedItems = await ArchipelagoSession.Locations
                 .ScoutLocationsAsync(HintCreationPolicy.None, Locations.AllLocations.Keys.ToArray());
         }
 
-        private static void OnDeathLinkReceived(DeathLink deathLink)
+        private void OnDeathLinkReceived(DeathLink deathLink)
         {
             //TODO: kill player
         }
 
-        private static void OnLocationsChecked(System.Collections.ObjectModel.ReadOnlyCollection<long> newCheckedLocations)
+        private void OnLocationsChecked(System.Collections.ObjectModel.ReadOnlyCollection<long> newCheckedLocations)
         {
             foreach (long locationId in newCheckedLocations)
             {
@@ -141,7 +186,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             }
         }
 
-        private static void OnItemReceived(ReceivedItemsHelper helper)
+        private void OnItemReceived(ReceivedItemsHelper helper)
         {
             ItemInfo receivedItem = helper.DequeueItem();
 
@@ -197,7 +242,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago
         /// https://archipelagomw.github.io/Archipelago.MultiClient.Net/docs/helpers/events.html#messageloghelper
         /// </summary>
         /// <param name="logMessage">The message received from the server</param>
-        public static void OnMessageReceived(LogMessage logMessage)
+        public void OnMessageReceived(LogMessage logMessage)
         {
             string message = string.Empty;
 
@@ -222,10 +267,8 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             UIHelper.SendChatMessage(message);
         }
 
-        public static void SendLocationCheck(long locationId)
+        public void SendLocationCheck(long locationId)
         {
-            if (ArchipelagoSession == null) return;
-
             ArchipelagoSession.Locations.CompleteLocationChecks(locationId);
             CheckGoalCompleted();
         }
@@ -233,10 +276,8 @@ namespace HotLavaArchipelagoPlugin.Archipelago
         /// <summary>
         /// Checks if the player has collected all "Complete the Course" stars
         /// </summary>
-        public static void CheckGoalCompleted()
+        public void CheckGoalCompleted()
         {
-            if (ArchipelagoSession == null) return;
-
             bool shouldRelease = Locations.AllLocations
                 .Values
                 .Where(l => l is StarLocation)
@@ -259,7 +300,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             }
         }
 
-        public static void SendDeath(string deathReason)
+        public void SendDeath(string deathReason)
         {
             if (DeathLinkService == null) return;
 
@@ -271,12 +312,12 @@ namespace HotLavaArchipelagoPlugin.Archipelago
         /// </summary>
         /// <param name="locationId">The ID of the location</param>
         /// <returns>The item info</returns>
-        public static ScoutedItemInfo? GetItemForLocation(long locationId)
+        public ScoutedItemInfo? GetItemForLocation(long locationId)
         {
             return ScoutedItems.GetValueOrDefault(locationId);
         }
 
-        public static void QueueAwardItem(ScoutedItemInfo scoutedItemInfo)
+        public void QueueAwardItem(ScoutedItemInfo scoutedItemInfo)
         {
             if (!QueuedAwardItems.Contains(scoutedItemInfo))
             {
@@ -284,12 +325,42 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             }
         }
 
-        public static ScoutedItemInfo? PopAwardsQueue()
+        public ScoutedItemInfo? PopAwardsQueue()
         {
             if (QueuedAwardItems.TryDequeue(out ScoutedItemInfo dequeuedItem))
                 return dequeuedItem;
             else
                 return null;
+        }
+
+        /// <summary>
+        /// Checks whether the player has received the requested item
+        /// </summary>
+        /// <param name="itemId">The ID of the item</param>
+        /// <returns></returns>
+        public static bool HasReceivedItem(long itemId)
+        {
+            return Instance.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == itemId);
+        }
+
+        /// <summary>
+        /// Checks whether the player has received the requested item
+        /// </summary>
+        /// <param name="item">The item</param>
+        /// <returns></returns>
+        public static bool HasReceivedItem(Item item)
+        {
+            return HasReceivedItem(item.Id);
+        }
+
+        /// <summary>
+        /// Checks whether the player has checked a location
+        /// </summary>
+        /// <param name="location">The location</param>
+        /// <returns></returns>
+        public static bool HasCheckedLocation(Location location)
+        {
+            return Instance.ArchipelagoSession.Locations.AllLocationsChecked.Contains(location.LocationID);
         }
     }
 }

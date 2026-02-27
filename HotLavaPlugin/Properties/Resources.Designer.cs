@@ -83,6 +83,16 @@ namespace HotLavaArchipelagoPlugin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] Climb {
+            get {
+                object obj = ResourceManager.GetObject("Climb", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] Crouch {
             get {
                 object obj = ResourceManager.GetObject("Crouch", resourceCulture);
@@ -133,9 +143,39 @@ namespace HotLavaArchipelagoPlugin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] Surf {
+            get {
+                object obj = ResourceManager.GetObject("Surf", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Swing {
+            get {
+                object obj = ResourceManager.GetObject("Swing", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] VaultJump {
             get {
                 object obj = ResourceManager.GetObject("VaultJump", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] WallJump {
+            get {
+                object obj = ResourceManager.GetObject("WallJump", resourceCulture);
                 return ((byte[])(obj));
             }
         }

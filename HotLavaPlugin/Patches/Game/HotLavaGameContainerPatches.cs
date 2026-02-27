@@ -29,7 +29,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
         [HarmonyPrefix]
         public static bool IsGameModeUnlocked_Prefix(GameMode course, ref bool __result)
         {
-            if (Multiworld.ArchipelagoSession != null)
+            if (Multiworld.Connected)
             {
                 // Unlock all courses by default for Archipelago
                 __result = true;

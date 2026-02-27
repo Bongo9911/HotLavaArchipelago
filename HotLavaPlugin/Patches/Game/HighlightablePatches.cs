@@ -1,4 +1,6 @@
 ﻿using HarmonyLib;
+using HotLavaArchipelagoPlugin.Archipelago;
+using HotLavaArchipelagoPlugin.Archipelago.Data;
 using Klei.HotLava;
 
 namespace HotLavaArchipelagoPlugin.Patches.Game
@@ -8,17 +10,22 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
     {
         [HarmonyPatch("Highlight", MethodType.Setter)]
         [HarmonyPrefix]
-        public static bool Highlight_Prefix(Highlightable __instance, ref bool value)
+        public static void Highlight_Prefix(Highlightable __instance, ref bool value)
         {
-            if (__instance is Handhold handhold)
+            if (Multiworld.Connected)
             {
-                if (handhold.m_Type == Handhold.eType.HORIZONTAL_SWING)
+                if (__instance is Handhold handhold)
                 {
-                    value = false;
-                    return false;
+                    if (handhold.m_Type == Handhold.eType.HORIZONTAL_SWING || handhold.m_Type == Handhold.eType.VERTICAL_SWING)
+                    {
+                        value &= Multiworld.HasReceivedItem(Items.Swing);
+                    }
+                    else
+                    {
+                        value &= Multiworld.HasReceivedItem(Items.Climb);
+                    }
                 }
             }
-            return true;
         }
     }
 }

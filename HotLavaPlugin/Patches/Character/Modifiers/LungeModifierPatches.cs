@@ -2,7 +2,6 @@
 using HotLavaArchipelagoPlugin.Archipelago;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
 using Klei.HotLava.Character.Modifiers;
-using System.Linq;
 
 namespace HotLavaArchipelagoPlugin.Patches.Character.Modifiers
 {
@@ -17,7 +16,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Character.Modifiers
         [HarmonyPrefix]
         public static bool FixedUpdate_Prefix()
         {
-            return Multiworld.ArchipelagoSession == null || Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == Items.VaultJump.Id);
+            return !Multiworld.Connected || Multiworld.HasReceivedItem(Items.VaultJump);
         }
     }
 }

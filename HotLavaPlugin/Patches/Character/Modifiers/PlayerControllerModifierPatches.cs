@@ -3,8 +3,6 @@ using HotLavaArchipelagoPlugin.Archipelago;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
 using HotLavaArchipelagoPlugin.Gameplay.Modifiers;
 using Klei.HotLava.Character.Modifiers;
-using System.Linq;
-using System.Reflection;
 
 namespace HotLavaArchipelagoPlugin.Patches.Character.Modifiers
 {
@@ -47,7 +45,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Character.Modifiers
         {
             if (__instance is AbilityRandomizerModifier || __instance is DefaultPlayerControllerModifier)
             {
-                __result = Multiworld.ArchipelagoSession == null || Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == Items.BoostJump.Id);
+                __result = !Multiworld.Connected || Multiworld.HasReceivedItem(Items.BoostJump);
                 return false;
             }
             return true;
@@ -63,9 +61,45 @@ namespace HotLavaArchipelagoPlugin.Patches.Character.Modifiers
         [HarmonyPrefix]
         public static bool CanCrouch_Prefix(PlayerControllerModifier __instance, ref bool __result)
         {
-            if (Multiworld.ArchipelagoSession != null)
+            if (Multiworld.Connected)
             {
-                __result = Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == Items.Crouch.Id);
+                __result = Multiworld.HasReceivedItem(Items.Crouch);
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Controls whether the player can surf based on if they have unlocked it or not
+        /// </summary>
+        /// <param name="__instance"></param>
+        /// <param name="__result"></param>
+        /// <returns></returns>
+        [HarmonyPatch(nameof(PlayerControllerModifier.CanSurf), MethodType.Getter)]
+        [HarmonyPrefix]
+        public static bool CanSurf_Prefix(PlayerControllerModifier __instance, ref bool __result)
+        {
+            if (Multiworld.Connected)
+            {
+                __result = Multiworld.HasReceivedItem(Items.Surf);
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Controls whether the player can wall jump based on if they have unlocked it or not
+        /// </summary>
+        /// <param name="__instance"></param>
+        /// <param name="__result"></param>
+        /// <returns></returns>
+        [HarmonyPatch(nameof(PlayerControllerModifier.CanWallRun), MethodType.Getter)]
+        [HarmonyPrefix]
+        public static bool CanWallRun_Prefix(PlayerControllerModifier __instance, ref bool __result)
+        {
+            if (Multiworld.Connected)
+            {
+                __result = Multiworld.HasReceivedItem(Items.WallJump);
                 return false;
             }
             return true;
@@ -77,24 +111,24 @@ namespace HotLavaArchipelagoPlugin.Patches.Character.Modifiers
         /// <param name="__instance"></param>
         /// <param name="__result"></param>
         /// <returns></returns>
-        [HarmonyPatch(nameof(PlayerControllerModifier.CanGrab), MethodType.Getter)]
-        [HarmonyPrefix]
-        public static bool CanGrab_Prefix(PlayerControllerModifier __instance, ref bool __result)
-        {
-            if (Multiworld.ArchipelagoSession != null)
-            {
-                bool result = Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == Items.Grab.Id);
-                if (result && __instance is LungeModifier)
-                {
-                    FieldInfo IsClamberingField = typeof(LungeModifier).GetField("m_IsClambering", BindingFlags.NonPublic | BindingFlags.Instance);
-                    bool isClambering = (bool)IsClamberingField.GetValue(__instance);
-                    result &= !isClambering;
-                }
+        //[HarmonyPatch(nameof(PlayerControllerModifier.CanGrab), MethodType.Getter)]
+        //[HarmonyPrefix]
+        //public static bool CanGrab_Prefix(PlayerControllerModifier __instance, ref bool __result)
+        //{
+        //    if (Multiworld.Connected)
+        //    {
+        //        bool result = Multiworld.HasReceivedItem(Items.Grab);
+        //        if (result && __instance is LungeModifier)
+        //        {
+        //            FieldInfo IsClamberingField = typeof(LungeModifier).GetField("m_IsClambering", BindingFlags.NonPublic | BindingFlags.Instance);
+        //            bool isClambering = (bool)IsClamberingField.GetValue(__instance);
+        //            result &= !isClambering;
+        //        }
 
-                __result = result;
-                return false;
-            }
-            return true;
-        }
+        //        __result = result;
+        //        return false;
+        //    }
+        //    return true;
+        //}
     }
 }

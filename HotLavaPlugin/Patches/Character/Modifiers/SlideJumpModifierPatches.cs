@@ -6,7 +6,6 @@ using HotLavaArchipelagoPlugin.Helpers;
 using Klei.HotLava.Character;
 using Klei.HotLava.Character.Modifiers;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -34,7 +33,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Character.Modifiers
         [HarmonyPrefix]
         public static bool FixedUpdate_Prefix()
         {
-            return Multiworld.ArchipelagoSession == null || Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == Items.SlideJump.Id);
+            return !Multiworld.Connected || Multiworld.HasReceivedItem(Items.SlideJump);
         }
 
         public static float GetForwardVelocityMultiplier()
@@ -45,7 +44,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Character.Modifiers
 
             if (player == null) return multiplier;
 
-            if (Multiworld.ArchipelagoSession != null && player.Modifier is AbilityRandomizerModifier && Multiworld.ArchipelagoSession.Items.AllItemsReceived.Any(m => m.ItemId == Items.SlideJump.Id))
+            if (Multiworld.Connected && player.Modifier is AbilityRandomizerModifier && Multiworld.HasReceivedItem(Items.SlideJump))
             {
                 multiplier = 1f;
             }

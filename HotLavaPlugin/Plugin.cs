@@ -2,8 +2,6 @@
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
-using HotLavaArchipelagoPlugin.GameData;
-using Newtonsoft.Json;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -28,8 +26,6 @@ public class Plugin : BaseUnityPlugin
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 
         Logger.LogInfo($"Harmony patches applied!");
-
-        Logger.LogInfo(JsonConvert.SerializeObject(Worlds.AllWorlds));
 
         ConfigArchipelagoHost = Config.Bind("Archipelago", "Host", "archipelago.gg", new ConfigDescription("The host name of the Archipelago server", null, new ConfigurationManagerAttributes { Order = 4 }));
         ConfigArchipelagoPort = Config.Bind("Archipelago", "Port", 38281, new ConfigDescription("The port for the Archipelago server", null, new ConfigurationManagerAttributes { Order = 3 }));
