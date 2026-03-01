@@ -3,7 +3,7 @@ using Klei.HotLava.Online;
 
 namespace HotLavaArchipelagoPlugin.Helpers
 {
-    internal static class PlayerHelper
+    internal static class HotLavaPlayerHelper
     {
         public static PlayerController? GetLocalPlayer()
         {

@@ -1,4 +1,5 @@
-﻿using HotLavaArchipelagoPlugin.Enums;
+﻿using HotLavaArchipelagoPlugin.Archipelago.Models.Options;
+using HotLavaArchipelagoPlugin.Enums;
 using HotLavaArchipelagoPlugin.Models.Game;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace HotLavaArchipelagoPlugin.GameData
     internal static class Worlds
     {
         //TODO: No unlockable for Gym Class
-        public static WorldInfo GymClass => new WorldInfo(100, "", "tutorial", "Gym Class", [
+        public static WorldInfo GymClass => new WorldInfo(WorldSelect.GymClass, 100, "", "tutorial", "Gym Class", [
             new CourseInfo("Gym Jam", [
                 new StarInfo(100, "8e72934736772e94eaa50290f7ae341a", "Complete the course", StarType.CourseComplete),
                 new StarInfo(101, "2c2765d96036f40438807ce21e92b229", "Complete in under 08:00", StarType.MinTime),
@@ -86,7 +87,7 @@ namespace HotLavaArchipelagoPlugin.GameData
             ]
         };
 
-        public static WorldInfo Playground => new WorldInfo(200, "83328d77e87a0d34b8cc4aae038bd158", "playground", "Playground", [
+        public static WorldInfo Playground => new WorldInfo(WorldSelect.Playground, 200, "83328d77e87a0d34b8cc4aae038bd158", "playground", "Playground", [
             new CourseInfo("Recess", [
                 new StarInfo(200, "60dff4f3d39f9664d8cde41acf5a9465", "Complete the course", StarType.CourseComplete),
                 new StarInfo(201, "e6704c37a77263d4fb352b2ebe0c9dd5", "Complete in under 07:00", StarType.MinTime),
@@ -139,7 +140,7 @@ namespace HotLavaArchipelagoPlugin.GameData
                 new StarInfo(253, "ce5ef6bbd31e325499fb9cf28fd80d36", "Tag your sister", StarType.Challenge),
                 new StarInfo(254, "e621f981cf18e2242b26195512632798", "Grab the golden pin", StarType.GoldenPin),
                 new StarInfo(255, "732eafb0ad0d6c547921c904d1ee4073", "Find the hidden G.A.T. comic", StarType.Comic),
-                new StarInfo(256, "c96eefdfbaa06d0459b7eec5221cd510", "Chase Buddy", StarType.BuddyChase),
+                new StarInfo(256, "9b5c1d100a2db99428e779f8cf33486e", "Chase Buddy", StarType.BuddyChase),
             ]),
             new CourseInfo("Pogo Trial 1", CourseType.Pogo, [
                 new StarInfo(260, "1a56d171c35fcf547980a37d8f7f7960", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
@@ -170,7 +171,7 @@ namespace HotLavaArchipelagoPlugin.GameData
             ]
         };
 
-        public static WorldInfo School => new WorldInfo(300, "212f728535833224287d420c81f43ef1", "school", "School", [
+        public static WorldInfo School => new WorldInfo(WorldSelect.School, 300, "212f728535833224287d420c81f43ef1", "school", "School", [
             new CourseInfo("ABCs and 123s", [
                 new StarInfo(300, "57e0344bd3abfb4449346d182cd8e901", "Complete the course", StarType.CourseComplete),
                 new StarInfo(301, "2ee56bdf1e09d1a4eb0170081b60b883", "Complete in under 12:00", StarType.MinTime),
@@ -267,7 +268,7 @@ namespace HotLavaArchipelagoPlugin.GameData
             ]
         };
 
-        public static WorldInfo Wholesale => new WorldInfo(400, "f5bd38e199f54fa46aff759206fd0806", "wholesale_expanded", "Wholesale", [
+        public static WorldInfo Wholesale => new WorldInfo(WorldSelect.Wholesale, 400, "f5bd38e199f54fa46aff759206fd0806", "wholesale_expanded", "Wholesale", [
             new CourseInfo("To the Top", [
                 new StarInfo(400, "16834aaf2d1962e44b22cbf1bd2d3a6f", "Complete the course", StarType.CourseComplete),
                 new StarInfo(401, "058594844899efe45b805507f1addd7b", "Complete in under 10:00", StarType.MinTime),
@@ -355,7 +356,7 @@ namespace HotLavaArchipelagoPlugin.GameData
             ]
         };
 
-        public static WorldInfo MasterClass => new WorldInfo(500, "6bd78323a271b804890f9bd232ae0abb", "mastery_gym", "Master Class", [
+        public static WorldInfo MasterClass => new WorldInfo(WorldSelect.MasterClass, 500, "6bd78323a271b804890f9bd232ae0abb", "mastery_gym", "Master Class", [
             new CourseInfo("Air Control Mastery", [
                 new StarInfo(500, "399017d32e64e7147850bb221ad9a330", "Complete the course", StarType.CourseComplete),
                 new StarInfo(501, "d9f265807b6647a46a071e38d0f43199", "Complete in under 02:30", StarType.MinTime),
@@ -418,7 +419,7 @@ namespace HotLavaArchipelagoPlugin.GameData
             ]),
         ]);
 
-        public static WorldInfo Basement => new WorldInfo(600, "baf5e18a2fbcc64409f83e53e836cb42", "basement", "Basement", [
+        public static WorldInfo Basement => new WorldInfo(WorldSelect.Basement, 600, "baf5e18a2fbcc64409f83e53e836cb42", "basement", "Basement", [
             new CourseInfo("Race to the Summit", [
                 new StarInfo(600, "e9684256332e65f418b64e8d7c7f1083", "Complete the course", StarType.CourseComplete),
                 new StarInfo(601, "7ab28797b20035d488ff0f3c0cfc1c98", "Complete in under 05:00", StarType.MinTime),
@@ -496,7 +497,7 @@ namespace HotLavaArchipelagoPlugin.GameData
         };
 
         //TODO: No Unlockable ID exists for Rocco's Arcade
-        public static WorldInfo RoccosArcade => new WorldInfo(700, "", "fun_centre", "Rocco's Arcade", [
+        public static WorldInfo RoccosArcade => new WorldInfo(WorldSelect.RoccosArcade, 700, "", "fun_centre", "Rocco's Arcade", [
             new CourseInfo("Arcade Action", [
                 new StarInfo(700, "def601d8323ecaf4fb65504a3f73192c", "Complete the course", StarType.CourseComplete),
                 new StarInfo(701, "9fc84b49f92528142b1d847cbc2d7076", "Complete in under 02:50", StarType.MinTime),

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HotLavaArchipelagoPlugin.Archipelago.Models.Options;
+using Newtonsoft.Json;
 
 namespace HotLavaArchipelagoPlugin.Models.Game
 {
@@ -8,11 +9,15 @@ namespace HotLavaArchipelagoPlugin.Models.Game
     internal class WorldInfo
     {
         [JsonIgnore]
-        public static WorldInfo Default => new WorldInfo(-1, string.Empty, string.Empty, string.Empty, []);
+        public static WorldInfo Default => new WorldInfo((WorldSelect)(-1), -1, string.Empty, string.Empty, string.Empty, []);
 
         private ForceFieldInfo[] _forceFields = [];
         private ForceFieldInfo[] _disabledForceFields = [];
 
+        /// <summary>
+        /// The option ID for the world
+        /// </summary>
+        public WorldSelect WorldOptionId { get; }
         /// <summary>
         /// The id of the AP item for unlocking the world
         /// </summary>
@@ -66,8 +71,9 @@ namespace HotLavaArchipelagoPlugin.Models.Game
             }
         }
 
-        public WorldInfo(int itemId, string unlockableId, string internalName, string name, CourseInfo[] courses)
+        public WorldInfo(WorldSelect worldOptionId, int itemId, string unlockableId, string internalName, string name, CourseInfo[] courses)
         {
+            WorldOptionId = worldOptionId;
             ItemId = itemId;
             UnlockableId = unlockableId;
             InternalName = internalName;

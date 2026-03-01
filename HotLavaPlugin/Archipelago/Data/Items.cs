@@ -51,6 +51,10 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
                 { VaultJump.Id, VaultJump },
                 { Crouch.Id, Crouch },
                 { Grab.Id, Grab },
+                { Surf.Id, Surf },
+                { WallJump.Id, WallJump },
+                { Swing.Id, Swing },
+                { Climb.Id, Climb },
             };
 
             LoadWorldItems(itemDictionary);

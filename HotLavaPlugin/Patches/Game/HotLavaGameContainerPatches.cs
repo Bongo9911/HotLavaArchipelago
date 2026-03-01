@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using HotLavaArchipelagoPlugin.Archipelago;
-using HotLavaArchipelagoPlugin.Helpers;
 using Klei.HotLava;
 using Klei.HotLava.Character;
 using Klei.HotLava.Game;
@@ -16,12 +15,14 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
         {
             Plugin.Logger.LogInfo("Player died because: " + on_killed_info.m_Reason);
 
-            string deathReason = STRINGS.UI.INGAME.DEATH_REASON.GetReason(on_killed_info.m_Reason);
-            if (on_killed_info.m_Player.IsMine && deathReason.Contains("%playera"))
+            if (Multiworld.Connected)
             {
-                //Should do death link
-                UIHelper.SendNotificationMessage("L NERD " + deathReason.Replace("%playera ", ""));
-                UIHelper.ShowPopup("L NERD DIED");
+                string deathReason = STRINGS.UI.INGAME.DEATH_REASON.GetReason(on_killed_info.m_Reason);
+                if (on_killed_info.m_Player.IsMine && deathReason.Contains("%playera"))
+                {
+                    deathReason = deathReason.Replace("%playera", string.Empty).Trim();
+                    Multiworld.Instance.SendDeath(deathReason);
+                }
             }
         }
 

@@ -25,6 +25,10 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
                         value &= Multiworld.HasReceivedItem(Items.Climb);
                     }
                 }
+                else if (__instance.name != null && __instance.name.Contains("surf", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    value &= Multiworld.HasReceivedItem(Items.Surf);
+                }
             }
         }
     }

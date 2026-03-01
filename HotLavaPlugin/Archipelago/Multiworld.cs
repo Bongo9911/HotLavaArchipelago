@@ -166,7 +166,17 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 
         private void OnDeathLinkReceived(DeathLink deathLink)
         {
-            //TODO: kill player
+            try
+            {
+                ThreadingHelper.Instance.StartSyncInvoke(() =>
+                {
+                    HotLavaPlayerHelper.KillLocalPlayer();
+                });
+            }
+            catch (Exception ex)
+            {
+                Plugin.Logger.LogError("Failed to kill local player for death link: " + ex.ToString());
+            }
         }
 
         private void OnLocationsChecked(System.Collections.ObjectModel.ReadOnlyCollection<long> newCheckedLocations)
@@ -282,17 +292,9 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 .Values
                 .Where(l => l is StarLocation)
                 .Select(l => (StarLocation)l)
-                .Where(l => l.StarType == StarType.CourseComplete)
+                .Where(l => l.Course.World.WorldOptionId == SlotData.LastWorld && l.StarType == StarType.CourseComplete)
                 .Where(l => ArchipelagoSession.Locations.AllLocations.Contains(l.LocationID)) //Filter out disabled location checks
                 .All(l => ArchipelagoSession.Locations.AllLocationsChecked.Contains(l.LocationID));
-
-            //bool shouldRelease = Locations.AllLocations
-            //    .Values
-            //    .Where(l => l is StarLocation)
-            //    .Select(l => (StarLocation)l)
-            //    .Where(l => l.Course.World.Name == "Master Class" && l.StarType == StarType.CourseComplete)
-            //    .Where(l => ArchipelagoSession.Locations.AllLocations.Contains(l.LocationID)) //Filter out disabled location checks
-            //    .All(l => ArchipelagoSession.Locations.AllLocationsChecked.Contains(l.LocationID));
 
             if (shouldRelease)
             {

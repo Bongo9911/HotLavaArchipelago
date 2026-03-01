@@ -12,9 +12,9 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Models.Options
         [JsonProperty("enabled_worlds")]
         public IEnumerable<string> EnabledWorlds { get; set; } = [];
         [JsonProperty("start_world")]
-        public int StartWorld { get; set; } = 0;
+        public WorldSelect StartWorld { get; set; } = WorldSelect.GymClass;
         [JsonProperty("last_world")]
-        public int LastWorld { get; set; } = 0;
+        public WorldSelect LastWorld { get; set; } = WorldSelect.MasterClass;
         [JsonProperty("death_link")]
         public int DeathLink { get; set; } = 0;
     }

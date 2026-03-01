@@ -38,7 +38,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Character.Modifiers
 
         public static float GetForwardVelocityMultiplier()
         {
-            PlayerController? player = PlayerHelper.GetLocalPlayer();
+            PlayerController? player = HotLavaPlayerHelper.GetLocalPlayer();
 
             float multiplier = 0.85f;
 
