@@ -2,6 +2,7 @@
 using HotLavaArchipelagoPlugin.GameData;
 using HotLavaArchipelagoPlugin.Models.Game;
 using HotLavaArchipelagoPlugin.Properties;
+using Klei.HotLava.Audio;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,6 +23,27 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
         public static AbilityItem WallJump { get; } = new AbilityItem(23, "Wall Jump", Resources.WallJump);
         public static AbilityItem Swing { get; } = new AbilityItem(24, "Swing", Resources.Swing);
         public static AbilityItem Climb { get; } = new AbilityItem(25, "Climb", Resources.Climb);
+
+        public static AbilityItem Pogo { get; } = new AbilityItem(30, "Pogo", Resources.Pogo);
+        public static AbilityItem TinyToy { get; } = new AbilityItem(31, "Tiny Toy", Resources.TinyToy);
+        public static AbilityItem Jetpack { get; } = new AbilityItem(32, "Jetpack", Resources.Jetpack);
+
+        public static List<CharacterItem> CharacterItems { get; } = [
+            //new CharacterItem(40, "Hazard", eVoiceCharacter.HAZARD),
+            new CharacterItem(41, "Jen Forcer", eVoiceCharacter.JENFORCER),
+            new CharacterItem(42, "Lex Splorer", eVoiceCharacter.LEXSPLORER),
+            new CharacterItem(43, "Sue Nami", eVoiceCharacter.SUENAMI),
+            new CharacterItem(44, "Lord Sludge", eVoiceCharacter.LORDSLUDGE),
+            new CharacterItem(45, "Poizone", eVoiceCharacter.POIZONE),
+            new CharacterItem(46, "Infantry", eVoiceCharacter.INFANTRY),
+            new CharacterItem(47, "Megamortabeast", eVoiceCharacter.MEGAMORTABEAST),
+            new CharacterItem(48, "Rambull", eVoiceCharacter.RAMBULL),
+            new CharacterItem(49, "Stink Bomb", eVoiceCharacter.STINKBOMB),
+            new CharacterItem(50, "Venomess", eVoiceCharacter.VENOMESS),
+            new CharacterItem(51, "Tyler Rex", eVoiceCharacter.TYRONEREX),
+            new CharacterItem(52, "Hera Scarlet", eVoiceCharacter.HERASCARLET),
+            new CharacterItem(53, "Leo", eVoiceCharacter.LEO),
+        ];
 
         public static Dictionary<long, Item> AllItems
         {
@@ -55,9 +77,17 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
                 { WallJump.Id, WallJump },
                 { Swing.Id, Swing },
                 { Climb.Id, Climb },
+                { Pogo.Id, Pogo },
+                { TinyToy.Id, TinyToy },
+                { Jetpack.Id, Jetpack },
             };
 
             LoadWorldItems(itemDictionary);
+
+            foreach (CharacterItem characterItem in CharacterItems)
+            {
+                itemDictionary[characterItem.Id] = characterItem;
+            }
 
             return itemDictionary;
         }

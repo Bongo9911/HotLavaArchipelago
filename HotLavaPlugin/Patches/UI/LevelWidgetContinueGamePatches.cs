@@ -19,6 +19,11 @@ namespace HotLavaArchipelagoPlugin.Patches.UI
             return AccessTools.Method("Klei.HotLava.UI.LevelWidget:ContinueGame");
         }
 
+        /// <summary>
+        /// Overrides what world the continue button on the main menu takes the player to
+        /// </summary>
+        /// <param name="__instance"></param>
+        /// <returns></returns>
         public static bool Prefix(object __instance)
         {
             if (Multiworld.Connected)

@@ -1,7 +1,9 @@
 ﻿using HarmonyLib;
 using HotLavaArchipelagoPlugin.Archipelago;
+using HotLavaArchipelagoPlugin.Archipelago.Data;
 using Klei.HotLava;
 using Klei.HotLava.Character;
+using Klei.HotLava.Character.Modifiers;
 using Klei.HotLava.Game;
 
 namespace HotLavaArchipelagoPlugin.Patches.Game
@@ -20,7 +22,7 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
                 string deathReason = STRINGS.UI.INGAME.DEATH_REASON.GetReason(on_killed_info.m_Reason);
                 if (on_killed_info.m_Player.IsMine && deathReason.Contains("%playera"))
                 {
-                    deathReason = deathReason.Replace("%playera", string.Empty).Trim();
+                    deathReason = deathReason.Replace("%playera", Multiworld.Instance.PlayerName).Trim();
                     Multiworld.Instance.SendDeath(deathReason);
                 }
             }
@@ -32,8 +34,24 @@ namespace HotLavaArchipelagoPlugin.Patches.Game
         {
             if (Multiworld.Connected)
             {
-                // Unlock all courses by default for Archipelago
-                __result = true;
+                if (course.Modifier is PogoStickModifier)
+                {
+                    __result = Multiworld.HasReceivedItem(Items.Pogo);
+                }
+                else if (course.Modifier is TinyToyModifier)
+                {
+                    __result = Multiworld.HasReceivedItem(Items.TinyToy);
+                }
+                else if (course.Modifier is HoverModifier)
+                {
+                    __result = Multiworld.HasReceivedItem(Items.Jetpack);
+                }
+                else
+                {
+                    // Unlock all courses by default for Archipelago
+                    __result = true;
+                }
+
                 return false;
             }
             return true;

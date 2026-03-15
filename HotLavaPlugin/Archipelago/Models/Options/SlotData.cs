@@ -16,6 +16,6 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Models.Options
         [JsonProperty("last_world")]
         public WorldSelect LastWorld { get; set; } = WorldSelect.MasterClass;
         [JsonProperty("death_link")]
-        public int DeathLink { get; set; } = 0;
+        public DeathLinkOption DeathLink { get; set; } = 0;
     }
 }

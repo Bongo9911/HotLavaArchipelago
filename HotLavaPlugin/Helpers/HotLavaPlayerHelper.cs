@@ -15,7 +15,7 @@ namespace HotLavaArchipelagoPlugin.Helpers
             PlayerController? player = GetLocalPlayer();
             if (player != null)
             {
-                player.KillWithRagdoll();
+                player.BroadcastKilled(Klei.HotLava.Enums.eDeathReason.Ragdoll);
             }
         }
     }

@@ -19,6 +19,13 @@ namespace HotLavaArchipelagoPlugin.Patches.UI
             return AccessTools.Method("Klei.HotLava.UI.LevelWidget:PopulateCourses");
         }
 
+        /// <summary>
+        /// Overrides the list of courses for "Continue" on the main menu if the player has not unlocked the world the continue is associated to
+        /// </summary>
+        /// <param name="__instance"></param>
+        /// <param name="level"></param>
+        /// <param name="course_index"></param>
+        /// <returns></returns>
         public static bool Prefix(object __instance, ref LevelMetaData level, ref sbyte course_index)
         {
             if (Multiworld.Connected)

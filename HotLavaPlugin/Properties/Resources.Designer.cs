@@ -133,6 +133,26 @@ namespace HotLavaArchipelagoPlugin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] Jetpack {
+            get {
+                object obj = ResourceManager.GetObject("Jetpack", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Pogo {
+            get {
+                object obj = ResourceManager.GetObject("Pogo", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] SlideJump {
             get {
                 object obj = ResourceManager.GetObject("SlideJump", resourceCulture);
@@ -156,6 +176,16 @@ namespace HotLavaArchipelagoPlugin.Properties {
         internal static byte[] Swing {
             get {
                 object obj = ResourceManager.GetObject("Swing", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TinyToy {
+            get {
+                object obj = ResourceManager.GetObject("TinyToy", resourceCulture);
                 return ((byte[])(obj));
             }
         }

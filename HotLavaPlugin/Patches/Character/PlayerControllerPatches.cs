@@ -27,9 +27,9 @@ namespace HotLavaArchipelagoPlugin.Patches.Character
                  .InstructionEnumeration();
         }
 
-        public static bool CanSlide(PlayerController playerController)
+        public static bool CanSlide(PlayerControllerModifier modifier)
         {
-            bool canSlide = playerController.Modifier is SlideJumpModifier || playerController.Modifier is AbilityRandomizerModifier;
+            bool canSlide = modifier is SlideJumpModifier || modifier is AbilityRandomizerModifier;
 
             if (canSlide && Multiworld.Connected)
             {

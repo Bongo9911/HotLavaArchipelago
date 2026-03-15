@@ -47,11 +47,12 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             }
         }
 
+        public string PlayerName = "Unknown";
+
         internal ArchipelagoSession ArchipelagoSession;
         internal SlotData SlotData = new SlotData();
 
         private DeathLinkService? DeathLinkService = null;
-        private string PlayerName = "Unknown";
         private Dictionary<long, ScoutedItemInfo> ScoutedItems = new Dictionary<long, ScoutedItemInfo>();
 
         private Queue<ScoutedItemInfo> QueuedAwardItems = new Queue<ScoutedItemInfo>();
@@ -100,7 +101,8 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             const string gameName = "Hot Lava";
             const ItemsHandlingFlags itemsHandlingFlags = ItemsHandlingFlags.AllItems;
             Version minArchipelagoVersion = new Version(0, 6, 5);
-            string[] tags = ["DeathLink"];
+            //string[] tags = ["DeathLink"];
+            string[] tags = [];
             const string? uuid = null;
             const bool requestSlotData = true;
 
@@ -144,10 +146,13 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 
         private async Task InitializeAsync()
         {
-            await InitializeDeathLink();
-            await ScoutAllLocations();
-
             SlotData = await ArchipelagoSession.DataStorage.GetSlotDataAsync<SlotData>();
+
+            if (SlotData.DeathLink == DeathLinkOption.Enabled)
+            {
+                await InitializeDeathLink();
+            }
+            await ScoutAllLocations();
 
             Plugin.Logger.LogInfo("Data: " + JsonConvert.SerializeObject(SlotData));
         }
@@ -155,6 +160,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago
         private async Task InitializeDeathLink()
         {
             DeathLinkService = ArchipelagoSession.CreateDeathLinkService();
+            DeathLinkService.EnableDeathLink();
             DeathLinkService.OnDeathLinkReceived += OnDeathLinkReceived;
         }
 
@@ -168,6 +174,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago
         {
             try
             {
+                Plugin.Logger.LogInfo("Received death: " + deathLink.Cause);
                 ThreadingHelper.Instance.StartSyncInvoke(() =>
                 {
                     HotLavaPlayerHelper.KillLocalPlayer();
