@@ -1,26 +1,17 @@
 ﻿using Klei.HotLava.Audio;
-using Klei.HotLava.Rewards;
 
 namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
 {
     /// <summary>
     /// An item that unlocks a character
     /// </summary>
-    internal class CharacterItem : Item
+    internal class CharacterItem : CosmeticItem
     {
         public eVoiceCharacter CharacterId { get; set; }
 
-        public CharacterItem(long id, string name, eVoiceCharacter characterId) : base(id, name)
+        public CharacterItem(long id, string name, string internalName, eVoiceCharacter characterId) : base(id, name, internalName)
         {
             CharacterId = characterId;
         }
-
-        public override RewardVisualization? GetRewardVisualization(GiftDropVisualization giftDropVisualization)
-        {
-            //TODO:
-            return null;
-        }
-
-        public override void GrantItem() { }
     }
 }

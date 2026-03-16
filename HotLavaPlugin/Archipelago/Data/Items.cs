@@ -28,21 +28,38 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
         public static AbilityItem TinyToy { get; } = new AbilityItem(31, "Tiny Toy", Resources.TinyToy);
         public static AbilityItem Jetpack { get; } = new AbilityItem(32, "Jetpack", Resources.Jetpack);
 
+        //public static List<CharacterItem> CharacterItems { get; } = [
+        //    //new CharacterItem(40, "Hazard", eVoiceCharacter.HAZARD),
+        //    new CharacterItem(41, "Jen Forcer", eVoiceCharacter.JENFORCER),
+        //    new CharacterItem(42, "Lex Splorer", eVoiceCharacter.LEXSPLORER),
+        //    new CharacterItem(43, "Sue Nami", eVoiceCharacter.SUENAMI),
+        //    new CharacterItem(44, "Lord Sludge", eVoiceCharacter.LORDSLUDGE),
+        //    new CharacterItem(45, "Poizone", eVoiceCharacter.POIZONE),
+        //    new CharacterItem(46, "Infantry", eVoiceCharacter.INFANTRY),
+        //    new CharacterItem(47, "Megamortabeast", eVoiceCharacter.MEGAMORTABEAST),
+        //    new CharacterItem(48, "Rambull", eVoiceCharacter.RAMBULL),
+        //    new CharacterItem(49, "Stink Bomb", eVoiceCharacter.STINKBOMB),
+        //    new CharacterItem(50, "Venomess", eVoiceCharacter.VENOMESS),
+        //    new CharacterItem(51, "Tyler Rex", eVoiceCharacter.TYRONEREX),
+        //    new CharacterItem(52, "Hera Scarlet", eVoiceCharacter.HERASCARLET),
+        //    new CharacterItem(53, "Leo", eVoiceCharacter.LEO),
+        //];
+
         public static List<CharacterItem> CharacterItems { get; } = [
             //new CharacterItem(40, "Hazard", eVoiceCharacter.HAZARD),
-            new CharacterItem(41, "Jen Forcer", eVoiceCharacter.JENFORCER),
-            new CharacterItem(42, "Lex Splorer", eVoiceCharacter.LEXSPLORER),
-            new CharacterItem(43, "Sue Nami", eVoiceCharacter.SUENAMI),
-            new CharacterItem(44, "Lord Sludge", eVoiceCharacter.LORDSLUDGE),
-            new CharacterItem(45, "Poizone", eVoiceCharacter.POIZONE),
-            new CharacterItem(46, "Infantry", eVoiceCharacter.INFANTRY),
-            new CharacterItem(47, "Megamortabeast", eVoiceCharacter.MEGAMORTABEAST),
-            new CharacterItem(48, "Rambull", eVoiceCharacter.RAMBULL),
-            new CharacterItem(49, "Stink Bomb", eVoiceCharacter.STINKBOMB),
-            new CharacterItem(50, "Venomess", eVoiceCharacter.VENOMESS),
-            new CharacterItem(51, "Tyler Rex", eVoiceCharacter.TYRONEREX),
-            new CharacterItem(52, "Hera Scarlet", eVoiceCharacter.HERASCARLET),
-            new CharacterItem(53, "Leo", eVoiceCharacter.LEO),
+            new CharacterItem(41, "Jen Forcer", "skin_jen_forcer_default", eVoiceCharacter.JENFORCER),
+            new CharacterItem(42, "Lex Splorer", "skin_lex_splorer_default", eVoiceCharacter.LEXSPLORER),
+            new CharacterItem(43, "Sue Nami", "skin_sue_nami_default", eVoiceCharacter.SUENAMI),
+            new CharacterItem(44, "Lord Sludge", "skin_lord_sludge_default", eVoiceCharacter.LORDSLUDGE),
+            new CharacterItem(45, "Poizone", "skin_poizone_default", eVoiceCharacter.POIZONE),
+            new CharacterItem(46, "Infantry", "skin_infantry_default", eVoiceCharacter.INFANTRY),
+            new CharacterItem(47, "Megamortabeast", "skin_megamortabeast_default", eVoiceCharacter.MEGAMORTABEAST),
+            new CharacterItem(48, "Rambull", "skin_rambull_default", eVoiceCharacter.RAMBULL),
+            new CharacterItem(49, "Stink Bomb", "skin_stink_bomb_default", eVoiceCharacter.STINKBOMB),
+            new CharacterItem(50, "Venomess", "skin_venomess_default", eVoiceCharacter.VENOMESS),
+            new CharacterItem(51, "Tyler Rex", "skin_tyrone_rex_default", eVoiceCharacter.TYRONEREX),
+            new CharacterItem(52, "Hera Scarlet", "skin_hera_scarlet_default", eVoiceCharacter.HERASCARLET),
+            new CharacterItem(53, "Leo Satomi", "skin_leo_default", eVoiceCharacter.LEO),
         ];
 
         public static Dictionary<long, Item> AllItems

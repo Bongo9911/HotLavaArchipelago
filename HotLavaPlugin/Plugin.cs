@@ -33,5 +33,15 @@ public class Plugin : BaseUnityPlugin
         ConfigArchipelagoPassword = Config.Bind("Archipelago", "Password", string.Empty, new ConfigDescription("The password for connecting to the server, if one is required", null, new ConfigurationManagerAttributes { Order = 1 }));
 
         //GameObject gameObj = GuidDictionary.LoadAsset<GameObject>(new Guid("5ecb96c9d45e3a64a8618a5715a26b20"));
+
+        //Dictionary<string, ItemMetaDataEntry> itemDictionary = (Dictionary<string, ItemMetaDataEntry>)typeof(Manager).GetField("m_ItemDictionary", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Manager.Instance);
+
+        //Logger.LogInfo(JsonConvert.SerializeObject(itemDictionary.Select(m =>
+        //    { return new { name = m.Key, m.Value.PrettyName, Rarity = m.Value.m_Rarity.ToString(), Category = m.Value.m_Category.ToString() }; }),
+        //    new JsonSerializerSettings()
+        //    {
+        //        Formatting = Formatting.Indented,
+        //    }
+        //));
     }
 }

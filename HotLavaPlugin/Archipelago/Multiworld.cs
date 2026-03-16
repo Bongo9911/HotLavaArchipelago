@@ -264,7 +264,14 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             {
                 ThreadingHelper.Instance.StartSyncInvoke(() =>
                 {
-                    item.GrantItem();
+                    try
+                    {
+                        item.GrantItem();
+                    }
+                    catch (Exception ex)
+                    {
+                        Plugin.Logger.LogError("Failed to grant item: " + item.Name + ": " + ex.ToString());
+                    }
                 });
             }
         }
