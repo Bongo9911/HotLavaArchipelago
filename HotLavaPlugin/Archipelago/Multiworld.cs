@@ -314,14 +314,27 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 .Values
                 .Where(l => l is StarLocation)
                 .Select(l => (StarLocation)l)
-                .Where(l => l.Course.World.WorldOptionId == SlotData.LastWorld && l.StarType == StarType.CourseComplete)
-                .Where(l => ArchipelagoSession.Locations.AllLocations.Contains(l.LocationID)) //Filter out disabled location checks
+                .Where(l => StarLocationCountsForGoal(l))
                 .All(l => ArchipelagoSession.Locations.AllLocationsChecked.Contains(l.LocationID));
 
             if (shouldRelease)
             {
                 ArchipelagoSession.SetGoalAchieved();
             }
+        }
+
+        private bool StarLocationCountsForGoal(StarLocation location)
+        {
+            if (location.Course.World.WorldOptionId != SlotData.LastWorld) return false;
+
+            //Filter out disabled location checks
+            if (!ArchipelagoSession.Locations.AllLocations.Contains(location.LocationID)) return false;
+
+            if (location.StarType == StarType.CourseComplete) return true;
+
+            if (location.StarType == StarType.TrialComplete && location.Course.CourseType != CourseType.AllCourseMarathon) return true;
+
+            return false;
         }
 
         public void SendDeath(string deathReason)
