@@ -57,6 +57,9 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 
         private Queue<ScoutedItemInfo> QueuedAwardItems = new Queue<ScoutedItemInfo>();
 
+        private int _deathCount = 0;
+        private int _deathsToSendDeathLink = 5;
+
         public Multiworld(ArchipelagoSession archipelagoSession)
         {
             ArchipelagoSession = archipelagoSession;
@@ -178,6 +181,18 @@ namespace HotLavaArchipelagoPlugin.Archipelago
                 ThreadingHelper.Instance.StartSyncInvoke(() =>
                 {
                     HotLavaPlayerHelper.KillLocalPlayer();
+                    if (!string.IsNullOrEmpty(deathLink.Cause))
+                    {
+                        UIHelper.SendNotificationMessage(deathLink.Cause);
+                    }
+                    else if (!string.IsNullOrEmpty(deathLink.Source))
+                    {
+                        UIHelper.SendNotificationMessage(deathLink.Source + " died");
+                    }
+                    else
+                    {
+                        UIHelper.SendNotificationMessage("Someone died");
+                    }
                 });
             }
             catch (Exception ex)
@@ -313,7 +328,13 @@ namespace HotLavaArchipelagoPlugin.Archipelago
         {
             if (DeathLinkService == null) return;
 
-            DeathLinkService.SendDeathLink(new DeathLink(PlayerName, deathReason));
+            _deathCount++;
+
+            if (_deathCount >= _deathsToSendDeathLink)
+            {
+                DeathLinkService.SendDeathLink(new DeathLink(PlayerName, deathReason));
+                _deathCount = 0;
+            }
         }
 
         /// <summary>

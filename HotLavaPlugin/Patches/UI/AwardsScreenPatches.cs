@@ -50,7 +50,7 @@ namespace HotLavaArchipelagoPlugin.Patches.UI
                         rewardVisualization = RewardVisualizationFactory.GetArchipelagoReward(__instance.m_GiftDropData);
                     }
 
-                    rewardVisualization.m_ScratchDescription = itemInfo.ItemDisplayName + " for " + itemInfo.Player.Name + " (" + itemInfo.LocationGame + ")";
+                    rewardVisualization.m_ScratchDescription = itemInfo.ItemDisplayName + " for " + itemInfo.Player.Name + " (" + itemInfo.ItemGame + ")";
 
                     typeof(AwardsScreen).GetField("m_UnlockTitle", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(__instance, title);
                     typeof(AwardsScreen).GetMethod("Award", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(__instance, [() => rewardVisualization]);
