@@ -20,9 +20,12 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
         /// <inheritdoc/>
         public override void GrantItem()
         {
-            Unlockable unlockable = Statistics.AllUnlockables.FirstOrDefault(u => u.m_Key.m_Value == UnlockableId);
+            Unlockable? unlockable = Statistics.AllUnlockables.FirstOrDefault(u => u.m_Key.m_Value == UnlockableId);
 
-            Statistics.UnlockUnlockable(unlockable, true);
+            if (unlockable != null)
+            {
+                Statistics.UnlockUnlockable(unlockable, true);
+            }
         }
 
         /// <inheritdoc/>
