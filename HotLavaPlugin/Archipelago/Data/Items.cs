@@ -1,4 +1,8 @@
 ﻿using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
+using HotLavaArchipelagoPlugin.Archipelago.Models.Items.Cosmetic;
+using HotLavaArchipelagoPlugin.Archipelago.Models.Items.Filler;
+using HotLavaArchipelagoPlugin.Archipelago.Models.Items.Progression;
+using HotLavaArchipelagoPlugin.Archipelago.Models.Items.Traps;
 using HotLavaArchipelagoPlugin.GameData;
 using HotLavaArchipelagoPlugin.Models.Game;
 using HotLavaArchipelagoPlugin.Properties;
@@ -471,6 +475,7 @@ namespace HotLavaArchipelagoPlugin.Archipelago.Data
             Dictionary<long, Item> itemDictionary = new Dictionary<long, Item>()
             {
                 { 1, new XpShardItem(1) },
+                { 70, new SlowTrapItem(70) },
                 { DoubleJump.Id, DoubleJump },
                 { BoostJump.Id, BoostJump },
                 { SlideJump.Id, SlideJump },

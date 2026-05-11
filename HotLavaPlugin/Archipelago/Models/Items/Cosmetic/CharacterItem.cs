@@ -1,6 +1,6 @@
 ﻿using Klei.HotLava.Audio;
 
-namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
+namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items.Cosmetic
 {
     /// <summary>
     /// An item that unlocks a character

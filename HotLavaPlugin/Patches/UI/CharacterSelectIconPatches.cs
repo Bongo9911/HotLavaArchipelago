@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using HotLavaArchipelagoPlugin.Archipelago;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
-using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
+using HotLavaArchipelagoPlugin.Archipelago.Models.Items.Cosmetic;
 using Klei.HotLava.UI;
 using System.Linq;
 using UnityEngine.UI;

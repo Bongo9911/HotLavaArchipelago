@@ -2,7 +2,7 @@
 using Klei.HotLava.Rewards;
 using System.Reflection;
 
-namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
+namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items.Cosmetic
 {
     internal class CosmeticItem : Item
     {

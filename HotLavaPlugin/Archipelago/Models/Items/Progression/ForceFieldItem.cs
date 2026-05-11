@@ -6,7 +6,7 @@ using Klei.HotLava.Rewards;
 using System.Linq;
 using UnityEngine;
 
-namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
+namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items.Progression
 {
     internal class ForceFieldItem : Item
     {

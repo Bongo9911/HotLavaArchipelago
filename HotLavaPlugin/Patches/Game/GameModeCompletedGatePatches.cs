@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using HotLavaArchipelagoPlugin.Archipelago;
 using HotLavaArchipelagoPlugin.Archipelago.Data;
-using HotLavaArchipelagoPlugin.Archipelago.Models.Items;
+using HotLavaArchipelagoPlugin.Archipelago.Models.Items.Progression;
 using HotLavaArchipelagoPlugin.Archipelago.Models.Options;
 using HotLavaArchipelagoPlugin.Extensions;
 using HotLavaArchipelagoPlugin.Helpers;

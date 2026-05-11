@@ -1,7 +1,7 @@
 ﻿using HotLavaArchipelagoPlugin.Factories;
 using Klei.HotLava.Rewards;
 
-namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
+namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items.Progression
 {
     internal class AbilityItem : Item
     {

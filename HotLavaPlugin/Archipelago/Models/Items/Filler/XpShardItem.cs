@@ -2,7 +2,7 @@
 using Klei.HotLava.Character.Progression;
 using Klei.HotLava.Rewards;
 
-namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items
+namespace HotLavaArchipelagoPlugin.Archipelago.Models.Items.Filler
 {
     internal class XpShardItem : Item
     {
