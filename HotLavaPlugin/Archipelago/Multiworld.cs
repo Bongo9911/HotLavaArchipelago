@@ -71,12 +71,49 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             {
                 string host = Plugin.ConfigArchipelagoHost.Value;
                 int port = Plugin.ConfigArchipelagoPort.Value;
+                string playerName = Plugin.ConfigArchipelagoPlayerName.Value;
+                string? password = Plugin.ConfigArchipelagoPassword.Value;
+
+                string[] split = message.Trim().Split(" ");
+
+                if (split.Length > 1)
+                {
+                    //UIHelper.ShowPopup("Command format: /apconnect [<roomUrl>] [<playerName>] [<password>]");
+
+                    string roomUrl = split[1];
+
+                    if (!roomUrl.Contains("://"))
+                    {
+                        roomUrl = "http://" + roomUrl;
+                    }
+
+                    Uri roomUri;
+                    try
+                    {
+                        roomUri = new Uri(roomUrl);
+                    }
+                    catch (Exception)
+                    {
+                        UIHelper.ShowPopup("Failed to parse provided URL for room");
+                        return;
+                    }
+
+                    host = roomUri.Host;
+                    port = roomUri.Port;
+
+                    if (split.Length > 2)
+                    {
+                        playerName = split[2];
+                    }
+
+                    password = split.Length > 3 ? split[3] : null;
+                }
 
                 ArchipelagoSession archipelagoSession = ArchipelagoSessionFactory.CreateSession(host, port);
 
                 Multiworld multiworld = new Multiworld(archipelagoSession);
 
-                await multiworld.ConnectAsync();
+                await multiworld.ConnectAsync(playerName, password);
 
                 _instance = multiworld;
             }
@@ -87,10 +124,9 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             }
         }
 
-        private async Task ConnectAsync()
+        private async Task ConnectAsync(string playerName, string? password)
         {
-            PlayerName = Plugin.ConfigArchipelagoPlayerName.Value;
-            string password = Plugin.ConfigArchipelagoPassword.Value;
+            PlayerName = playerName;
 
             ArchipelagoSession.MessageLog.OnMessageReceived += OnMessageReceived;
             ArchipelagoSession.Items.ItemReceived += OnItemReceived;

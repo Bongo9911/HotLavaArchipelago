@@ -1,6 +1,6 @@
 {
     "name": "HotLavaArchipelago",
-    "version_number": "0.0.2",
+    "version_number": "0.0.3",
     "website_url": "https://github.com/Bongo9911/HotLavaArchipelago",
     "description": "A plugin for integrating Hot Lava with an Archipelago MultiWorld",
     "dependencies": [
