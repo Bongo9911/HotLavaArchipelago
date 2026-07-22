@@ -67,48 +67,57 @@ namespace HotLavaArchipelagoPlugin.Archipelago
 
         public static async Task Connect(string message)
         {
-            try
+            string host = Plugin.ConfigArchipelagoHost.Value;
+            int port = Plugin.ConfigArchipelagoPort.Value;
+            string playerName = Plugin.ConfigArchipelagoPlayerName.Value;
+            string? password = Plugin.ConfigArchipelagoPassword.Value;
+
+            string[] split = message.Trim().Split(" ");
+
+            if (split.Length > 1)
             {
-                string host = Plugin.ConfigArchipelagoHost.Value;
-                int port = Plugin.ConfigArchipelagoPort.Value;
-                string playerName = Plugin.ConfigArchipelagoPlayerName.Value;
-                string? password = Plugin.ConfigArchipelagoPassword.Value;
+                //UIHelper.ShowPopup("Command format: /apconnect [<roomUrl>] [<playerName>] [<password>]");
 
-                string[] split = message.Trim().Split(" ");
+                string roomUrl = split[1];
 
-                if (split.Length > 1)
+                if (!roomUrl.Contains("://"))
                 {
-                    //UIHelper.ShowPopup("Command format: /apconnect [<roomUrl>] [<playerName>] [<password>]");
-
-                    string roomUrl = split[1];
-
-                    if (!roomUrl.Contains("://"))
-                    {
-                        roomUrl = "http://" + roomUrl;
-                    }
-
-                    Uri roomUri;
-                    try
-                    {
-                        roomUri = new Uri(roomUrl);
-                    }
-                    catch (Exception)
-                    {
-                        UIHelper.ShowPopup("Failed to parse provided URL for room");
-                        return;
-                    }
-
-                    host = roomUri.Host;
-                    port = roomUri.Port;
-
-                    if (split.Length > 2)
-                    {
-                        playerName = split[2];
-                    }
-
-                    password = split.Length > 3 ? split[3] : null;
+                    roomUrl = "http://" + roomUrl;
                 }
 
+                Uri roomUri;
+                try
+                {
+                    roomUri = new Uri(roomUrl);
+                }
+                catch (Exception)
+                {
+                    UIHelper.ShowPopup("Failed to parse provided URL for room");
+                    return;
+                }
+
+                host = roomUri.Host;
+                port = roomUri.Port;
+
+                if (split.Length > 2)
+                {
+                    playerName = split[2];
+                }
+
+                password = split.Length > 3 ? split[3] : null;
+            }
+
+            await ConnectDirect(host, port, playerName, password);
+        }
+
+        /// <summary>
+        /// Connects to Archipelago using explicit connection details, bypassing chat-command parsing.
+        /// Used by the in-game Mods menu.
+        /// </summary>
+        public static async Task ConnectDirect(string host, int port, string playerName, string? password)
+        {
+            try
+            {
                 ArchipelagoSession archipelagoSession = ArchipelagoSessionFactory.CreateSession(host, port);
 
                 Multiworld multiworld = new Multiworld(archipelagoSession);
@@ -121,6 +130,30 @@ namespace HotLavaArchipelagoPlugin.Archipelago
             {
                 UIHelper.ShowPopup("Failed to connect to Archipelago due to an unknown error");
                 Plugin.Logger.LogError("Error connecting to Archipelago: " + ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Disconnects from Archipelago, if currently connected. Used by the in-game Mods menu.
+        /// </summary>
+        public static async Task Disconnect()
+        {
+            if (_instance == null)
+            {
+                return;
+            }
+
+            try
+            {
+                await _instance.ArchipelagoSession.Socket.DisconnectAsync();
+            }
+            catch (Exception ex)
+            {
+                Plugin.Logger.LogError("Error disconnecting from Archipelago: " + ex.ToString());
+            }
+            finally
+            {
+                _instance = null;
             }
         }
 

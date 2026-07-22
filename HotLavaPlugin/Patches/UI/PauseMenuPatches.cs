@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using HotLavaArchipelagoPlugin.UI;
 using Klei.HotLava.UI;
 
 namespace HotLavaArchipelagoPlugin.Patches.UI
@@ -11,6 +12,13 @@ namespace HotLavaArchipelagoPlugin.Patches.UI
         public static void InitializeCardPanels_Postfix(PauseMenu __instance)
         {
             __instance.m_TargetCardPanel.gameObject.transform.position = new UnityEngine.Vector3(2400f, 46.66663f, 0);
+        }
+
+        [HarmonyPatch("Awake")]
+        [HarmonyPostfix]
+        public static void Awake_Postfix(PauseMenu __instance)
+        {
+            ModsMenuFactory.InstallModsButton(__instance);
         }
     }
 }
