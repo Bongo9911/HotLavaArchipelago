@@ -27,10 +27,10 @@ public class Plugin : BaseUnityPlugin
 
         Logger.LogInfo($"Harmony patches applied!");
 
-        ConfigArchipelagoHost = Config.Bind("Archipelago", "Host", "archipelago.gg", new ConfigDescription("The host name of the Archipelago server", null, new ConfigurationManagerAttributes { Order = 4 }));
-        ConfigArchipelagoPort = Config.Bind("Archipelago", "Port", 38281, new ConfigDescription("The port for the Archipelago server", null, new ConfigurationManagerAttributes { Order = 3 }));
-        ConfigArchipelagoPlayerName = Config.Bind("Archipelago", "PlayerName", "Player", new ConfigDescription("Your slot name in your YAML file", null, new ConfigurationManagerAttributes { Order = 2 }));
-        ConfigArchipelagoPassword = Config.Bind("Archipelago", "Password", string.Empty, new ConfigDescription("The password for connecting to the server, if one is required", null, new ConfigurationManagerAttributes { Order = 1 }));
+        ConfigArchipelagoHost = Config.Bind("Archipelago", "Host", "archipelago.gg", new ConfigDescription("The host name of the Archipelago server"));
+        ConfigArchipelagoPort = Config.Bind("Archipelago", "Port", 38281, new ConfigDescription("The port for the Archipelago server"));
+        ConfigArchipelagoPlayerName = Config.Bind("Archipelago", "PlayerName", "Player", new ConfigDescription("Your slot name in your YAML file"));
+        ConfigArchipelagoPassword = Config.Bind("Archipelago", "Password", string.Empty, new ConfigDescription("The password for connecting to the server, if one is required"));
 
         //GameObject gameObj = GuidDictionary.LoadAsset<GameObject>(new Guid("5ecb96c9d45e3a64a8618a5715a26b20"));
 
