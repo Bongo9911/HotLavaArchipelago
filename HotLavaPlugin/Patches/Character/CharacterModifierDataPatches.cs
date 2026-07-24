@@ -24,10 +24,9 @@ namespace HotLavaArchipelagoPlugin.Patches.Character
             FieldInfo modifiersProp = typeof(CharacterModifierData).GetField("m_Modifiers", BindingFlags.NonPublic | BindingFlags.Instance);
             Array modifiers = (Array)modifiersProp.GetValue(data);
 
-            object modifierCopy = modifiers.GetValue(modifiers.Length - 1);
-            FieldInfo modifierProp = modifierCopy.GetType().GetField("m_Modifier", BindingFlags.NonPublic | BindingFlags.Instance);
-
-            AbilityRandomizerModifier archipelagoModifier = ScriptableObject.CreateInstance<AbilityRandomizerModifier>();
+            Type entryType = modifiers.GetValue(0).GetType();
+            FieldInfo modifierProp = entryType.GetField("m_Modifier", BindingFlags.NonPublic | BindingFlags.Instance);
+            FieldInfo iconProp = entryType.GetField("m_Icon", BindingFlags.NonPublic | BindingFlags.Instance);
 
             for (int i = 0; i < modifiers.Length; ++i)
             {
@@ -47,25 +46,53 @@ namespace HotLavaArchipelagoPlugin.Patches.Character
                 }
             }
 
-            modifierProp.SetValue(modifierCopy, archipelagoModifier);
+            AbilityRandomizerModifier archipelagoModifier = ScriptableObject.CreateInstance<AbilityRandomizerModifier>();
+            modifiers = AppendModifierEntry(modifiers, entryType, modifierProp, iconProp, archipelagoModifier, SpriteFactory.GetArchipelagoSprite());
 
-            FieldInfo iconProp = modifierCopy.GetType().GetField("m_Icon", BindingFlags.NonPublic | BindingFlags.Instance);
-            iconProp.SetValue(modifierCopy, SpriteFactory.GetArchipelagoSprite());
+            // RocketJumpModifier is fully implemented but isn't referenced by any other asset the
+            // game still loads (its animator hookup was independently gutted - see
+            // PlayerRigAnimatorPatches), so there's no existing instance to grab like the
+            // Lunge/DoubleJump/SlideJump modifiers above; it has to be constructed fresh. The
+            // base m_UIOverlayResource field is still left unset (a serialized prefab reference
+            // with no live pointer to grab), so the rocket-jump ammo HUD won't appear, but
+            // firing/reloading/the jump boost itself work off the modifier's own logic.
+            RocketJumpModifier rocketJumpModifier = ScriptableObject.CreateInstance<RocketJumpModifier>();
 
-            Array newModifiers = Array.CreateInstance(modifierCopy.GetType(), modifiers.Length + 1);
-
-            for (int i = 0; i < modifiers.Length; i++)
+            // Recovered from the Hot Lava Mod Kit's exported "Player_RocketJumpModified.physicMaterial"
+            // (the mod kit still ships this asset even though the main game no longer references
+            // it), so the surface still gets the original low-friction, no-bounce behaviour.
+            rocketJumpModifier.m_RocketJumpPhysicsMaterial = new PhysicMaterial("Player_RocketJumpModified")
             {
-                newModifiers.SetValue(modifiers.GetValue(i), i);
-            }
+                dynamicFriction = 0.04f,
+                staticFriction = 0.04f,
+                bounciness = 0f,
+                frictionCombine = PhysicMaterialCombine.Average,
+                bounceCombine = PhysicMaterialCombine.Minimum
+            };
 
-            newModifiers.SetValue(modifierCopy, modifiers.Length);
+            modifiers = AppendModifierEntry(modifiers, entryType, modifierProp, iconProp, rocketJumpModifier, SpriteFactory.GetArchipelagoSprite());
 
-            modifiersProp.SetValue(data, newModifiers);
+            modifiersProp.SetValue(data, modifiers);
 
             instanceField.SetValue(null, data);
 
             return false;
+        }
+
+        private static Array AppendModifierEntry(Array modifiers, Type entryType, FieldInfo modifierProp, FieldInfo iconProp, PlayerControllerModifier modifier, Sprite icon)
+        {
+            // tData is a value-type struct, so this is a boxed copy of the last entry - used only
+            // as a template for whatever other fields it carries (e.g. m_WeeklyCheckpointTime);
+            // the original entries in `modifiers` are left untouched.
+            object newEntry = modifiers.GetValue(modifiers.Length - 1);
+            modifierProp.SetValue(newEntry, modifier);
+            iconProp.SetValue(newEntry, icon);
+
+            Array newModifiers = Array.CreateInstance(entryType, modifiers.Length + 1);
+            Array.Copy(modifiers, newModifiers, modifiers.Length);
+            newModifiers.SetValue(newEntry, modifiers.Length);
+
+            return newModifiers;
         }
     }
 }
