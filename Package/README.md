@@ -2,17 +2,16 @@
 
 This plugin exists to integrate Hot Lava with the [Archipelago](https://archipelago.gg/) multiword randomizer software.
 
-## Configuration
+## Connecting to Archipelago
 
-To connect to Archipelago, you will need to provide the room URL, the player/slot name, and the room password. This can be done in 1 of 2 ways:
+To connect to an Archipelago multiworld, follow these steps:
 
-### Config File
-
-After downloading the mod, and launching the game in modded mode, a config file for the plugin should be generated in %AppData%\Thunderstore Mod Manager\DataFolder\HotLava\profiles\Default\BepInEx\config. Open this file up in any text editor and update the values as necessary.
-
-### Command
-
-When connecting to the room, provide the necessary values using the following command format: `/apconnect [<roomUrl>] [<playerName>] [<password>]` (Example: `/apconnect archipelago.gg:38281 Bongo9911 testPassword123`)
+1. Download this plugin
+2. Launch the game modded
+3. Start a new profile
+4. After the intro cutscene completes, open the pause menu by pressing Esc
+5. Open the Archipelago menu, enter in the necessary details, and press "Connect"
+6. If it connects successfully, you're all ready to go!
 
 ## Other Links
 

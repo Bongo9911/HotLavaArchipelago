@@ -1,0 +1,123 @@
+warning: in the working copy of 'Package/manifest.json', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/HotLavaPlugin/GameData/Worlds.cs b/HotLavaPlugin/GameData/Worlds.cs[m
+[1mindex 672c18f..4c7831b 100644[m
+[1m--- a/HotLavaPlugin/GameData/Worlds.cs[m
+[1m+++ b/HotLavaPlugin/GameData/Worlds.cs[m
+[36m@@ -318,7 +318,7 @@[m [mnamespace HotLavaArchipelagoPlugin.GameData[m
+                 new StarInfo(450, "b13b5b41ee88fe144bfa267efb59c710", "Complete the course", StarType.CourseComplete),[m
+                 new StarInfo(451, "952e95490fb1bc34a93e5a3d2a543472", "Complete in under 00:50", StarType.MinTime),[m
+                 new StarInfo(452, "9cf25623f3fd60a44818bd90028dba35", "Complete in under 00:33", StarType.MinTime),[m
+[31m-                new StarInfo(453, "aac1119a19a3e7743995599868918357", "No Deaths", StarType.NoDeaths),[m
+[32m+[m[32m                new StarInfo(453, "aac1119a19a3e7743995599868918357", "Tag your sister", StarType.Challenge),[m
+                 new StarInfo(454, "550fcd82164dcea41b524a107a2632c2", "Grab the golden pin", StarType.GoldenPin),[m
+                 new StarInfo(455, "efe2e7dbec062e2448a4f80219fdfe78", "Find the hidden G.A.T. comic", StarType.Comic),[m
+                 new StarInfo(456, "c241690961d459243ad294a277746e36", "Chase the Runaway Dog", StarType.BuddyChase),[m
+[36m@@ -363,7 +363,7 @@[m [mnamespace HotLavaArchipelagoPlugin.GameData[m
+                 new StarInfo(502, "5745104145f93b54fb585474ed7f395f", "Complete in under 01:00", StarType.MinTime),[m
+                 new StarInfo(503, "a19ee0938f049324b8e0f5c2994926f9", "No Deaths", StarType.NoDeaths),[m
+                 new StarInfo(504, "05207fb7837a51645b97a0b17b018f4c", "Reach a speed of 4.5", StarType.Challenge),[m
+[31m-                new StarInfo(505, "59b9c6018baa64c48961b3f4d897e49e", "Grab the golden pin", StarType.GoldenPin),[m
+[32m+[m[32m                new StarInfo(505, "ce8d6c64f65ece7468fa823ddd13fd4a", "Grab the golden pin", StarType.GoldenPin),[m
+             ]),[m
+             new CourseInfo("Wall Jump Mastery", [[m
+                 new StarInfo(510, "eb5e3cb0b7b99b04284d730869ce9fb6", "Complete the course", StarType.CourseComplete),[m
+[36m@@ -371,7 +371,7 @@[m [mnamespace HotLavaArchipelagoPlugin.GameData[m
+                 new StarInfo(512, "52e25e2c6bf4c454c8d44ef4d6b66688", "Complete in under 00:50", StarType.MinTime),[m
+                 new StarInfo(513, "b90b53beac85f6c4098e99c45a51b279", "No Deaths", StarType.NoDeaths),[m
+                 new StarInfo(514, "3517d5ce270ecd64c9c75ffb7f3f475e", "Spend less than 10 seconds on the ground", StarType.Challenge),[m
+[31m-                new StarInfo(515, "1a2ff5486c095154c9bf507773051774", "Grab the golden pin", StarType.GoldenPin),[m
+[32m+[m[32m                new StarInfo(515, "79182c59d2e97ba48b1bfd87e6d8b051", "Grab the golden pin", StarType.GoldenPin),[m
+             ]),[m
+             new CourseInfo("Surf Mastery", [[m
+                 new StarInfo(520, "4c31e47b2b82aa64e94b5a4e67139775", "Complete the course", StarType.CourseComplete),[m
+[36m@@ -379,7 +379,7 @@[m [mnamespace HotLavaArchipelagoPlugin.GameData[m
+                 new StarInfo(522, "4a6c828b9643ba4459bd1ae1f978dadb", "Complete in under 00:30", StarType.MinTime),[m
+                 new StarInfo(523, "75645b25d426a094090d1cccadcf9d8d", "No Deaths", StarType.NoDeaths),[m
+                 new StarInfo(524, "417d208b1ed26b148987a5aa7c4ca388", "Complete in 5 jumps or less", StarType.Challenge),[m
+[31m-                new StarInfo(525, "5101c9e9015f4204bb42649a58127217", "Grab the golden pin", StarType.GoldenPin),[m
+[32m+[m[32m                new StarInfo(525, "3b1d591470a53a9488d79fbfab036ae4", "Grab the golden pin", StarType.GoldenPin),[m
+             ]),[m
+             new CourseInfo("Boosting Mastery", [[m
+                 new StarInfo(530, "5b3155d2c67f23b41b5b0ba6bf1d6740", "Complete the course", StarType.CourseComplete),[m
+[36m@@ -387,7 +387,7 @@[m [mnamespace HotLavaArchipelagoPlugin.GameData[m
+                 new StarInfo(532, "ac633c1cbf3212d4f95012155cd973e3", "Complete in under 01:00", StarType.MinTime),[m
+                 new StarInfo(533, "245dcd87539561241bc955e5fa833fab", "No Deaths", StarType.NoDeaths),[m
+                 new StarInfo(534, "9e048a77386525d4297f9775efcb19bc", "Reach a speed of 5.5", StarType.Challenge),[m
+[31m-                new StarInfo(535, "3a0ab619a819e514cb7aa6c7ceaa3175", "Grab the golden pin", StarType.GoldenPin),[m
+[32m+[m[32m                new StarInfo(535, "e4b38b4470dc7a145ab48706b9cf8fc9", "Grab the golden pin", StarType.GoldenPin),[m
+             ]),[m
+             new CourseInfo("Wind Tunnel Mastery", [[m
+                 new StarInfo(540, "cd8c91a38849df5459afed878e70071b", "Complete the course", StarType.CourseComplete),[m
+[36m@@ -395,7 +395,7 @@[m [mnamespace HotLavaArchipelagoPlugin.GameData[m
+                 new StarInfo(542, "a7ce1e8f9ec2b6948a3b6ad889c26876", "Complete in under 00:30", StarType.MinTime),[m
+                 new StarInfo(543, "2a07db3d496a8ac4fa4ab923375af82f", "No Deaths", StarType.NoDeaths),[m
+                 new StarInfo(544, "b5c4c4bffc5aac04c864a1f502e10e35", "Spend less than 5 seconds on the ground", StarType.Challenge),[m
+[31m-                new StarInfo(545, "7ed7e2810fd00a14aaea4f267e33400e", "Grab the golden pin", StarType.GoldenPin),[m
+[32m+[m[32m                new StarInfo(545, "59b9c6018baa64c48961b3f4d897e49e", "Grab the golden pin", StarType.GoldenPin),[m
+             ]),[m
+             new CourseInfo("Honors Gym Class", [[m
+                 new StarInfo(550, "878f8f8195d19424aa87e2208d772141", "Complete the course", StarType.CourseComplete),[m
+[36m@@ -403,7 +403,7 @@[m [mnamespace HotLavaArchipelagoPlugin.GameData[m
+                 new StarInfo(552, "ccf6b59e15b3b7d4b8b69bbc4dbcda13", "Complete in under 02:00", StarType.MinTime),[m
+                 new StarInfo(553, "61f2faa484a77ca4f946157b8a8db437", "No Deaths", StarType.NoDeaths),[m
+                 new StarInfo(554, "837d73aefc94673408942e14f960f13a", "Reach a speed of 9", StarType.Challenge),[m
+[31m-                new StarInfo(555, "a45613d4c2daadb4aa581548048d2c7a", "Grab the golden pin", StarType.GoldenPin),[m
+[32m+[m[32m                new StarInfo(555, "5955d621ae1a4e6408fac8e20d81532c", "Grab the golden pin", StarType.GoldenPin),[m
+             ]),[m
+             new CourseInfo("Pogo Trial", CourseType.Pogo, [[m
+                 new StarInfo(560, "18fb5a39cfc1f434694fdb7f9f2e87b2", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),[m
+[1mdiff --git a/HotLavaPlugin/HotLavaArchipelagoPlugin.csproj b/HotLavaPlugin/HotLavaArchipelagoPlugin.csproj[m
+[1mindex bcf990c..64110a6 100644[m
+[1m--- a/HotLavaPlugin/HotLavaArchipelagoPlugin.csproj[m
+[1m+++ b/HotLavaPlugin/HotLavaArchipelagoPlugin.csproj[m
+[36m@@ -4,7 +4,7 @@[m
+         <TargetFramework>netstandard2.1</TargetFramework>[m
+         <AssemblyName>HotLavaArchipelagoPlugin</AssemblyName>[m
+         <Product>Hot Lava Archipelago Plugin</Product>[m
+[31m-        <Version>0.0.3</Version>[m
+[32m+[m[32m        <Version>0.1.1</Version>[m
+         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>[m
+         <LangVersion>latest</LangVersion>[m
+         <RestoreAdditionalProjectSources>[m
+[1mdiff --git a/Package/README.md b/Package/README.md[m
+[1mindex 6556711..41f30d5 100644[m
+[1m--- a/Package/README.md[m
+[1m+++ b/Package/README.md[m
+[36m@@ -2,17 +2,16 @@[m
+ [m
+ This plugin exists to integrate Hot Lava with the [Archipelago](https://archipelago.gg/) multiword randomizer software.[m
+ [m
+[31m-## Configuration[m
+[32m+[m[32m## Connecting to Archipelago[m
+ [m
+[31m-To connect to Archipelago, you will need to provide the room URL, the player/slot name, and the room password. This can be done in 1 of 2 ways:[m
+[32m+[m[32mTo connect to an Archipelago multiworld, follow these steps:[m
+ [m
+[31m-### Config File[m
+[31m-[m
+[31m-After downloading the mod, and launching the game in modded mode, a config file for the plugin should be generated in %AppData%\Thunderstore Mod Manager\DataFolder\HotLava\profiles\Default\BepInEx\config. Open this file up in any text editor and update the values as necessary.[m
+[31m-[m
+[31m-### Command[m
+[31m-[m
+[31m-When connecting to the room, provide the necessary values using the following command format: `/apconnect [<roomUrl>] [<playerName>] [<password>]` (Example: `/apconnect archipelago.gg:38281 Bongo9911 testPassword123`)[m
+[32m+[m[32m1. Download this plugin[m
+[32m+[m[32m2. Launch the game modded[m
+[32m+[m[32m3. Start a new profile[m
+[32m+[m[32m4. After the intro cutscene completes, open the pause menu by pressing Esc[m
+[32m+[m[32m5. Open the Archipelago menu, enter in the necessary details, and press "Connect"[m
+[32m+[m[32m6. If it connects successfully, you're all ready to go![m
+ [m
+ ## Other Links[m
+ [m
+[1mdiff --git a/Package/manifest.json b/Package/manifest.json[m
+[1mindex d4dc73b..e151d6a 100644[m
+[1m--- a/Package/manifest.json[m
+[1m+++ b/Package/manifest.json[m
+[36m@@ -1,6 +1,6 @@[m
+ {[m
+     "name": "HotLavaArchipelago",[m
+[31m-    "version_number": "0.0.4",[m
+[32m+[m[32m    "version_number": "0.1.1",[m
+     "website_url": "https://github.com/Bongo9911/HotLavaArchipelago",[m
+     "description": "A plugin for integrating Hot Lava with an Archipelago MultiWorld",[m
+     "dependencies": [[m

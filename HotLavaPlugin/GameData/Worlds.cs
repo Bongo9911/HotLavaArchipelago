@@ -301,8 +301,8 @@ namespace HotLavaArchipelagoPlugin.GameData
                 new StarInfo(431, "4069629cbae76e44c85bad4829835876", "Complete in under 04:00", StarType.MinTime),
                 new StarInfo(432, "75d3d573dae4a4f42a2b391d09746933", "Complete in under 02:30", StarType.MinTime),
                 new StarInfo(433, "e8fdb40f968d6aa40841f7bcd0f46170", "No Deaths", StarType.NoDeaths),
-                new StarInfo(434, "f518343abbc940042b21423aef055173", "Grab the golden pin", StarType.GoldenPin),
-                new StarInfo(435, "292e394b0fcd3fc47b647f3364ca70f6", "Find the hidden G.A.T. comic", StarType.Comic),
+                new StarInfo(434, "292e394b0fcd3fc47b647f3364ca70f6", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo(435, "f518343abbc940042b21423aef055173", "Find the hidden G.A.T. comic", StarType.Comic),
                 new StarInfo(436, "2031f866b2c2f884ba940f5384f34ec7", "Buddy Mode", StarType.Buddy),
             ]),
             new CourseInfo("Meat Grinder", [
@@ -318,7 +318,7 @@ namespace HotLavaArchipelagoPlugin.GameData
                 new StarInfo(450, "b13b5b41ee88fe144bfa267efb59c710", "Complete the course", StarType.CourseComplete),
                 new StarInfo(451, "952e95490fb1bc34a93e5a3d2a543472", "Complete in under 00:50", StarType.MinTime),
                 new StarInfo(452, "9cf25623f3fd60a44818bd90028dba35", "Complete in under 00:33", StarType.MinTime),
-                new StarInfo(453, "aac1119a19a3e7743995599868918357", "No Deaths", StarType.NoDeaths),
+                new StarInfo(453, "aac1119a19a3e7743995599868918357", "Tag your sister", StarType.Challenge),
                 new StarInfo(454, "550fcd82164dcea41b524a107a2632c2", "Grab the golden pin", StarType.GoldenPin),
                 new StarInfo(455, "efe2e7dbec062e2448a4f80219fdfe78", "Find the hidden G.A.T. comic", StarType.Comic),
                 new StarInfo(456, "c241690961d459243ad294a277746e36", "Chase the Runaway Dog", StarType.BuddyChase),
@@ -363,7 +363,7 @@ namespace HotLavaArchipelagoPlugin.GameData
                 new StarInfo(502, "5745104145f93b54fb585474ed7f395f", "Complete in under 01:00", StarType.MinTime),
                 new StarInfo(503, "a19ee0938f049324b8e0f5c2994926f9", "No Deaths", StarType.NoDeaths),
                 new StarInfo(504, "05207fb7837a51645b97a0b17b018f4c", "Reach a speed of 4.5", StarType.Challenge),
-                new StarInfo(505, "59b9c6018baa64c48961b3f4d897e49e", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo(505, "ce8d6c64f65ece7468fa823ddd13fd4a", "Grab the golden pin", StarType.GoldenPin),
             ]),
             new CourseInfo("Wall Jump Mastery", [
                 new StarInfo(510, "eb5e3cb0b7b99b04284d730869ce9fb6", "Complete the course", StarType.CourseComplete),
@@ -371,7 +371,7 @@ namespace HotLavaArchipelagoPlugin.GameData
                 new StarInfo(512, "52e25e2c6bf4c454c8d44ef4d6b66688", "Complete in under 00:50", StarType.MinTime),
                 new StarInfo(513, "b90b53beac85f6c4098e99c45a51b279", "No Deaths", StarType.NoDeaths),
                 new StarInfo(514, "3517d5ce270ecd64c9c75ffb7f3f475e", "Spend less than 10 seconds on the ground", StarType.Challenge),
-                new StarInfo(515, "1a2ff5486c095154c9bf507773051774", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo(515, "79182c59d2e97ba48b1bfd87e6d8b051", "Grab the golden pin", StarType.GoldenPin),
             ]),
             new CourseInfo("Surf Mastery", [
                 new StarInfo(520, "4c31e47b2b82aa64e94b5a4e67139775", "Complete the course", StarType.CourseComplete),
@@ -379,7 +379,7 @@ namespace HotLavaArchipelagoPlugin.GameData
                 new StarInfo(522, "4a6c828b9643ba4459bd1ae1f978dadb", "Complete in under 00:30", StarType.MinTime),
                 new StarInfo(523, "75645b25d426a094090d1cccadcf9d8d", "No Deaths", StarType.NoDeaths),
                 new StarInfo(524, "417d208b1ed26b148987a5aa7c4ca388", "Complete in 5 jumps or less", StarType.Challenge),
-                new StarInfo(525, "5101c9e9015f4204bb42649a58127217", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo(525, "3b1d591470a53a9488d79fbfab036ae4", "Grab the golden pin", StarType.GoldenPin),
             ]),
             new CourseInfo("Boosting Mastery", [
                 new StarInfo(530, "5b3155d2c67f23b41b5b0ba6bf1d6740", "Complete the course", StarType.CourseComplete),
@@ -387,7 +387,7 @@ namespace HotLavaArchipelagoPlugin.GameData
                 new StarInfo(532, "ac633c1cbf3212d4f95012155cd973e3", "Complete in under 01:00", StarType.MinTime),
                 new StarInfo(533, "245dcd87539561241bc955e5fa833fab", "No Deaths", StarType.NoDeaths),
                 new StarInfo(534, "9e048a77386525d4297f9775efcb19bc", "Reach a speed of 5.5", StarType.Challenge),
-                new StarInfo(535, "3a0ab619a819e514cb7aa6c7ceaa3175", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo(535, "e4b38b4470dc7a145ab48706b9cf8fc9", "Grab the golden pin", StarType.GoldenPin),
             ]),
             new CourseInfo("Wind Tunnel Mastery", [
                 new StarInfo(540, "cd8c91a38849df5459afed878e70071b", "Complete the course", StarType.CourseComplete),
@@ -395,7 +395,7 @@ namespace HotLavaArchipelagoPlugin.GameData
                 new StarInfo(542, "a7ce1e8f9ec2b6948a3b6ad889c26876", "Complete in under 00:30", StarType.MinTime),
                 new StarInfo(543, "2a07db3d496a8ac4fa4ab923375af82f", "No Deaths", StarType.NoDeaths),
                 new StarInfo(544, "b5c4c4bffc5aac04c864a1f502e10e35", "Spend less than 5 seconds on the ground", StarType.Challenge),
-                new StarInfo(545, "7ed7e2810fd00a14aaea4f267e33400e", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo(545, "59b9c6018baa64c48961b3f4d897e49e", "Grab the golden pin", StarType.GoldenPin),
             ]),
             new CourseInfo("Honors Gym Class", [
                 new StarInfo(550, "878f8f8195d19424aa87e2208d772141", "Complete the course", StarType.CourseComplete),
@@ -403,7 +403,7 @@ namespace HotLavaArchipelagoPlugin.GameData
                 new StarInfo(552, "ccf6b59e15b3b7d4b8b69bbc4dbcda13", "Complete in under 02:00", StarType.MinTime),
                 new StarInfo(553, "61f2faa484a77ca4f946157b8a8db437", "No Deaths", StarType.NoDeaths),
                 new StarInfo(554, "837d73aefc94673408942e14f960f13a", "Reach a speed of 9", StarType.Challenge),
-                new StarInfo(555, "a45613d4c2daadb4aa581548048d2c7a", "Grab the golden pin", StarType.GoldenPin),
+                new StarInfo(555, "5955d621ae1a4e6408fac8e20d81532c", "Grab the golden pin", StarType.GoldenPin),
             ]),
             new CourseInfo("Pogo Trial", CourseType.Pogo, [
                 new StarInfo(560, "18fb5a39cfc1f434694fdb7f9f2e87b2", "Find all the checkpoints using the Pogo Stick", StarType.TrialComplete),
